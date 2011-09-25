@@ -24,4 +24,13 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  # Database cleaner
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
