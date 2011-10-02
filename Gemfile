@@ -7,6 +7,14 @@ gem 'rails', '3.1.0'
 
 gem 'mysql2'
 
+gem 'haml'
+gem 'haml-rails'
+
+gem 'devise'
+gem 'paperclip'
+gem 'state_machine'
+gem 'will_paginate'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -18,7 +26,14 @@ end
 gem 'jquery-rails'
 
 group :development, :test do
+  gem 'spork'
+  gem 'timecop'
+  gem 'shoulda-matchers'
+  gem 'factory_girl'
+  gem 'email_spec'
+  gem 'rspec'
   gem 'rspec-rails'
+  gem 'cucumber'
   gem 'cucumber-rails'
   gem 'database_cleaner'
 end
