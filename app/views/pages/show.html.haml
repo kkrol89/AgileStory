@@ -1,2 +1,5 @@
 %h1 Welcome to Zumba!
-= link_to I18n.t('sign_up'), new_user_registration_path
+= link_to(I18n.t('sign_up'), new_user_registration_path) unless current_user.present?
+= link_to(I18n.t('sign_in'), new_user_session_path) unless current_user.present?
+= link_to(I18n.t('sign_out'), destroy_user_session_path, :method => :delete) if current_user.present?
+
