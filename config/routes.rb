@@ -5,7 +5,7 @@ Zumba::Application.routes.draw do
   root :to => 'pages#show'
   get "pages/show"
 
-  resources :projects, :except => [:destroy]
+  resources :projects
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

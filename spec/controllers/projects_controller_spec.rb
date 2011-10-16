@@ -64,6 +64,14 @@ describe ProjectsController do
           end
         end
       end
+
+      describe "DELETE 'destroy'" do
+        it 'should delete project' do
+          expect {
+            delete :destroy, :id => project
+          }.to change(Project, :count).by(-1)
+        end
+      end
     end
   end
 
@@ -93,6 +101,11 @@ describe ProjectsController do
 
       describe "PUT 'update'" do
         before { put :update, :id => project, :project => Factory.attributes_for(:project) }
+        it { response.should redirect_to(new_user_session_path) }
+      end
+
+      describe "DELETE 'destroy'" do
+        before { delete :destroy, :id => project }
         it { response.should redirect_to(new_user_session_path) }
       end
     end

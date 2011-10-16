@@ -1,4 +1,4 @@
-Feature: Projects edit
+Feature: Edit project
   In order to manage projects
   As a user
   I want to be able edit projects

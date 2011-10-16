@@ -30,5 +30,10 @@ class ProjectsController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    Project.find(params[:id]).delete
+    redirect_to projects_path, :notice => I18n.t('project_successfully_deleted')
+  end
 end
 

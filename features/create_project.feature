@@ -1,4 +1,4 @@
-Feature: Projects create
+Feature: Create project
   In order to manage projects
   As a user
   I want to be able create projects

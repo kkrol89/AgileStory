@@ -7,9 +7,12 @@ en:
   sign_out: "Sign out"
   sign_up: "Sign up"
   edit: "Edit"
+  delete: "Delete"
   create_new_project: "Create new project"
   project_successfully_created: "Project was successfully created"
   project_successfully_updated: "Project was successfully updated"
+  project_successfully_deleted: "Project was successfully deleted"
+  project_delete_confirmation: "Are you sure you want to delete this project?"
   please_log_in: "You must be logged in."
 
   project:

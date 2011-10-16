@@ -1,3 +1,7 @@
+When /^I accept dialog window$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
 Then /^I should see confirmation message$/ do
   Then %{I should see "Your account was successfully confirmed. You are now signed in."}
 end
