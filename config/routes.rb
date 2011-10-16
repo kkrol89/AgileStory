@@ -1,8 +1,11 @@
 Zumba::Application.routes.draw do
+
   devise_for :users
 
   root :to => 'pages#show'
   get "pages/show"
+
+  resources :projects, :only => [:new, :create, :index]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -61,3 +64,4 @@ Zumba::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

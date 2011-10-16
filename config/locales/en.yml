@@ -6,4 +6,19 @@ en:
   sign_in: "Sign in"
   sign_out: "Sign out"
   sign_up: "Sign up"
+  create_project: "Create project"
+  project_successfully_created: "Project was successfully created"
+  please_log_in: "You must be logged in."
+
+  project:
+    name: "Project name"
+    description: "Project description"
+
+  activerecord:
+    models:
+      project: "Project"
+    attributes:
+      project:
+        name: "Project name"
+        description: "Project description"
 
