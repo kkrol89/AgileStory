@@ -6,8 +6,10 @@ en:
   sign_in: "Sign in"
   sign_out: "Sign out"
   sign_up: "Sign up"
-  create_project: "Create project"
+  edit: "Edit"
+  create_new_project: "Create new project"
   project_successfully_created: "Project was successfully created"
+  project_successfully_updated: "Project was successfully updated"
   please_log_in: "You must be logged in."
 
   project:

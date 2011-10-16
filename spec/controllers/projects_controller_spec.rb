@@ -7,6 +7,7 @@ describe ProjectsController do
     describe "GET 'new'" do
       before { get :new }
       it { assigns(:project).should be_a_new(Project) }
+      it { response.should render_template('new') }
     end
 
     describe "POST 'create'" do
@@ -24,14 +25,45 @@ describe ProjectsController do
           expect {
             post :create, :project => {}
           }.to_not change(Project, :count)
+          response.should render_template('new')
         end
       end
     end
 
-    describe "GET 'index'" do
+    context 'with existing project' do
       let!(:project) { Factory(:project) }
-      before { get :index }
-      it { assigns(:projects).should include(project) }
+
+      describe "GET 'index'" do
+        before { get :index }
+        it { assigns(:projects).should include(project) }
+        it { response.should render_template('index') }
+      end
+
+      describe "GET 'edit'" do
+        before { get :edit, :id => project }
+        it { assigns(:project).should == project }
+        it { response.should render_template('edit') }
+      end
+
+      describe "PUT 'update'" do
+        context 'with valid attributes' do
+          it 'should edit project' do
+            expect {
+              put :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => 'Updated name' })
+            }.to change{ Project.first.name }.to('Updated name')
+            response.should redirect_to(projects_path)
+          end
+        end
+
+        context 'with invalid attributes' do
+          it 'should not edit project' do
+            expect {
+              post :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => '' })
+            }.to_not change{ Project.first.name }
+            response.should render_template('edit')
+          end
+        end
+      end
     end
   end
 
@@ -49,6 +81,20 @@ describe ProjectsController do
     describe "POST 'create'" do
       before { post :create, :project => Factory.attributes_for(:project) }
       it { response.should redirect_to(new_user_session_path) }
+    end
+
+    context 'with existing project' do
+      let!(:project) { Factory(:project) }
+
+      describe "GET 'edit'" do
+        before { get :edit, :id => project }
+        it { response.should redirect_to(new_user_session_path) }
+      end
+
+      describe "PUT 'update'" do
+        before { put :update, :id => project, :project => Factory.attributes_for(:project) }
+        it { response.should redirect_to(new_user_session_path) }
+      end
     end
   end
 
