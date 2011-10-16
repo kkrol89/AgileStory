@@ -1,0 +1,10 @@
+%table.project
+  %tr
+    %th= t('activerecord.attributes.project.name')
+    %th= t('activerecord.attributes.project.description')
+    %th= t('activerecord.attributes.project.user')
+  %tr
+    %td.name= @project.name
+    %td.description= @project.description
+    %td.author= @project.user.email
+

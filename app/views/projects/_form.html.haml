@@ -1,8 +1,8 @@
 = semantic_form_for @project do |form|
   = form.semantic_errors :name, :description, :user
   = form.inputs do
-    = form.input :name, :label => t('project.name')
-    = form.input :description, :label => t('project.description')
+    = form.input :name
+    = form.input :description
 
   = form.buttons do
     = form.commit_button

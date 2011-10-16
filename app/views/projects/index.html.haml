@@ -1,13 +1,15 @@
 %table.projects
   %tr
-    %th= t('project.name')
-    %th= t('project.description')
+    %th= t('activerecord.attributes.project.name')
+    %th= t('activerecord.attributes.project.description')
+    %th
     %th
     %th
   - @projects.each do |project|
     %tr
       %td= project.name
       %td= project.description
+      %td= link_to(t('show'), project)
       %td= link_to(t('edit'), edit_project_path(project))
       %td= link_to(t('delete'), project, :method => :delete, :confirm => t('project_delete_confirmation'))
 .menu

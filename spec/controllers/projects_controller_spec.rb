@@ -33,6 +33,12 @@ describe ProjectsController do
     context 'with existing project' do
       let!(:project) { Factory(:project) }
 
+      describe "GET 'show'" do
+        before { get :show, :id => project }
+        it { assigns(:project).should == project }
+        it { response.should render_template('show') }
+      end
+
       describe "GET 'index'" do
         before { get :index }
         it { assigns(:projects).should include(project) }
@@ -93,6 +99,11 @@ describe ProjectsController do
 
     context 'with existing project' do
       let!(:project) { Factory(:project) }
+
+      describe "GET 'show'" do
+        before { get :show, :id => project }
+        it { response.should redirect_to(new_user_session_path) }
+      end
 
       describe "GET 'edit'" do
         before { get :edit, :id => project }
