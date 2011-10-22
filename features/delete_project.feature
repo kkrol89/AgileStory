@@ -5,10 +5,8 @@ Feature: Delete project
 
   @javascript
   Scenario: Successful project deletion
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
     And there exists a project named "Project one" for "user@example.org"
 
     When I go to the projects page
@@ -17,5 +15,5 @@ Feature: Delete project
 
     Then I should be on the projects page
     And I should see "Project was successfully deleted"
-    And I should not see "Project one" within ".projects"
+    And I should not see "Project one" on the "Projects" list
 

@@ -14,3 +14,6 @@ Then /^I should see logout message$/ do
   Then %{I should see "Signed out successfully."}
 end
 
+Then /^I should( not)? see "([^"]*)" on the "([^"]*)" list$/ do |not_value, element_name, list_name|
+  Then %{I should#{not_value} see "#{element_name}" within ".#{list_name.downcase.gsub(/ /, '_')}"}
+end

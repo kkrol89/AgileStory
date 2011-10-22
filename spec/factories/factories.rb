@@ -1,7 +1,3 @@
-Factory.sequence :email do |n|
-
-end
-
 Factory.define :user do |u|
   u.sequence(:email) { |n| "user#{n}@example.org" }
   u.password 'secret'

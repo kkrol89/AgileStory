@@ -4,10 +4,8 @@ Feature: Show project
   I want to be able view projects
 
   Scenario: Show project
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
     And there exists a project named "Project one" for "user@example.org"
 
     When I go to the projects page

@@ -57,10 +57,8 @@ Feature: Sign up
     And I should see "Password can't be blank"
 
   Scenario: Already signed in
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
 
     When I go to the home page
     Then I should not see "Sign up"

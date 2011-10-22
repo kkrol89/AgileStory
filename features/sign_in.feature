@@ -4,7 +4,7 @@ Feature: Sign up
   I want to be able to sign in
 
   Scenario: Successful sign in
-    Given there exists an user with:
+    Given there exists user with:
       | Email            | Password  |
       | user@example.org | secret    |
 
@@ -36,10 +36,8 @@ Feature: Sign up
     Then I should see "Invalid email or password."
 
   Scenario: Already signed in
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
 
     When I go to the home page
     Then I should not see "Sign in"

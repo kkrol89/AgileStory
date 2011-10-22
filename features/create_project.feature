@@ -4,10 +4,8 @@ Feature: Create project
   I want to be able create projects
 
   Scenario: Successful project creation
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
 
     When I go to the projects page
     And I follow "Create new project"
@@ -18,13 +16,11 @@ Feature: Create project
 
     Then I should be on the projects page
     And I should see "Project was successfully created"
-    And I should see "Project one" within ".projects"
+    And I should see "Project one" on the "Projects" list
 
   Scenario: Unsuccessful project creation
-    Given there exists an user with:
-      | Email            | Password  |
-      | user@example.org | secret    |
-    And I am logged in as an user "user@example.org" with password "secret"
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
 
     When I go to the projects page
     And I follow "Create new project"

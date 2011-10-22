@@ -1,10 +1,15 @@
-Given /^there exists an user with:$/ do |table|
+Given /^there exists user "([^"]*)"$/ do |user_email|
+  Factory(:user, :email => user_email)
+end
+
+Given /^there exists user with:$/ do |table|
   table.hashes.each do |hash|
-    User.create!(:email => hash['Email'], :password => hash['Password']).confirm!
+    Factory(:user, :email => hash['Email'], :password => hash['Password'])
   end
 end
 
-Given /^I am logged in as an user "([^"]*)" with password "([^"]*)"$/ do |user_email, user_password|
+Given /^I am logged in as user "([^"]*)"$/ do |user_email|
+  user_password = Factory.attributes_for(:user)[:password]
   steps %Q{
     When I go to the new user session page
     And I fill in "Email" with "#{user_email}"
