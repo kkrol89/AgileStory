@@ -1,0 +1,9 @@
+%table.members
+  %tr
+    %th= 'Member email'
+    %th= 'Role'
+  - @memberships.each do |membership|
+    %tr.member
+      %td= membership.user.email
+      %td= membership.role.capitalize
+

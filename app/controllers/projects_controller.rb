@@ -2,11 +2,12 @@ class ProjectsController < ApplicationController
   before_filter :require_user
 
   def new
-    @project = current_user.projects.new
+    @project = Project.new
   end
 
   def create
-    @project = current_user.projects.new(params[:project])
+    @project = Project.new(params[:project])
+    @project.add_member(current_user, Role::ROLES[:admin])
     if @project.save
       redirect_to projects_path, :notice => I18n.t('project_successfully_created')
     else

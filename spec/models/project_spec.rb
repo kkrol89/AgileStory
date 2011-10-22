@@ -1,13 +1,26 @@
 require 'spec_helper'
 
 describe Project do
-  it { should belong_to(:user) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
-  it { should validate_presence_of(:user) }
+  it { should have_many(:users) }
+  it { should have_many(:memberships) }
+  
   context "with one project already created"do
     before { Factory(:project) }
     it { should validate_uniqueness_of(:name) }
+  end
+  
+  describe "add_member" do
+    let(:user) { Factory(:user) }
+    let(:project) { Factory(:project) }
+    
+    it 'should create membership' do
+      project.add_member(user, Role::ROLES[:admin])
+      project.memberships.where(:user_id => user).first.role.should eq(Role::ROLES[:admin])
+      project.users.where(:id => user).first.should eq(user)
+      user.projects.where(:id => project).first.should eq(project)
+    end
   end
 end
 

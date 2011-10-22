@@ -31,3 +31,13 @@ Feature: Create project
 
     Then I should see "Project name can't be blank"
 
+  Scenario: Project creator has admin role
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
+    
+    When I create project named "Project One"
+    And I go to the show project page for "Project One"
+    
+    And I follow "Members"
+    Then I should see member "user@example.org" with role "Admin" on the members list
+

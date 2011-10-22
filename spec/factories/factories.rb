@@ -7,9 +7,15 @@ Factory.define :user do |u|
   end
 end
 
+Factory.define :membership do |m|
+  m.association(:project)
+  m.association(:user)
+  m.role Role::ROLES[:admin]
+end
+
 Factory.define :project do |p|
   p.sequence(:name) { |n| "Project #{n}" }
-  p.description 'Example project description'
-  p.association(:user)
+  p.description 'Example description'
+  p.after_build { |project| project.memberships << Factory(:membership, :project => project, :role => Role::ROLES[:admin]) }  
 end
 

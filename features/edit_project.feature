@@ -6,7 +6,8 @@ Feature: Edit project
   Scenario: Successful project creation
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"
-    And there exists a project named "Project one" for "user@example.org"
+    And there exists a project named "Project one"
+    And user "user@example.org" has role "Admin" for project "Project one"
 
     When I go to the projects page
     And I follow "Edit" within ".projects"
@@ -19,10 +20,11 @@ Feature: Edit project
     And I should see "Project was successfully updated"
     And I should see "Project two" within ".projects"
 
-  Scenario: Unsuccessful project creation
+  Scenario: Unsuccessful project edition
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"
-    And there exists a project named "Project one" for "user@example.org"
+    And there exists a project named "Project one"
+    And user "user@example.org" has role "Admin" for project "Project one"
 
     When I go to the projects page
     And I follow "Edit" within ".projects"

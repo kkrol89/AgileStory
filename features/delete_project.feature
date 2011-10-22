@@ -7,7 +7,8 @@ Feature: Delete project
   Scenario: Successful project deletion
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"
-    And there exists a project named "Project one" for "user@example.org"
+    And there exists a project named "Project one"
+    And user "user@example.org" has role "Admin" for project "Project one"
 
     When I go to the projects page
     And I follow "Delete" within ".projects"

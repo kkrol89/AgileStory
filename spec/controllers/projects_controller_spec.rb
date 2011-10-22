@@ -3,7 +3,8 @@ require 'spec_helper'
 describe ProjectsController do
 
   context 'when logged in as user' do
-    before { sign_in Factory(:user) }
+    let(:user) { Factory(:user) }
+    before { sign_in user }
     describe "GET 'new'" do
       before { get :new }
       it { assigns(:project).should be_a_new(Project) }
@@ -17,6 +18,18 @@ describe ProjectsController do
             post :create, :project => Factory.attributes_for(:project)
           }.to change(Project, :count).by(1)
           response.should redirect_to(projects_path)
+        end
+        
+        it 'should create one membership' do
+          expect {
+            post :create, :project => Factory.attributes_for(:project)
+          }.to change(Membership, :count).by(1)
+          response.should redirect_to(projects_path)
+        end
+        
+        it 'should assign current user as project admin' do
+          post :create, :project => Factory.attributes_for(:project)
+          Project.last.memberships.where(:user_id => user, :role => Role::ROLES[:admin]).should_not be_empty
         end
       end
 
