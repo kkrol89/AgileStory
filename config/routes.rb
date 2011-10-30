@@ -6,7 +6,7 @@ Zumba::Application.routes.draw do
   get "pages/show"
 
   resources :projects do
-    resources :memberships, :only => [:index]
+    resources :memberships, :only => [:index, :new, :create]
   end
 
   # The priority is based upon order of creation:

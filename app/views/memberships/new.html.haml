@@ -1,0 +1,10 @@
+%h2= 'Assign member'
+= @project.name
+
+= semantic_form_for [@project, @membership] do |form|
+  = form.semantic_errors :user, :project, :role
+  = form.inputs do
+    = form.input :user, :member_label => :email
+    = form.input :role, :collection => Role.roles_as_form_collection
+  = form.buttons do
+    = form.commit_button 'Assign member'

@@ -36,8 +36,6 @@ Feature: Create project
     And I am logged in as user "user@example.org"
     
     When I create project named "Project One"
-    And I go to the show project page for "Project One"
-    
-    And I follow "Members"
+    And I go to the project members page for "Project One"
     Then I should see member "user@example.org" with role "Admin" on the members list
 

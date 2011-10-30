@@ -4,16 +4,13 @@ class Project < ActiveRecord::Base
 
   validates :name, :description, :presence => true
   validates :name, :uniqueness => true
-  
+
   validate :at_least_one_admin
-  
+
+  accepts_nested_attributes_for :memberships
+
   def add_member(user, role)
-    self.memberships << Membership.new(:user => user, :role => role)
-#    if self.new_record?
-#      self.memberships.build(:user => user, :role => role)
-#    else
-#      self.memberships.create!(:user => user, :role => role)
-#    end
+    self.memberships << Membership.new(:project => self, :user => user, :role => role)
   end
 
   private

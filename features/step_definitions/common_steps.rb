@@ -17,3 +17,9 @@ end
 Then /^I should( not)? see "([^"]*)" on the "([^"]*)" list$/ do |not_value, element_name, list_name|
   Then %{I should#{not_value} see "#{element_name}" within ".#{list_name.parameterize}"}
 end
+
+Then /^I should see options "([^"]*)" in "([^"]*)" select box$/ do |options, selectbox_name|
+  options.split(', ').each do |option|
+    select(option, :from => selectbox_name)
+  end
+end
