@@ -3,7 +3,7 @@ Feature: Edit project
   As a user
   I want to be able edit projects
 
-  Scenario: Successful project creation
+  Scenario: Successful project edition
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"
     And there exists a project named "Project one"
@@ -19,19 +19,4 @@ Feature: Edit project
     Then I should be on the projects page
     And I should see "Project was successfully updated"
     And I should see "Project two" within ".projects"
-
-  Scenario: Unsuccessful project edition
-    Given there exists user "user@example.org"
-    And I am logged in as user "user@example.org"
-    And there exists a project named "Project one"
-    And user "user@example.org" has role "Admin" for project "Project one"
-
-    When I go to the projects page
-    And I follow "Edit" within ".projects"
-    And I fill in the following:
-      | Project name        |                     |
-      | Project description | Example description |
-    And I press "Update Project"
-
-    Then I should see "Project name can't be blank"
 
