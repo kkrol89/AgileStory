@@ -28,13 +28,6 @@ Feature: Sign up
 
     Then I should see "Invalid email or password."
 
-  Scenario: Ommitting fields
-    When I go to the home page
-    And I follow "Sign in"
-    And I press "Sign in"
-
-    Then I should see "Invalid email or password."
-
   Scenario: Already signed in
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"

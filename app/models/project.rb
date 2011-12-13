@@ -13,6 +13,10 @@ class Project < ActiveRecord::Base
     self.memberships << Membership.new(:project => self, :user => user, :role => role)
   end
 
+  def self.visible_for(user)
+    self.joins(:memberships).where('memberships.user_id = ?', user.id).group('projects.id')
+  end
+
   private
   def at_least_one_admin
     unless self.memberships.any? { |membership| membership.role == Role::ROLES[:admin] }

@@ -16,6 +16,8 @@ gem 'paperclip'
 gem 'state_machine'
 gem 'will_paginate'
 
+gem 'cancan'
+
 gem 'formtastic'
 
 # Gems used only for assets and not required

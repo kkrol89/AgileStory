@@ -4,7 +4,7 @@ Feature: Delete project
   I want to be able delete projects
 
   @javascript
-  Scenario: Successful project deletion
+  Scenario: Delete project
     Given there exists user "user@example.org"
     And I am logged in as user "user@example.org"
     And there exists a project named "Project one"
@@ -18,3 +18,12 @@ Feature: Delete project
     And I should see "Project was successfully deleted"
     And I should not see "Project one" on the "Projects" list
 
+  Scenario: Can not delete project as developer or viewer
+   Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
+    And there exists a project named "Project one"
+    And user "user@example.org" has role "Developer" for project "Project one"
+    And user "user@example.org" has role "Viewer" for project "Project one"
+
+    When I go to the projects page
+    Then I should not see "Delete" within ".projects"

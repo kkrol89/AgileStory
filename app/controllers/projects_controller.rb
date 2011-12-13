@@ -1,5 +1,8 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
+  before_filter :authorize_read, only: :show
+  before_filter :authorize_edit, only: [:edit, :update]
+  before_filter :authorize_delete, only: :destroy
 
   def new
     @project = Project.new
@@ -20,7 +23,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
+    @projects = Project.visible_for(current_user)
   end
 
   def edit
@@ -39,6 +42,23 @@ class ProjectsController < ApplicationController
   def destroy
     Project.find(params[:id]).delete
     redirect_to projects_path, :notice => I18n.t('project_successfully_deleted')
+  end
+
+  private
+  def authorize_read
+    authorize! :see, project
+  end
+
+  def authorize_edit
+    authorize! :edit, project
+  end
+
+  def authorize_delete
+    authorize! :delete, project
+  end
+
+  def project
+    @project ||= Project.find(params[:id])
   end
 end
 
