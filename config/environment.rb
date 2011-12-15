@@ -4,7 +4,7 @@ require File.expand_path('../application', __FILE__)
 ActionMailer::Base.smtp_settings = {
   :user_name => ENV['SMTP_USER'],
   :password => ENV['SMTP_PASSWORD'],
-  :domain => "cold-leaf-1834.heroku.com",
+  :domain => "zumba-live.herokuapp.com",
   :address => "smtp.sendgrid.net",
   :port => 587,
   :authentication => :plain,

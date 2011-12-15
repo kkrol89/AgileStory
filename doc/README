@@ -1,8 +1,10 @@
-Application is currently deployed on Heroku: http://cold-leaf-1834.heroku.com/
+Application is currently deployed on Heroku: http://zumba-live.herokuapp.com/
 
-Before production deployment to heroku server, compile current assets to public folder and commit changes:
-RAILS_ENV=production bundle exec rake assets:precompile 
 
-Action Mailer is set to use SendGrid external SMTP service. Following variables need to be provided:
+Deploy to heroku
+To make sure that assets are precompiled on production, Heroku application needs to be created with Cedar stack:
+heroku create --stack Cedar
+
+Action Mailer is set to use SendGrid external SMTP service. Following variables need to be set:
 heroku config:add SMTP_USER=sendgrid_username
 heroku config:add SMTP_PASSWORD=sendgrid_password
