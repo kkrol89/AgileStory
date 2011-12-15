@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-  before_filter :authorize_read, only: :show
-  before_filter :authorize_edit, only: [:edit, :update]
-  before_filter :authorize_delete, only: :destroy
+  before_filter :authorize, only: [:show, :edit, :update, :destroy]
 
   def new
     @project = Project.new
@@ -45,16 +43,8 @@ class ProjectsController < ApplicationController
   end
 
   private
-  def authorize_read
-    authorize! :see, project
-  end
-
-  def authorize_edit
-    authorize! :edit, project
-  end
-
-  def authorize_delete
-    authorize! :delete, project
+  def authorize
+    authorize! action_name.to_sym, project
   end
 
   def project
