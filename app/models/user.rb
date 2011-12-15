@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  ROLES = {:admin => 'admin', :developer => 'developer', :viewer => 'viewer'}
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :memberships
 
   def is_admin_of?(project)
-    Membership.where(:user_id => self, :project_id => project, :role => Role::ROLES[:admin]).any?
+    Membership.where(:user_id => self, :project_id => project, :role => User::ROLES[:admin]).any?
   end
 end
 

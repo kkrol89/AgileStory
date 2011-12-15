@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
-    @project.add_member(current_user, Role::ROLES[:admin])
+    @project.add_member(current_user, User::ROLES[:admin])
     if @project.save
       redirect_to projects_path, :notice => I18n.t('project_successfully_created')
     else

@@ -29,7 +29,7 @@ describe ProjectsController do
 
       it 'should assign current user as project admin' do
         post :create, :project => Factory.attributes_for(:project)
-        Project.last.memberships.where(:user_id => user, :role => Role::ROLES[:admin]).should_not be_empty
+        Project.last.memberships.where(:user_id => user, :role => User::ROLES[:admin]).should_not be_empty
       end
     end
 

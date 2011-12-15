@@ -10,12 +10,12 @@ end
 Factory.define :membership do |m|
   m.association(:project)
   m.association(:user)
-  m.role Role::ROLES[:admin]
+  m.role User::ROLES[:admin]
 end
 
 Factory.define :project do |p|
   p.sequence(:name) { |n| "Project #{n}" }
   p.description 'Example description'
-  p.after_build { |project| project.memberships << Factory(:membership, :project => project, :role => Role::ROLES[:admin]) }  
+  p.after_build { |project| project.memberships << Factory(:membership, :project => project, :role => User::ROLES[:admin]) }
 end
 

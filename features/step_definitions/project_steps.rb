@@ -3,7 +3,7 @@ Given /^there exists a project named "([^"]*)"$/ do |project_name|
 end
 
 Given /^user "([^"]*)" has role "([^"]*)" for project "([^"]*)"$/ do |user_email, role, project_name|
-  Project.find_by_name(project_name).add_member(User.find_by_email(user_email), Role::ROLES[role.parameterize.to_sym])
+  Project.find_by_name(project_name).add_member(User.find_by_email(user_email), User::ROLES[role.parameterize.to_sym])
 end
 
 When /^I create project named "([^"]*)"$/ do |project_name|

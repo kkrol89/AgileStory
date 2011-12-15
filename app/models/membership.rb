@@ -5,14 +5,14 @@ class Membership < ActiveRecord::Base
   validates :user, :project, :role, :presence => true
 
   def admin?
-    self.role == Role::ROLES[:admin]
+    self.role == User::ROLES[:admin]
   end
 
   def developer?
-    self.role == Role::ROLES[:developer]
+    self.role == User::ROLES[:developer]
   end
 
   def viewer?
-    self.role == Role::ROLES[:viewer]
+    self.role == User::ROLES[:viewer]
   end
 end

@@ -19,7 +19,7 @@ class Project < ActiveRecord::Base
 
   private
   def at_least_one_admin
-    unless self.memberships.any? { |membership| membership.role == Role::ROLES[:admin] }
+    unless self.memberships.any? { |membership| membership.role == User::ROLES[:admin] }
       errors.add(:memberships, 'should include at least one admin')
     end
   end

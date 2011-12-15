@@ -16,8 +16,8 @@ describe Project do
     let(:project) { Factory(:project) }
     
     it 'should create membership' do
-      project.add_member(user, Role::ROLES[:admin])
-      project.memberships.where(:user_id => user).first.role.should eq(Role::ROLES[:admin])
+      project.add_member(user, User::ROLES[:admin])
+      project.memberships.where(:user_id => user).first.role.should eq(User::ROLES[:admin])
       project.users.where(:id => user).first.should eq(user)
       user.projects.where(:id => project).first.should eq(project)
     end
