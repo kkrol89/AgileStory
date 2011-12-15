@@ -14,7 +14,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.visible_for(user)
-    self.joins(:memberships).where('memberships.user_id = ?', user.id).group('projects.id')
+    self.joins(:memberships).where('memberships.user_id = ?', user.id)
   end
 
   private
