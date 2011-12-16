@@ -10,6 +10,28 @@ a:visited, a:link
   color: #a61414
 a:hover, a:active
   color: #DD0000
+  text-decoration: underline
+
+form
+  .field_with_errors input
+    border: 1px solid #DD0000 !important
+  input
+    margin: 6px 0
+  input[type="email"], input[type="password"], input[type="submit"]
+    height: 25px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    border: 1px solid #AAAAAA
+    width: 250px
+  input[type="submit"]
+    font-size: 20px
+    width: 250px
+    height: 35px
+    margin-top: 15px
+    padding: 2px
+    background-color: #a61414
+    color: white
+  margin-bottom: 20px
 
 #top_bar
   width: 800px
@@ -36,3 +58,4 @@ a:hover, a:active
   a
     font-family: 'Lobster', cursive
     font-size: 80px
+    text-decoration: none !important
