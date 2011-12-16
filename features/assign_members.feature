@@ -22,7 +22,7 @@ Scenario: Assign members as admin
   And I should be on the project members page for "Project One"
   And I should see member "developer@example.org" with role "Developer" on the members list
 
-Scenario: Can not assign members as developer or viewer
+Scenario: Assign members as developer or viewer
   Given there exists user "user@example.org"
   And I am logged in as user "user@example.org"
   And there exists a project named "Project One"
@@ -32,3 +32,23 @@ Scenario: Can not assign members as developer or viewer
   When I go to the show project page for "Project One"
   And I follow "Members"
   Then I should not see "Assign member"
+
+Scenario Outline: Browse members
+  Given there exists user <email>
+  And I am logged in as user <email>
+  And there exists a project named <project>
+  And user <email> has role <role> in project named <project>
+
+  And there exists user "user@example.org"
+  And user "user@example.org" has role "Developer" in project named <project>
+
+  When I go to the show project page for <project>
+  And I follow "Members"
+
+  Then I should see "user@example.org" within ".members"
+
+  Examples:
+  | email                   | role        | project       |
+  | "admin@example.org"     | "Admin"     | "Project One" |
+  | "developer@example.org" | "Developer" | "Project One" |
+  | "viewer@example.org"    | "Viewer"    | "Project One" |

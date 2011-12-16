@@ -1,13 +1,13 @@
 class MembershipsController < ApplicationController
   before_filter :require_user
+  before_filter :authorize_index, only: [:index]
+  before_filter :authorize_manage, only: [:new, :create]
 
   def new
-    project
-    @membership = @project.memberships.build
+    @membership = project.memberships.build
   end
   
   def create
-    project
     @membership = project.memberships.build(params[:membership])
     if @membership.save
       redirect_to project_memberships_path(project), :notice => 'Member successfully assigned'
@@ -17,12 +17,19 @@ class MembershipsController < ApplicationController
   end
 
   def index
-    project
     @memberships = Membership.where(:project_id => params[:project_id])
   end
 
   private
   def project
     @project ||= Project.find(params[:project_id])
+  end
+
+  def authorize_index
+    authorize! :browse_memberships, project
+  end
+
+  def authorize_manage
+    authorize! :manage_memberships, project
   end
 end

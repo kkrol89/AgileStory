@@ -7,5 +7,5 @@
       %td= membership.user.email
       %td= membership.role.capitalize
 
-= link_to 'Assign members', new_project_membership_path(@project) if current_user.is_admin_of?(@project)
+= link_to 'Assign members', new_project_membership_path(@project) if can? :manage_memberships, @project
 
