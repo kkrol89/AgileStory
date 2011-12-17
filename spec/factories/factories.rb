@@ -16,6 +16,6 @@ end
 Factory.define :project do |p|
   p.sequence(:name) { |n| "Project #{n}" }
   p.description 'Example description'
-  p.after_build { |project| project.memberships << Factory(:membership, :project => project, :role => User::ROLES[:admin]) }
+  p.after_build { |project| project.memberships << Factory.build(:membership, :project => project, :role => User::ROLES[:admin]) }
 end
 

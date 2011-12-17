@@ -8,4 +8,3 @@ describe Membership do
   it { should validate_presence_of(:project) }
   it { should validate_presence_of(:role) }
 end
-
