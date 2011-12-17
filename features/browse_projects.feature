@@ -7,12 +7,12 @@ Feature: Browse projects
     Given there exists user "admin@example.org"
     And I am logged in as user "admin@example.org"
 
-    And there exists a project named "Project one"
-    And user "admin@example.org" has role "Admin" for project "Project one"
+    And there exists a project named "Project One"
+    And user "admin@example.org" has role "Admin" for project "Project One"
 
     When I go to the projects page
 
-    Then I should see "Show" within ".projects"
+    Then I should see "Project One" within ".projects"
     And I should see "Edit" within ".projects"
     And I should see "Delete" within ".projects"
 
@@ -25,7 +25,7 @@ Feature: Browse projects
 
     When I go to the projects page
 
-    Then I should see "Show" within ".projects"
+    Then I should see "Project One" within ".projects"
     And I should not see "Edit" within ".projects"
     And I should not see "Delete" within ".projects"
 

@@ -1,7 +1,7 @@
 class MembershipsController < ApplicationController
   before_filter :require_user
   before_filter :authorize_index, only: [:index]
-  before_filter :authorize_manage, only: [:new, :create]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update]
 
   def new
     @membership = project.memberships.build
@@ -13,6 +13,19 @@ class MembershipsController < ApplicationController
       redirect_to project_memberships_path(project), :notice => 'Member successfully assigned'
     else
       render :new
+    end
+  end
+
+  def edit
+    @membership = project.memberships.find(params[:id])
+  end
+
+  def update
+    @membership = project.memberships.find(params[:id])
+    if @membership.update_attributes(params[:membership])
+      redirect_to project_memberships_path(project), :notice => I18n.t('membership_successfully_updated')
+    else
+      render :edit
     end
   end
 

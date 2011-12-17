@@ -9,26 +9,7 @@ describe MembershipsController do
     let!(:project) { Factory(:project) }
 
     context 'with admin role' do
-      let!(:membership) { Factory(:membership, :project => project, :user => user) }
-
-      describe "GET 'index'" do
-        it "should assign memberships for given project" do
-          get :index, :project_id => project
-          assigns(:memberships).should include(membership)
-          assigns(:project).should == project
-        end
-
-        context 'when there exists membership for another project' do
-          let!(:another_project) { Factory(:project) }
-          let!(:another_membership) { Factory(:membership, :project => another_project, :user => user) }
-
-          it 'should not assign membership for another project' do
-            get :index, :project_id => project
-            assigns(:memberships).should_not include(another_membership)
-            assigns(:memberships).should include(membership)
-          end
-        end
-      end
+      before { Factory(:membership, :project => project, :user => user) }
 
       describe "GET 'new'" do
         it 'should assign new membership' do
@@ -39,21 +20,51 @@ describe MembershipsController do
       end
 
       describe "POST 'create'" do
-        context 'with valid attributes' do
-          it 'should create new membership' do
-            expect {
-              post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
-            }.to change(Membership, :count).by(1)
-            Membership.last.project == project
-            response.should redirect_to(project_memberships_path(project))
+        it 'should create new membership' do
+          expect {
+            post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
+          }.to change(Membership, :count).by(1)
+          Membership.last.project == project
+          response.should redirect_to(project_memberships_path(project))
+        end
+      end
+
+      context "when membership exists" do
+        let!(:membership) { Factory(:membership, :project => project, :role => User::ROLES[:developer]) }
+
+        describe "GET 'index'" do
+          it "should assign memberships for given project" do
+            get :index, :project_id => project
+            assigns(:memberships).should include(membership)
+            assigns(:project).should == project
+          end
+
+          context 'when there exists membership for another project' do
+            let!(:another_project) { Factory(:project) }
+            let!(:another_membership) { Factory(:membership, :project => another_project, :user => user) }
+
+            it 'should not assign membership for another project' do
+              get :index, :project_id => project
+              assigns(:memberships).should_not include(another_membership)
+              assigns(:memberships).should include(membership)
+            end
           end
         end
-        context 'with invalid attributes' do
-          it 'should not create new membership' do
+
+        describe "GET 'edit'" do
+          it "should assign membership" do
+            get :edit, :project_id => project.id, :id => membership.id
+            assigns(:membership).should == membership
+            response.should render_template('edit')
+          end
+        end
+
+        describe "PUT 'update'" do
+          it "should update membership role" do
             expect {
-              post :create, :project_id => project, :membership => {}
-            }.to_not change(Membership, :count)
-            response.should render_template('new')
+              put :update, :project_id => project.id, :id => membership.id, :membership => membership.attributes.merge({ :role => User::ROLES[:viewer] })
+            }.to change { membership.reload.role }.to(User::ROLES[:viewer])
+            response.should redirect_to(project_memberships_path(project))
           end
         end
       end
@@ -76,6 +87,20 @@ describe MembershipsController do
         describe "POST 'create'" do
           before { post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes }
           it { response.should redirect_to(root_path) }
+        end
+
+        context "when membership exists" do
+          let!(:membership) { Factory(:membership, :project => project) }
+
+          describe "GET 'edit" do
+            before { get :edit, :project_id => project, :id => membership.id }
+            it { response.should redirect_to(root_path) }
+          end
+
+          describe "PUT 'update" do
+            before { put :update, :project_id => project, :id => membership.id, :membership => membership.attributes }
+            it { response.should redirect_to(root_path) }
+          end
         end
       end
     end

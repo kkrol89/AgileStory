@@ -2,10 +2,12 @@
   %tr
     %th= 'Member email'
     %th= 'Role'
+    %th
   - @memberships.each do |membership|
     %tr.member
       %td= membership.user.email
       %td= membership.role.capitalize
+      %td= link_to "Edit membership", edit_project_membership_path(@project, membership) if can? :manage_memberships, @project
 
-= link_to 'Assign members', new_project_membership_path(@project) if can? :manage_memberships, @project
+= link_to 'Assign new member', new_project_membership_path(@project) if can? :manage_memberships, @project
 

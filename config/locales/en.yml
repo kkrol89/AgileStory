@@ -16,6 +16,8 @@ en:
   project_delete_confirmation: "Are you sure you want to delete this project?"
   please_log_in: "You must be logged in."
 
+  membership_successfully_updated: "Membership was successfully updated"
+
   activerecord:
     models:
       project: "Project"

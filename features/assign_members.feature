@@ -11,7 +11,7 @@ Scenario: Assign members as admin
   
   When I go to the show project page for "Project One"
   And I follow "Members"
-  And I follow "Assign member"
+  And I follow "Assign new member"
   Then I should see options "Admin, Developer, Viewer" in "Role" select box
   
   When I select "developer@example.org" from "User"
@@ -31,7 +31,7 @@ Scenario: Assign members as developer or viewer
 
   When I go to the show project page for "Project One"
   And I follow "Members"
-  Then I should not see "Assign member"
+  Then I should not see "Assign new member"
 
 Scenario Outline: Browse members
   Given there exists user <email>

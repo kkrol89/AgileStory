@@ -10,7 +10,7 @@ Feature: Show project
     And user <email> has role <role> for project <project>
 
     When I go to the projects page
-    And I follow "Show" within ".projects"
+    And I follow <project> within ".projects"
 
     Then I should be on the show project page for <project>
     And I should see <project> within ".name"
