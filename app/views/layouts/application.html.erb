@@ -8,10 +8,10 @@
   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
   <%= render :partial => "top_bar" %>
   <%= render :partial => "logo_bar" %>
+  <%= render :partial => 'flash_message_bar', :locals => { :class_name => 'alert', :message => alert } %>
+  <%= render :partial => 'flash_message_bar', :locals => { :class_name => 'notice', :message => notice } %>
   <div id="main_container">
     <%= yield %>
   </div>

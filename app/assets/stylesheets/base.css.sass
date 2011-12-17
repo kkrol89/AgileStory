@@ -1,8 +1,13 @@
-@mixin gray-box
-  padding: 30px
+@mixin gray-box($radius, $padding)
+  width: 800px
+  margin: auto
+  padding: $padding 15px
   background-color: #E8E8E8
-  -moz-border-radius: 15px
-  border-radius: 15px
+  -moz-border-radius: $radius
+  border-radius: $radius
+
+.hidden
+  display: none
 
 a
   text-decoration: none
@@ -11,6 +16,19 @@ a:visited, a:link
 a:hover, a:active
   color: #DD0000
   text-decoration: underline
+
+.flash
+  @include gray-box(7px, 5px)
+  margin-top: 10px
+  margin-bottom: 10px
+.flash.alert, .flash.notice
+  color: #a61414
+  height: 20px
+  .message
+    float: left
+  .hide_button
+    float: right
+    text-align: right
 
 form
   .field_with_errors input
@@ -49,15 +67,11 @@ form
       margin-right: 10px
 
 #main_container
-  width: 800px
-  margin: auto
+  @include gray-box(15px, 30px)
   margin-top: 10px
-  @include gray-box
 
 #logo_bar
-  width: 800px
-  margin: auto
-  @include gray-box
+  @include gray-box(15px, 30px)
   a
     font-family: 'Lobster', cursive
     font-size: 80px
