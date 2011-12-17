@@ -72,23 +72,33 @@ form
   min-height: 320px
 
 #logo_bar
-  @include gray-box(15px, 30px)
-  min-height: 100px
+  @include gray-box(15px, 15px)
+  min-height: 80px
   #logo
     a
       float: left
       font-family: 'Lobster', cursive
-      font-size: 80px
+      font-size: 60px
       text-decoration: none !important
+    a:visited, a:link
+      color: black
+    a:hover, a:active
+      color: #DD0000
+      text-decoration: underline
   #main_menu
     float: left
-    min-width: 450px
+    min-width: 400px
     font-size: 15px
     border-top: 1px dotted #a61414
     border-bottom: 1px dotted #a61414
-    margin: 30px 0 0 90px
+    margin: 15px 0 0 90px
     ul
       list-style-type: none
       li
         display: inline
         margin-right: 50px
+  
+#error_explanation
+  ul
+    li
+      color: #a61414 !important

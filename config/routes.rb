@@ -1,4 +1,4 @@
-Zumba::Application.routes.draw do
+Agilestory::Application.routes.draw do
 
   devise_for :users
 

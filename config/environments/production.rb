@@ -1,4 +1,4 @@
-Zumba::Application.configure do
+Agilestory::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -58,5 +58,5 @@ Zumba::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  config.action_mailer.default_url_options = { :host => 'zumba-apps.com' }
+  config.action_mailer.default_url_options = { :host => 'agile-story.herokuapp.com' }
 end

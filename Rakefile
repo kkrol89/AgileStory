@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Zumba::Application.load_tasks
+Agilestory::Application.load_tasks

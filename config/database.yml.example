@@ -1,13 +1,13 @@
 development:
   adapter: postgresql
-  database: zumba_development
+  database: agilestory_development
   username: postgres
   password:
   host: localhost
   min_messages: warning
 test: &test
   adapter: postgresql
-  database: zumba_test
+  database: agilestory_test
   username: postgres
   password:
   host: localhost
