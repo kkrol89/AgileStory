@@ -1,1 +1,3 @@
-#logo_bar= link_to "Zumba", root_path
+#logo_bar
+  #logo= link_to "Zumba", root_path
+  = render :partial => 'main_menu' if current_user.present?

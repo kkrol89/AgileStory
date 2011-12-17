@@ -69,10 +69,26 @@ form
 #main_container
   @include gray-box(15px, 30px)
   margin-top: 10px
+  min-height: 320px
 
 #logo_bar
   @include gray-box(15px, 30px)
-  a
-    font-family: 'Lobster', cursive
-    font-size: 80px
-    text-decoration: none !important
+  min-height: 100px
+  #logo
+    a
+      float: left
+      font-family: 'Lobster', cursive
+      font-size: 80px
+      text-decoration: none !important
+  #main_menu
+    float: left
+    min-width: 450px
+    font-size: 15px
+    border-top: 1px dotted #a61414
+    border-bottom: 1px dotted #a61414
+    margin: 30px 0 0 60px
+    ul
+      list-style-type: none
+      li
+        display: inline
+        margin-right: 50px
