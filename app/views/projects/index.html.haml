@@ -1,12 +1,13 @@
 .projects
   %h2 My projects
+  .menu
+    =link_to(t('create_new_project'), new_project_path)
   %ul.projects_list
     - @projects.each do |project|
       %li
-        %ul.actions
-          %li= link_to project.name, project
-          %li= link_to(t('edit'), edit_project_path(project)) if can? :manage, project
-          %li= link_to(t('delete'), project, :method => :delete, :confirm => t('project_delete_confirmation')) if can? :manage, project
-  .menu
-    =link_to(t('create_new_project'), new_project_path)
+        .project_name= link_to project.name, project
+        .project_actions
+          %ul
+            %li= link_to(t('edit'), edit_project_path(project)) if can? :manage, project
+            %li= link_to(t('delete'), project, :method => :delete, :confirm => t('project_delete_confirmation')) if can? :manage, project
 

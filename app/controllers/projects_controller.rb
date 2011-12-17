@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.visible_for(current_user)
+    @projects = Project.visible_for(current_user).order('name')
   end
 
   def edit
