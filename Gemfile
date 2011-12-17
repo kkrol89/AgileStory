@@ -17,6 +17,7 @@ gem 'will_paginate'
 
 gem 'cancan'
 gem 'formtastic'
+gem 'faker'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,7 +40,6 @@ group :development, :test do
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'database_cleaner'
-  gem 'faker'
 end
 
 # Use unicorn as the web server
