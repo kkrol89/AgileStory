@@ -15,3 +15,7 @@ end
 When /^I edit membership of "([^"]*)"$/ do |user_email|
   page.find('.members tr', :text => user_email).click_link("Edit membership")
 end
+
+When /^I delete membership of "([^"]*)"$/ do |user_email|
+  page.find('.members tr', :text => user_email).click_link("Delete membership")
+end

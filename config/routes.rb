@@ -6,7 +6,7 @@ Agilestory::Application.routes.draw do
   get "pages/show"
 
   resources :projects do
-    resources :memberships, :only => [:index, :new, :create, :edit, :update]
+    resources :memberships, :except => [:show]
   end
 
   # The priority is based upon order of creation:

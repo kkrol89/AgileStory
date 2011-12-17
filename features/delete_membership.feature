@@ -1,9 +1,9 @@
-Feature: Assign members
+Feature: Delete membership
   In order to manage memberships
   As a a project admin
-  I want to be able to edit project memberships
+  I want to be able to delete project memberships
 
-Scenario: Edit membership project as admin
+Scenario: Delete membership project as admin
   Given there exist users "admin@example.org, member@example.org"
   And I am logged in as user "admin@example.org"
   And there exists a project named "Project One"
@@ -14,13 +14,11 @@ Scenario: Edit membership project as admin
   And I follow "Members"
   Then I should see member "member@example.org" with role "Developer" on the members list
 
-  When I edit membership of "member@example.org"
-  And I select "Viewer" from "Role"
-  And I press "Update membership"
+  When I delete membership of "member@example.org"
 
-  Then I should see "Membership was successfully updated"
+  Then I should see "Membership was successfully deleted"
   And I should be on the project members page for "Project One"
-  And I should see member "member@example.org" with role "Viewer" on the members list
+  And I should not see "member@example.org" within ".members"
 
 Scenario: Edit membership as developer or viewer
   Given there exist users "user@example.org, member@example.org"
@@ -32,5 +30,5 @@ Scenario: Edit membership as developer or viewer
 
   When I go to the show project page for "Project One"
   And I follow "Members"
-  Then I should not see "Edit membership" within ".members"
+  Then I should not see "Delete membership" within ".members"
 

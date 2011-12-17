@@ -1,7 +1,7 @@
 class MembershipsController < ApplicationController
   before_filter :require_user
   before_filter :authorize_index, only: [:index]
-  before_filter :authorize_manage, only: [:new, :create, :edit, :update]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @membership = project.memberships.build
@@ -31,6 +31,11 @@ class MembershipsController < ApplicationController
 
   def index
     @memberships = Membership.where(:project_id => params[:project_id])
+  end
+
+  def destroy
+    project.memberships.find(params[:id]).destroy
+    redirect_to project_memberships_path(project), :notice => I18n.t('membership_successfully_deleted')
   end
 
   private

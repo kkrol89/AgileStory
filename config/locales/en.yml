@@ -17,6 +17,7 @@ en:
   please_log_in: "You must be logged in."
 
   membership_successfully_updated: "Membership was successfully updated"
+  membership_successfully_deleted: "Membership was successfully deleted"
 
   activerecord:
     models:

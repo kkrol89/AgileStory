@@ -67,6 +67,15 @@ describe MembershipsController do
             response.should redirect_to(project_memberships_path(project))
           end
         end
+
+        describe "DELETE 'destroy" do
+          it 'should delete membership' do
+            expect {
+              delete :destroy, :project_id => project.id, :id => membership.id
+            }.to change(Membership, :count).by(-1)
+            response.should redirect_to(project_memberships_path(project))
+          end
+        end
       end
     end
 
@@ -99,6 +108,11 @@ describe MembershipsController do
 
           describe "PUT 'update" do
             before { put :update, :project_id => project, :id => membership.id, :membership => membership.attributes }
+            it { response.should redirect_to(root_path) }
+          end
+
+          describe "DELETE 'destroy" do
+            before { delete :destroy, :project_id => project, :id => membership.id }
             it { response.should redirect_to(root_path) }
           end
         end
