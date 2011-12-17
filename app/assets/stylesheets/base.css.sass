@@ -36,13 +36,15 @@ form
   input
     padding-left: 3px
     margin: 6px 0
-  input[type="email"], input[type="password"], input[type="submit"], input[type="text"], textarea
+  input[type="email"], input[type="password"], input[type="submit"], input[type="text"], textarea, select
     height: 25px
     -moz-border-radius: 5px
     border-radius: 5px
     border: 1px solid #AAAAAA
     min-width: 250px
     font-family: Arial
+  select
+    margin-bottom: 8px
   textarea
     height: 200px !important
     padding: 4px
@@ -57,6 +59,8 @@ form
   margin-bottom: 20px
   .field_with_errors + br
     display: none
+  ul.errors
+    color: #a61414
 
 #top_bar
   width: 800px

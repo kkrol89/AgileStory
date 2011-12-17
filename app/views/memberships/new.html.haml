@@ -1,4 +1,5 @@
-%h2= 'Assign member'
-= @project.name
+#new_membership
+  %h1= 'Assign member'
+  %h3.project_name= "Project: #{@project.name}"
 
-= render 'form'
+  = render 'form'
