@@ -74,6 +74,8 @@ GEM
       multi_json (~> 1.0)
     factory_girl (2.2.0)
       activesupport
+    faker (1.0.1)
+      i18n (~> 0.4)
     ffi (1.0.9)
     formtastic (2.0.2)
       rails (~> 3.0)
@@ -203,6 +205,7 @@ DEPENDENCIES
   devise
   email_spec
   factory_girl
+  faker
   formtastic
   haml
   haml-rails

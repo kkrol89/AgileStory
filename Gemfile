@@ -39,6 +39,7 @@ group :development, :test do
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'database_cleaner'
+  gem 'faker'
 end
 
 # Use unicorn as the web server
