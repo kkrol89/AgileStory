@@ -40,6 +40,8 @@ group :development, :test do
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'database_cleaner'
+  gem 'fuubar'
+  gem 'fuubar-cucumber'
 end
 
 # Use unicorn as the web server
