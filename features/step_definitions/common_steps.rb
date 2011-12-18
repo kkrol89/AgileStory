@@ -20,6 +20,6 @@ end
 
 Then /^I should see options "([^"]*)" in "([^"]*)" select box$/ do |options, selectbox_name|
   options.split(', ').each do |option|
-    select(option, :from => selectbox_name)
+    page.should have_css('select option', :text => option)
   end
 end

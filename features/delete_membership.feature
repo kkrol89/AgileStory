@@ -1,34 +1,27 @@
 Feature: Delete membership
   In order to manage memberships
-  As a a project admin
+  As a project admin
   I want to be able to delete project memberships
 
-Scenario: Delete membership project as admin
-  Given there exist users "admin@example.org, member@example.org"
-  And I am logged in as user "admin@example.org"
-  And there exists a project named "Project One"
-  And user "admin@example.org" has role "Admin" in project named "Project One"
-  And user "member@example.org" has role "Developer" in project named "Project One"
-  
-  When I go to the show project page for "Project One"
-  And I follow "Members"
-  Then I should see member "member@example.org" with role "Developer" on the members list
+  Background:
+    Given there exist users "user@example.org, member@example.org"
+    And I am logged in as user "user@example.org"
+    And there exists a project "Universe"
+    And user "member@example.org" has role "Developer" in project "Universe"
 
-  When I delete membership of "member@example.org"
+  Scenario: Delete project membership
+    Given user "user@example.org" has role "Admin" in project "Universe"
+    When I delete membership "member@example.org" in project "Universe"
 
-  Then I should see "Membership was successfully deleted"
-  And I should be on the project members page for "Project One"
-  And I should not see "member@example.org" within ".members"
+    Then I should see successful membership deletion message
+    And I should be on the project members page for "Universe"
+    And I should not see member "member@example.org"
 
-Scenario: Edit membership as developer or viewer
-  Given there exist users "user@example.org, member@example.org"
-  And I am logged in as user "user@example.org"
-  And there exists a project named "Project One"
-  And user "user@example.org" has role "Developer" in project named "Project One"
-  And user "user@example.org" has role "Viewer" in project named "Project One"
-  And user "member@example.org" has role "Viewer" in project named "Project One"
+  Scenario Outline: Delete project membership as non-admin
+    Given user "user@example.org" has role <role> in project "Universe"
+    Then I am not able to delete membership "member@example.org" in project "Universe"
 
-  When I go to the show project page for "Project One"
-  And I follow "Members"
-  Then I should not see "Delete membership" within ".members"
-
+  Examples:
+    | role        |
+    | "Developer" |
+    | "Viewer"    |

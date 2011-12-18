@@ -1,10 +1,10 @@
-Given /^there exists user "([^"]*)"$/ do |user_email|
-  Factory(:user, :email => user_email)
+Given /^there exists user "([^"]*)"$/ do |email|
+  Factory(:user, :email => email)
 end
 
 Given /^there exist users "([^"]*)"$/ do |users_emails|
-  users_emails.split(', ').each do |user_email|
-    Given %{there exists user "#{user_email}"}
+  users_emails.split(', ').each do |email|
+    Given %{there exists user "#{email}"}
   end
 end
 
@@ -14,11 +14,11 @@ Given /^there exists user with:$/ do |table|
   end
 end
 
-Given /^I am logged in as user "([^"]*)"$/ do |user_email|
+Given /^I am logged in as user "([^"]*)"$/ do |email|
   user_password = Factory.attributes_for(:user)[:password]
   steps %Q{
     When I go to the new user session page
-    And I fill in "Email" with "#{user_email}"
+    And I fill in "Email" with "#{email}"
     And I fill in "Password" with "#{user_password}"
     And I press "Sign in"
   }

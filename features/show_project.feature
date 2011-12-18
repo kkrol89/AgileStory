@@ -1,22 +1,22 @@
 Feature: Show project
   In order to manage projects
-  As a user
-  I want to be able view projects
+  As a project member
+  I want to be able view project
+
+  Background:
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
+    And there exists a project "Universe"
 
   Scenario Outline: Show project
-    Given there exists user <email>
-    And I am logged in as user <email>
-    And there exists a project named <project>
-    And user <email> has role <role> for project <project>
+    Given user "user@example.org" has role <role> in project "Universe"
+    Then I can view details page of project "Universe"
 
-    When I go to the projects page
-    And I follow <project> within ".projects"
-
-    Then I should be on the show project page for <project>
-    And I should see <project> within ".name"
-
-    Examples:
-    | email                   | role        | project       |
-    | "admin@example.org"     | "Admin"     | "Project One" |
-    | "developer@example.org" | "Developer" | "Project One" |
-    | "viewer@example.org"    | "Viewer"    | "Project One" |
+  Examples:
+    | role        |
+    | "Viewer"    |
+    | "Developer" |
+    | "Admin"     |
+  
+  Scenario: Show project as non-user
+    Then I can not view details page of project "Universe"

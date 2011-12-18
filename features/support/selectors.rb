@@ -34,6 +34,14 @@ module HtmlSelectorsHelpers
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  def member_row_for(email)
+    page.find('.members tr', :text => email)
+  end
+
+  def project_row_for(project)
+    page.find('.projects li', :text => project)
+  end
 end
 
 World(HtmlSelectorsHelpers)

@@ -1,54 +1,34 @@
 Feature: Assign members
   In order to manage memberships
-  As a an project admin
+  As a project admin
   I want to be able to assign members to project
 
-Scenario: Assign members as admin
-  Given there exist users "admin@example.org, developer@example.org"
-  And I am logged in as user "admin@example.org"
-  And there exists a project named "Project One"
-  And user "admin@example.org" has role "Admin" in project named "Project One"
-  
-  When I go to the show project page for "Project One"
-  And I follow "Members"
-  And I follow "Assign new member"
-  Then I should see options "Admin, Developer, Viewer" in "Role" select box
-  
-  When I select "developer@example.org" from "User"
-  And I select "Developer" from "Role"
-  And I press "Assign member"
+  Background:
+    Given there exist users "user@example.org, member@example.org"
+    And I am logged in as user "user@example.org"
+    And there exists a project "Universe"
 
-  Then I should see "Member successfully assigned"
-  And I should be on the project members page for "Project One"
-  And I should see member "developer@example.org" with role "Developer" on the members list
+  Scenario: Assign members
+    Given user "user@example.org" has role "Admin" in project "Universe"
 
-Scenario: Assign members as developer or viewer
-  Given there exists user "user@example.org"
-  And I am logged in as user "user@example.org"
-  And there exists a project named "Project One"
-  And user "user@example.org" has role "Developer" in project named "Project One"
-  And user "user@example.org" has role "Viewer" in project named "Project One"
+    When I visit members assignment page for project "Universe"
+    And I assign member "member@example.org" as "Developer"
 
-  When I go to the show project page for "Project One"
-  And I follow "Members"
-  Then I should not see "Assign new member"
+    Then I should see successful member assignment message
+    And I should be on the project members page for "Universe"
+    And I should see member "member@example.org" with role "Developer" on the members list
 
-Scenario Outline: Browse members
-  Given there exists user <email>
-  And I am logged in as user <email>
-  And there exists a project named <project>
-  And user <email> has role <role> in project named <project>
+  Scenario: Members roles
+    Given user "user@example.org" has role "Admin" in project "Universe"
 
-  And there exists user "user@example.org"
-  And user "user@example.org" has role "Developer" in project named <project>
+    When I visit members assignment page for project "Universe"
+    Then I should be able to assign roles like "Admin, Developer, Viewer"
 
-  When I go to the show project page for <project>
-  And I follow "Members"
-
-  Then I should see "user@example.org" within ".members"
+  Scenario Outline: Assign members as non-admin
+    Given user "user@example.org" has role <role> in project "Universe"
+    Then I am not able to assign members to project "Universe"
 
   Examples:
-  | email                   | role        | project       |
-  | "admin@example.org"     | "Admin"     | "Project One" |
-  | "developer@example.org" | "Developer" | "Project One" |
-  | "viewer@example.org"    | "Viewer"    | "Project One" |
+    | role        |
+    | "Developer" |
+    | "Viewer"    |

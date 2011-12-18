@@ -1,29 +1,27 @@
 Feature: Delete project
   In order to manage projects
-  As a user
-  I want to be able delete projects
+  As a project admin
+  I want to be able delete project
+
+  Background:
+    Given there exists user "user@example.org"
+    And I am logged in as user "user@example.org"
+    And there exists a project "Universe"
 
   @javascript
   Scenario: Delete project
-    Given there exists user "user@example.org"
-    And I am logged in as user "user@example.org"
-    And there exists a project named "Project one"
-    And user "user@example.org" has role "Admin" for project "Project one"
-
-    When I go to the projects page
-    And I follow "Delete" within ".projects"
-    And I accept dialog window
+    Given user "user@example.org" has role "Admin" in project "Universe"
+    When I delete project "Universe"
 
     Then I should be on the projects page
-    And I should see "Project was successfully deleted"
-    And I should not see "Project one" on the "Projects" list
+    And I should see successful project deletion message
+    And I should not see "Universe" on the "Projects" list
+  
+  Scenario Outline: Delete project as non-admin
+    Given user "user@example.org" has role <role> in project "Universe"
+    Then I am not able to delete project "Universe"
 
-  Scenario: Can not delete project as developer or viewer
-   Given there exists user "user@example.org"
-    And I am logged in as user "user@example.org"
-    And there exists a project named "Project one"
-    And user "user@example.org" has role "Developer" for project "Project one"
-    And user "user@example.org" has role "Viewer" for project "Project one"
-
-    When I go to the projects page
-    Then I should not see "Delete" within ".projects"
+  Examples:
+    | role        |
+    | "Developer" |
+    | "Viewer"    |
