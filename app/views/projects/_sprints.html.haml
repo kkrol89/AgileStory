@@ -1,0 +1,8 @@
+.sprints
+  - @sprints.each do |sprint|
+    .sprint
+      %ul
+        %li= sprint.name
+        %li= sprint.goal
+        %li= sprint.start_date
+        %li= sprint.duration

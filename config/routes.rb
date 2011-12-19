@@ -7,6 +7,7 @@ Agilestory::Application.routes.draw do
 
   resources :projects do
     resources :memberships, :except => [:show]
+    resources :sprints, :only => [:new, :create]
   end
 
   # The priority is based upon order of creation:

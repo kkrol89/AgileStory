@@ -8,7 +8,7 @@ class Ability
       memberships_by_project_id(project.id).any? { |membership| membership.viewer? || membership.developer? || membership.admin? }
     end
 
-    can [:manage, :manage_memberships], Project do |project|
+    can [:manage, :manage_memberships, :manage_sprints], Project do |project|
       memberships_by_project_id(project.id).any? { |membership| membership.admin? }
     end
   end

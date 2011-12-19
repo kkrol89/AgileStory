@@ -5,6 +5,7 @@ describe Project do
   it { should validate_presence_of(:description) }
   it { should have_many(:users) }
   it { should have_many(:memberships) }
+  it { should have_many(:sprints) }
   
   context "with one project already created"do
     before { Factory(:project) }

@@ -7,4 +7,6 @@
     %td.description= @project.description
     
 = link_to 'Members', project_memberships_path(@project) if can? :browse_memberships, @project
+= link_to 'Create new sprint', new_project_sprint_path(@project) if can? :manage_sprints, @project
 
+= render 'sprints'

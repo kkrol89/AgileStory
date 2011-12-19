@@ -19,3 +19,9 @@ Factory.define :project do |p|
   p.after_build { |project| project.memberships << Factory.build(:membership, :project => project, :role => User::ROLES[:admin]) }
 end
 
+Factory.define :sprint do |s|
+  s.goal "Example goal"
+  s.start_date 2.days.from_now
+  s.duration 14
+  s.association(:project)
+end

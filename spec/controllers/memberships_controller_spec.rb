@@ -23,8 +23,7 @@ describe MembershipsController do
         it 'should create new membership' do
           expect {
             post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
-          }.to change(Membership, :count).by(1)
-          Membership.last.project == project
+          }.to change(project.memberships, :count).by(1)
           response.should redirect_to(project_memberships_path(project))
         end
       end

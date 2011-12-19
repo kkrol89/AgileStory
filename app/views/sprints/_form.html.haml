@@ -1,0 +1,10 @@
+= semantic_form_for [@project, @sprint] do |form|
+  = form.semantic_errors :project, :goal, :start_date, :number, :duration
+
+  = form.inputs do
+    = form.input :goal, :label => 'Sprint Goal'
+    = form.input :start_date, :label => 'Sprint Start Date', :as => :string
+    = form.input :duration
+
+  = form.buttons do
+    = form.commit_button
