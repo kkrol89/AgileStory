@@ -6,4 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require flash_messages
+//= require sprints
