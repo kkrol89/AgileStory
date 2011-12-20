@@ -44,4 +44,4 @@ module Seeds
   end
 end
 
-Seeds::Projects.new(Factory(:user, email: "konrad.krol@ragnarson.com", password: "s3cr3t", password_confirmation: "s3cr3t")).populate
+Seeds::Projects.new(Factory(:user, email: "konrad.krol89@gmail.com", password: "s3cr3t", password_confirmation: "s3cr3t")).populate
