@@ -10,6 +10,8 @@ Agilestory::Application.routes.draw do
     resources :sprints, :only => [:new, :create]
   end
 
+  resources :users, :only => [:edit, :update]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   private
   def resource_access_denied
-    redirect_to root_path
+    redirect_to root_path, :alert => t('not_allowed')
   end
 end
 

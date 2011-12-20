@@ -1,7 +1,7 @@
 #top_bar
   #user_info
     .avatar= avatar_for(current_user)
-    .email= link_to current_user.email, '#' if current_user.present?
+    .email= link_to current_user.email, edit_user_path(current_user) if current_user.present?
   #session_actions
     %ul
       - unless current_user.present?
