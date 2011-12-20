@@ -71,15 +71,32 @@ form
 
 #top_bar
   width: 800px
-  margin: auto
-  margin-top: 0px
-  padding: 1px
-  ul#session_actions
-    text-align: right
-    list-style-type: none
-    li
+  margin: 0 auto
+  height: 35px
+  font-size: 14px
+  #user_info
+    margin: 0
+    display: inline
+    color: #a61414
+    right: 390px
+    .email, .avatar
       display: inline
-      margin-right: 10px
+    .email
+      margin-left: 4px
+    .avatar
+      img
+        vertical-align: middle
+        width: 30px
+        height: 30px
+  #session_actions
+    float: right
+    ul
+      margin: 7px 0
+      text-align: right
+      list-style-type: none
+      li
+        display: inline
+        margin-right: 10px
 
 #main_container
   @include gray-box(15px, 30px)
@@ -88,6 +105,7 @@ form
 
 #logo_bar
   @include gray-box(15px, 15px)
+  clear: both
   min-height: 80px
   #logo
     a

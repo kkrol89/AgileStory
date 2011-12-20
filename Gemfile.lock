@@ -88,6 +88,7 @@ GEM
       ruby-progressbar (~> 0.0.10)
     gherkin (2.7.1)
       json (>= 1.4.6)
+    gravatar (1.0)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -216,6 +217,7 @@ DEPENDENCIES
   formtastic
   fuubar
   fuubar-cucumber
+  gravatar
   haml
   haml-rails
   jquery-rails
