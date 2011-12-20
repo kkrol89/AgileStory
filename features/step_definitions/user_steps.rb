@@ -4,7 +4,7 @@ end
 
 Given /^there exist users "([^"]*)"$/ do |users_emails|
   users_emails.split(', ').each do |email|
-    Given %{there exists user "#{email}"}
+    steps %{Given there exists user "#{email}"}
   end
 end
 

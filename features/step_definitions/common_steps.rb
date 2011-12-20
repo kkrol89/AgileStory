@@ -3,19 +3,19 @@ When /^I accept dialog window$/ do
 end
 
 Then /^I should see confirmation message$/ do
-  Then %{I should see "Your account was successfully confirmed. You are now signed in."}
+  steps %Q{Then I should see "Your account was successfully confirmed. You are now signed in."}
 end
 
 Then /^I should see login message$/ do
-  Then %{I should see "Signed in successfully."}
+  steps %Q{Then I should see "Signed in successfully."}
 end
 
 Then /^I should see logout message$/ do
-  Then %{I should see "Signed out successfully."}
+  steps %Q{Then I should see "Signed out successfully."}
 end
 
 Then /^I should( not)? see "([^"]*)" on the "([^"]*)" list$/ do |not_value, element_name, list_name|
-  Then %{I should#{not_value} see "#{element_name}" within ".#{list_name.parameterize}"}
+  steps %Q{Then I should#{not_value} see "#{element_name}" within ".#{list_name.parameterize}"}
 end
 
 Then /^I should see options "([^"]*)" in "([^"]*)" select box$/ do |options, selectbox_name|

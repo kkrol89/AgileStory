@@ -32,7 +32,7 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'spork'
   gem 'timecop'
-  gem 'shoulda'
+  gem 'shoulda', '>= 3.0.0.beta'
   gem 'factory_girl'
   gem 'email_spec'
   gem 'rspec'

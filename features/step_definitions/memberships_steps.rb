@@ -4,7 +4,7 @@ end
 
 Given /^user "([^"]*)" has roles "([^"]*)" in project "([^"]*)"$/ do |email, roles, project_name|
   roles.split(", ").each do |role_name|
-    Given %{user "#{email}" has role "#{role_name}" in project "#{project_name}"}
+    steps %Q{Given user "#{email}" has role "#{role_name}" in project "#{project_name}"}
   end
 end
 
