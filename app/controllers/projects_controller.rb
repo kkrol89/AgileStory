@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @sprints = @project.sprints
+    @tickets = @project.tickets
   end
 
   def index

@@ -18,12 +18,11 @@ en:
 
   membership_successfully_updated: "Membership was successfully updated"
   membership_successfully_deleted: "Membership was successfully deleted"
-
   profile_successfully_updated: "Your profile was successfully updated"
+  sprint_successfully_created: "Sprint was successfully created"
+  ticket_successfully_created: "Ticket was successfully created"
 
   not_allowed: "You are not allowed to view this page"
-
-  sprint_successfully_created: "Sprint was successfully created"
 
   activerecord:
     models:

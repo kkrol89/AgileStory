@@ -25,3 +25,9 @@ Factory.define :sprint do |s|
   s.duration 14
   s.association(:project)
 end
+
+Factory.define :ticket do |t|
+  t.title "Friends invite feature"
+  t.description "Example ticket description"
+  t.association(:project)
+end

@@ -6,6 +6,7 @@ describe Project do
   it { should have_many(:users) }
   it { should have_many(:memberships) }
   it { should have_many(:sprints) }
+  it { should have_many(:tickets) }
   
   context "with one project already created"do
     before { Factory(:project) }

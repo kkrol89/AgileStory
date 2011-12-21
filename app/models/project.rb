@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :sprints
   has_many :memberships
+  has_many :tickets
   has_many :users, :through => :memberships
 
   validates :name, :description, :presence => true
