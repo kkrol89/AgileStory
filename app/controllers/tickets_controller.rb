@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_filter :require_user
+  include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create]
 
   def new

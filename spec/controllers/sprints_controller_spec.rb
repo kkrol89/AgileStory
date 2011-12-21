@@ -8,7 +8,7 @@ describe SprintsController do
     context 'with existing project' do
       let!(:project) { Factory(:project) }
       context 'with admin role' do
-        before { project.add_member(user, "admin") }
+        before { assign_member(project: project, member: user, role: "admin") }
 
         describe "GET 'new'" do
           before { get :new, :project_id => project.id }
@@ -27,7 +27,7 @@ describe SprintsController do
 
       ["developer", "viewer"].each do |role_name|
         context "with #{role_name} role" do
-          before { project.add_member(user, role_name) }
+          before { assign_member(project: project, member: user, role: role_name) }
 
           describe "GET 'new'" do
             before { get :new, :project_id => project.id }

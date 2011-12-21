@@ -9,7 +9,7 @@ describe MembershipsController do
     let!(:project) { Factory(:project) }
 
     context 'with admin role' do
-      before { Factory(:membership, :project => project, :user => user) }
+      before { assign_member(project: project, member: user, role: "admin") }
 
       describe "GET 'new'" do
         it 'should assign new membership' do
@@ -23,7 +23,7 @@ describe MembershipsController do
         it 'should create new membership' do
           expect {
             post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
-          }.to change(project.memberships, :count).by(1)
+          }.to change { project.memberships.count }.by(1)
           response.should redirect_to(project_memberships_path(project))
         end
       end
@@ -43,9 +43,9 @@ describe MembershipsController do
             let!(:another_membership) { Factory(:membership, :project => another_project, :user => user) }
 
             it 'should not assign membership for another project' do
-              get :index, :project_id => project
-              assigns(:memberships).should_not include(another_membership)
+              get :index, :project_id => project.id
               assigns(:memberships).should include(membership)
+              assigns(:memberships).should_not include(another_membership)
             end
           end
         end
@@ -71,7 +71,7 @@ describe MembershipsController do
           it 'should delete membership' do
             expect {
               delete :destroy, :project_id => project.id, :id => membership.id
-            }.to change(Membership, :count).by(-1)
+            }.to change { project.memberships.count }.by(-1)
             response.should redirect_to(project_memberships_path(project))
           end
         end
@@ -80,12 +80,18 @@ describe MembershipsController do
 
     ["developer", "viewer"].each do |role_name|
       context "with #{role_name} role" do
-        before { project.add_member(user, role_name) }
+        before { assign_member(project: project, member: user, role: role_name) }
 
         describe "GET 'index'" do
           before { get :index, :project_id => project }
           it { response.should be_success }
         end
+      end
+    end
+
+    ["no", "developer", "viewer"].each do |role_name|
+      context "with #{role_name} role" do
+        before { assign_member(project: project, member: user, role: role_name) }
 
         describe "GET 'new'" do
           before { get :new, :project_id => project }
@@ -93,8 +99,12 @@ describe MembershipsController do
         end
 
         describe "POST 'create'" do
-          before { post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes }
-          it { response.should redirect_to(root_path) }
+          it 'should not create new membership' do
+            expect {
+              post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
+            }.to_not change { project.memberships.count }
+            response.should redirect_to(root_path)
+          end
         end
 
         context "when membership exists" do
@@ -106,13 +116,21 @@ describe MembershipsController do
           end
 
           describe "PUT 'update" do
-            before { put :update, :project_id => project, :id => membership.id, :membership => membership.attributes }
-            it { response.should redirect_to(root_path) }
+            it 'should not update membership' do
+              expect {
+                put :update, :project_id => project, :id => membership.id, :membership => membership.attributes.merge({ :role => User::ROLES[:viewer] })
+              }.to_not change { membership.reload.role }
+              response.should redirect_to(root_path)
+            end
           end
 
           describe "DELETE 'destroy" do
-            before { delete :destroy, :project_id => project, :id => membership.id }
-            it { response.should redirect_to(root_path) }
+            it 'should not delete membership' do
+              expect {
+                delete :destroy, :project_id => project, :id => membership.id
+              }.to_not change { project.memberships.count }
+              response.should redirect_to(root_path)
+            end
           end
         end
       end

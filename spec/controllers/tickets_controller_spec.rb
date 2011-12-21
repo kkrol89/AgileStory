@@ -22,7 +22,7 @@ describe TicketsController do
           it 'should create new ticket' do
             expect {
               post :create, :project_id => project.id, :ticket => Factory.build(:ticket, :project => project).attributes
-            }.to change { project.reload.tickets.count }.by(1)
+            }.to change { project.tickets.count }.by(1)
             response.should redirect_to(project_path(project))
           end
         end
@@ -39,7 +39,7 @@ describe TicketsController do
         it 'should not create new ticket' do
           expect {
             post :create, :project_id => project.id, :ticket => Factory.build(:ticket, :project => project).attributes
-          }.to_not change { project.reload.tickets.count }
+          }.to_not change { project.tickets.count }
           response.should redirect_to(root_path)
         end
       end

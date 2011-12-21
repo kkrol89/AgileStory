@@ -37,7 +37,7 @@ describe ProjectsController do
       let!(:project) { Factory(:project) }
 
       context 'with admin role' do
-        before { project.add_member(user, "admin") }
+        before { assign_member(project: project, member: user, role: "admin") }
 
         describe "GET 'show'" do
           before { get :show, :id => project }
@@ -61,7 +61,7 @@ describe ProjectsController do
           it 'should edit project' do
             expect {
               put :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => 'Updated name' })
-            }.to change{ Project.first.name }.to('Updated name')
+            }.to change{ project.reload.name }.to('Updated name')
             response.should redirect_to(projects_path)
           end
         end
@@ -77,7 +77,7 @@ describe ProjectsController do
 
       ["developer", "viewer"].each do |role_name|
         context "with #{role_name} role" do
-          before { project.add_member(user, role_name) }
+          before { assign_member(project: project, member: user, role: role_name) }
 
           describe "GET 'show'" do
             before { get :show, :id => project }
@@ -90,6 +90,11 @@ describe ProjectsController do
             it { assigns(:projects).should include(project) }
             it { response.should render_template('index') }
           end
+        end
+      end
+      ["no", "developer", "viewer"].each do |role_name|
+        context "with #{role_name} role" do
+          before { assign_member(project: project, member: user, role: role_name) }
 
           describe "GET 'edit'" do
             before { get :edit, :id => project }
@@ -97,13 +102,21 @@ describe ProjectsController do
           end
 
           describe "PUT 'update'" do
-            before { put :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => 'Updated name' }) }
-            it { response.should redirect_to(root_path) }
+            it "should not update project" do
+              expect {
+                put :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => 'Updated name' })
+              }.to_not change { project.reload.name }
+              response.should redirect_to(root_path)
+            end
           end
 
           describe "DELETE 'destroy'" do
-            before { delete :destroy, :id => project }
-            it { response.should redirect_to(root_path) }
+            it 'should not delete project' do
+              expect {
+                delete :destroy, :id => project
+              }.to_not change(Project, :count)
+              response.should redirect_to(root_path)
+            end
           end
         end
       end

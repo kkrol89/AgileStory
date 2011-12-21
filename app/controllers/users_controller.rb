@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_user
+  include Authorization::Login
   before_filter :authorize_profile_change, only: [:edit, :update]
 
   def edit

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :require_user
+  include Authorization::Login
   before_filter :authorize_show, only: :show
   before_filter :authorize_manage, only: [:edit, :update, :destroy]
 
