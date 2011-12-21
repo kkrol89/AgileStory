@@ -11,15 +11,13 @@ describe Sprint do
       let!(:project) { Factory(:project) }
 
       context 'when sprint number is already taken within project' do
-        before { Factory(:sprint, :project => project, :number => 1) }
-
-        it { Factory.build(:sprint, :project => project, :number => 1).should_not be_valid }
+        before { Factory(:sprint, :project => project, :sequence_number => 1) }
+        it { Factory.build(:sprint, :project => project, :sequence_number => 1).should_not be_valid }
 
         it 'should create unique sprint number' do
-          Factory(:sprint, :project => project).number.should == 2
+          Factory(:sprint, :project => project).sequence_number.should == 2
         end
       end
-
     end
   end
 end
