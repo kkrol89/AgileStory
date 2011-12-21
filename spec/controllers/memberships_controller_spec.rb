@@ -2,11 +2,12 @@ require 'spec_helper'
 
 describe MembershipsController do
 
+  let(:project) { Factory(:project) }
+  let(:membership) { Factory(:membership, :project => project) }
+
   context 'when logged in as user' do
     let(:user) { Factory(:user) }
     before { sign_in user }
-
-    let!(:project) { Factory(:project) }
 
     context 'with admin role' do
       before { assign_member(project: project, member: user, role: "admin") }
@@ -29,26 +30,7 @@ describe MembershipsController do
       end
 
       context "when membership exists" do
-        let!(:membership) { Factory(:membership, :project => project, :role => User::ROLES[:developer]) }
-
-        describe "GET 'index'" do
-          it "should assign memberships for given project" do
-            get :index, :project_id => project
-            assigns(:memberships).should include(membership)
-            assigns(:project).should == project
-          end
-
-          context 'when there exists membership for another project' do
-            let!(:another_project) { Factory(:project) }
-            let!(:another_membership) { Factory(:membership, :project => another_project, :user => user) }
-
-            it 'should not assign membership for another project' do
-              get :index, :project_id => project.id
-              assigns(:memberships).should include(membership)
-              assigns(:memberships).should_not include(another_membership)
-            end
-          end
-        end
+        before { membership }
 
         describe "GET 'edit'" do
           it "should assign membership" do
@@ -78,13 +60,29 @@ describe MembershipsController do
       end
     end
 
-    ["developer", "viewer"].each do |role_name|
+    ["admin", "developer", "viewer"].each do |role_name|
       context "with #{role_name} role" do
-        before { assign_member(project: project, member: user, role: role_name) }
+        before do
+          membership
+          assign_member(project: project, member: user, role: role_name)
+        end
 
         describe "GET 'index'" do
-          before { get :index, :project_id => project }
-          it { response.should be_success }
+          it "should assign memberships for given project" do
+            get :index, :project_id => project
+            assigns(:memberships).should include(membership)
+            assigns(:project).should == project
+          end
+
+          context 'when there exists membership for another project' do
+            let!(:another_membership) { Factory(:membership, :project => Factory(:project), :user => user) }
+
+            it 'should not assign membership for another project' do
+              get :index, :project_id => project.id
+              assigns(:memberships).should include(membership)
+              assigns(:memberships).should_not include(another_membership)
+            end
+          end
         end
       end
     end
@@ -93,66 +91,30 @@ describe MembershipsController do
       context "with #{role_name} role" do
         before { assign_member(project: project, member: user, role: role_name) }
 
-        describe "GET 'new'" do
-          before { get :new, :project_id => project }
-          it { response.should redirect_to(root_path) }
-        end
-
-        describe "POST 'create'" do
-          it 'should not create new membership' do
-            expect {
-              post :create, :project_id => project, :membership => Factory.build(:membership, :project_id => project.id).attributes
-            }.to_not change { project.memberships.count }
-            response.should redirect_to(root_path)
-          end
-        end
-
-        context "when membership exists" do
-          let!(:membership) { Factory(:membership, :project => project) }
-
-          describe "GET 'edit" do
-            before { get :edit, :project_id => project, :id => membership.id }
-            it { response.should redirect_to(root_path) }
-          end
-
-          describe "PUT 'update" do
-            it 'should not update membership' do
-              expect {
-                put :update, :project_id => project, :id => membership.id, :membership => membership.attributes.merge({ :role => User::ROLES[:viewer] })
-              }.to_not change { membership.reload.role }
-              response.should redirect_to(root_path)
-            end
-          end
-
-          describe "DELETE 'destroy" do
-            it 'should not delete membership' do
-              expect {
-                delete :destroy, :project_id => project, :id => membership.id
-              }.to_not change { project.memberships.count }
-              response.should redirect_to(root_path)
-            end
-          end
+        it 'should not authorize' do
+          should_not_authorize_for(
+            -> { get :new, :project_id => project.id },
+            -> { post :create, :project_id => project.id },
+            -> { get :edit, :project_id => project.id, :id => membership.id },
+            -> { put :update, :project_id => project.id, :id => membership.id },
+            -> { delete :destroy, :project_id => project.id, :id => membership.id }
+          )
         end
       end
     end
   end
 
   context 'when not logged in' do
-    let(:project) { Factory(:project) }
 
-    describe "GET 'index'" do
-      before { get :index, :project_id => project }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-    
-    describe "GET 'new'" do
-      before { get :new, :project_id => project }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-    
-    describe "POST 'create'" do
-      before { get :create, :project_id => project, :membership => Factory.attributes_for(:membership, :project => project) }
-      it { response.should redirect_to(new_user_session_path) }
+    it 'should require login' do
+      should_require_login_for(
+        -> { get :new, :project_id => project.id },
+        -> { get :index, :project_id => project.id },
+        -> { post :create, :project_id => project.id },
+        -> { get :edit, :project_id => project.id, :id => membership.id },
+        -> { put :update, :project_id => project.id, :id => membership.id },
+        -> { delete :destroy, :project_id => project.id, :id => membership.id }
+      )
     end
   end
 end

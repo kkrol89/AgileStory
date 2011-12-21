@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   private
   def resource_access_denied
-    redirect_to root_path, :alert => t('not_allowed')
+    render :text => t('not_allowed'), :status => 401
   end
 
   def login_access_denied

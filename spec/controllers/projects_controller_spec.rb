@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe ProjectsController do
 
+  let(:project) { Factory(:project) }
+
   context 'when logged in as user' do
     let(:user) { Factory(:user) }
     before { sign_in user }
@@ -34,22 +36,10 @@ describe ProjectsController do
     end
 
     context 'with existing project' do
-      let!(:project) { Factory(:project) }
+      before { project }
 
       context 'with admin role' do
         before { assign_member(project: project, member: user, role: "admin") }
-
-        describe "GET 'show'" do
-          before { get :show, :id => project }
-          it { assigns(:project).should == project }
-          it { response.should render_template('show') }
-        end
-
-        describe "GET 'index'" do
-          before { get :index }
-          it { assigns(:projects).should include(project) }
-          it { response.should render_template('index') }
-        end
 
         describe "GET 'edit'" do
           before { get :edit, :id => project }
@@ -75,7 +65,7 @@ describe ProjectsController do
         end
       end
 
-      ["developer", "viewer"].each do |role_name|
+      ["admin", "developer", "viewer"].each do |role_name|
         context "with #{role_name} role" do
           before { assign_member(project: project, member: user, role: role_name) }
 
@@ -92,31 +82,17 @@ describe ProjectsController do
           end
         end
       end
+
       ["no", "developer", "viewer"].each do |role_name|
         context "with #{role_name} role" do
           before { assign_member(project: project, member: user, role: role_name) }
 
-          describe "GET 'edit'" do
-            before { get :edit, :id => project }
-            it { response.should redirect_to(root_path) }
-          end
-
-          describe "PUT 'update'" do
-            it "should not update project" do
-              expect {
-                put :update, :id => project, :project => Factory.attributes_for(:project).merge({ :name => 'Updated name' })
-              }.to_not change { project.reload.name }
-              response.should redirect_to(root_path)
-            end
-          end
-
-          describe "DELETE 'destroy'" do
-            it 'should not delete project' do
-              expect {
-                delete :destroy, :id => project
-              }.to_not change(Project, :count)
-              response.should redirect_to(root_path)
-            end
+          it 'should not authorize' do
+            should_not_authorize_for(
+              -> { get :edit, :id => project.id },
+              -> { put :update, :id => project.id },
+              -> { delete :destroy, :id => project.id }
+            )
           end
         end
       end
@@ -124,43 +100,16 @@ describe ProjectsController do
   end
 
   context 'when not logged in' do
-    describe "GET 'new'" do
-      before { get :new  }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-
-    describe "GET 'index'" do
-      before { get :index }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-
-    describe "POST 'create'" do
-      before { post :create, :project => Factory.attributes_for(:project) }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-
-    context 'with existing project' do
-      let!(:project) { Factory(:project) }
-
-      describe "GET 'show'" do
-        before { get :show, :id => project }
-        it { response.should redirect_to(new_user_session_path) }
-      end
-
-      describe "GET 'edit'" do
-        before { get :edit, :id => project }
-        it { response.should redirect_to(new_user_session_path) }
-      end
-
-      describe "PUT 'update'" do
-        before { put :update, :id => project, :project => Factory.attributes_for(:project) }
-        it { response.should redirect_to(new_user_session_path) }
-      end
-
-      describe "DELETE 'destroy'" do
-        before { delete :destroy, :id => project }
-        it { response.should redirect_to(new_user_session_path) }
-      end
+    it 'should require login' do
+      should_require_login_for(
+        -> { get :new },
+        -> { get :index},
+        -> { get :show, :id => project.id },
+        -> { get :edit, :id => project.id },
+        -> { put :update, :id => project.id },
+        -> { post :create, :id => project.id },
+        -> { delete :destroy, :id => project.id }
+      )
     end
   end
 

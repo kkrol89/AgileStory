@@ -24,5 +24,4 @@ Feature: Edit profile
   Scenario: Edit another user profile
     Given there exists user "ryan@example.org"
     When I go to the edit profile page for "ryan@example.org"
-    Then I should be on the home page
-    And I should see access denied message
+    Then I should see access denied message

@@ -30,31 +30,21 @@ describe TicketsController do
     end
 
     context 'with no role' do
-      describe "GET 'new'" do
-        before { get :new, :project_id => project.id }
-        it { response.should redirect_to(root_path) }
-      end
-
-      describe "POST 'create" do
-        it 'should not create new ticket' do
-          expect {
-            post :create, :project_id => project.id, :ticket => Factory.build(:ticket, :project => project).attributes
-          }.to_not change { project.tickets.count }
-          response.should redirect_to(root_path)
-        end
+      it 'should not authorize' do
+        should_not_authorize_for(
+          -> { get :new, :project_id => project.id },
+          -> { post :create, :project_id => project.id }
+        )
       end
     end
   end
 
   context 'when not logged in' do
-    describe "GET 'new'" do
-      before { get :new, :project_id => project }
-      it { response.should redirect_to(new_user_session_path) }
-    end
-    
-    describe "POST 'create'" do
-      before { get :create, :project_id => project, :ticket => Factory.build(:ticket, :project => project).attributes }
-      it { response.should redirect_to(new_user_session_path) }
+    it 'should require_login' do
+      should_require_login_for(
+        -> { get :new, :project_id => project.id },
+        -> { post :create, :project_id => project.id }
+      )
     end
   end
 end
