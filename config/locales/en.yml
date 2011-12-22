@@ -21,6 +21,7 @@ en:
   profile_successfully_updated: "Your profile was successfully updated"
   sprint_successfully_created: "Sprint was successfully created"
   ticket_successfully_created: "Ticket was successfully created"
+  ticket_successfully_updated: "Ticket was successfully updated"
 
   not_allowed: "You are not allowed to view this page"
 

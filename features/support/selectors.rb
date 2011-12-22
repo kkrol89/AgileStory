@@ -42,6 +42,10 @@ module HtmlSelectorsHelpers
   def project_row_for(project)
     page.find('.projects li', :text => project)
   end
+
+  def ticket_row_for(ticket)
+    page.find('.tickets li', :text => ticket)
+  end
 end
 
 World(HtmlSelectorsHelpers)

@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   include Authorization::Login
-  before_filter :authorize_manage, only: [:new, :create]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update]
 
   def new
     @ticket = Ticket.new
@@ -12,6 +12,19 @@ class TicketsController < ApplicationController
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_created')
     else
       render :new
+    end
+  end
+
+  def edit
+    @ticket = project.tickets.find(params[:id])
+  end
+
+  def update
+    @ticket = project.tickets.find(params[:id])
+    if @ticket.update_attributes(params[:ticket])
+      redirect_to project_path(project), :notice => I18n.t('ticket_successfully_updated')
+    else
+      render :edit
     end
   end
 

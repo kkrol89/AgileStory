@@ -8,7 +8,7 @@ Agilestory::Application.routes.draw do
   resources :projects do
     resources :memberships, :except => [:show]
     resources :sprints, :only => [:new, :create]
-    resources :tickets, :only => [:new, :create]
+    resources :tickets, :only => [:new, :create, :edit, :update]
   end
 
   resources :users, :only => [:edit, :update]
