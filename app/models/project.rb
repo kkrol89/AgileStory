@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   validate :at_least_one_admin
 
   accepts_nested_attributes_for :memberships
+  before_save :notify_about_change
 
   def add_member(user, role)
     self.memberships << Membership.new(:project => self, :user => user, :role => role)
@@ -24,6 +25,9 @@ class Project < ActiveRecord::Base
     unless self.memberships.any? { |membership| membership.role == User::ROLES[:admin] }
       errors.add(:memberships, 'should include at least one admin')
     end
+  end
+  def notify_about_change
+    Websockets::PusherSender.new.send(:channel => 'projects', :event => 'project save', :message => 'project saved')
   end
 end
 
