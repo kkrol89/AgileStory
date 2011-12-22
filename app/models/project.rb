@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   has_many :sprints
   has_many :memberships
   has_many :tickets
+  has_many :chats
   has_many :users, :through => :memberships
 
   validates :name, :description, :presence => true
@@ -16,7 +17,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.visible_for(user)
-    self.joins(:memberships).where('memberships.user_id = ?', user.id)
+    user.projects
   end
 
   private

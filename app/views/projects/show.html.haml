@@ -9,6 +9,7 @@
 = link_to 'Members', project_memberships_path(@project) if can? :browse_memberships, @project
 = link_to 'Create new sprint', new_project_sprint_path(@project) if can? :manage_sprints, @project
 = link_to 'New ticket', new_project_ticket_path(@project) if can? :manage_tickets, @project
+= link_to 'New chat', new_project_chat_path(@project) if can? :manage_chats, @project
 
 = render :partial => 'sprints/sprints'
 = render :partial => 'tickets/tickets'

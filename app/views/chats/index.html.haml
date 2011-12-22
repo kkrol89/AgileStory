@@ -1,0 +1,9 @@
+.projects
+  - @projects.each do |project|
+    - if project.chats.any?
+      .project
+        %h2= project.name
+        .chats
+          - project.chats.each do |chat|
+            .chat
+              = chat.title

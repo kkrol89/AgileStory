@@ -31,3 +31,8 @@ Factory.define :ticket do |t|
   t.description "Example ticket description"
   t.association(:project)
 end
+
+Factory.define :chat do |c|
+  c.title "DevChat"
+  c.association(:project)
+end

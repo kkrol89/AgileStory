@@ -79,6 +79,11 @@ describe ProjectsController do
             before { get :index }
             it { assigns(:projects).should include(project) }
             it { response.should render_template('index') }
+            
+            it 'should assign projects based on roles' do
+              Project.should_receive(:visible_for).with(user).and_return(user.projects)
+              get :index
+            end
           end
         end
       end

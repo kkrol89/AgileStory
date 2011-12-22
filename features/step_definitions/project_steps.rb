@@ -2,6 +2,12 @@ Given /^there exists a project "([^"]*)"$/ do |project_name|
   Factory(:project, :name => project_name)
 end
 
+Given /^there exist projects "([^"]*)"$/ do |projects|
+  projects.split(', ').each do |project|
+    steps %Q{Given there exists a project "#{project}"}
+  end
+end
+
 When /^I create project "([^"]*)"$/ do |project|
   steps %Q{
     When I go to the projects page

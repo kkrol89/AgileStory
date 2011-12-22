@@ -22,6 +22,7 @@ en:
   sprint_successfully_created: "Sprint was successfully created"
   ticket_successfully_created: "Ticket was successfully created"
   ticket_successfully_updated: "Ticket was successfully updated"
+  chat_successfully_created: "Chat was successfully created"
 
   not_allowed: "You are not allowed to view this page"
 

@@ -1,0 +1,7 @@
+= semantic_form_for [@project, @chat] do |form|
+  = form.semantic_errors :title, :project
+  = form.inputs do
+    = form.input :title, :label => 'Chat Title'
+
+  = form.buttons do
+    = form.commit_button "Create Chat"
