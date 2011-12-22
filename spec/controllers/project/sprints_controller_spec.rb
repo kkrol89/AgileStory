@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SprintsController do
+describe Project::SprintsController do
   let(:project) { Factory(:project) }
 
   context 'when logged in as user' do

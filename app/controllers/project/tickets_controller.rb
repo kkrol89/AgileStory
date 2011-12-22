@@ -1,4 +1,4 @@
-class TicketsController < ApplicationController
+class Project::TicketsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create, :edit, :update]
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MembershipsController do
+describe Project::MembershipsController do
 
   let(:project) { Factory(:project) }
   let(:membership) { Factory(:membership, :project => project) }

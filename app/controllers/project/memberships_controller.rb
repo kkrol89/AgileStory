@@ -1,4 +1,4 @@
-class MembershipsController < ApplicationController
+class Project::MembershipsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_index, only: [:index]
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]

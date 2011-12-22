@@ -1,4 +1,4 @@
-class SprintsController < ApplicationController
+class Project::SprintsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create]
 

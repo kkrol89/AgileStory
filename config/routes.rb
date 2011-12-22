@@ -6,9 +6,9 @@ Agilestory::Application.routes.draw do
   get "pages/show"
 
   resources :projects do
-    resources :memberships, :except => [:show]
-    resources :sprints, :only => [:new, :create]
-    resources :tickets, :only => [:new, :create, :edit, :update]
+    resources :memberships, :except => [:show], :controller => 'project/memberships'
+    resources :sprints, :only => [:new, :create], :controller => 'project/sprints'
+    resources :tickets, :only => [:new, :create, :edit, :update], :controller => 'project/tickets'
     resources :chats, :only => [:new, :create], :controller => 'project/chats'
   end
 

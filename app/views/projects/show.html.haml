@@ -11,5 +11,5 @@
 = link_to 'New ticket', new_project_ticket_path(@project) if can? :manage_tickets, @project
 = link_to 'New chat', new_project_chat_path(@project) if can? :manage_chats, @project
 
-= render :partial => 'sprints/sprints'
-= render :partial => 'tickets/tickets'
+= render :partial => 'project/sprints/sprints'
+= render :partial => 'project/tickets/tickets'

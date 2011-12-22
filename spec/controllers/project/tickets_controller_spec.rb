@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TicketsController do
+describe Project::TicketsController do
   let(:project) { Factory(:project) }
   let(:ticket) { Factory(:ticket, :project => project) }
 
