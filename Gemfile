@@ -19,6 +19,7 @@ gem 'cancan'
 gem 'formtastic'
 gem 'faker'
 gem 'gravatar'
+gem 'pusher'
 
 # Gems used only for assets and not required
 # in production environments by default.

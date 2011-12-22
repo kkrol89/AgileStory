@@ -8,3 +8,7 @@ heroku create --stack cedar
 Action Mailer is set to use SendGrid external SMTP service. Following variables need to be set:
 heroku config:add SMTP_USER=sendgrid_username
 heroku config:add SMTP_PASSWORD=sendgrid_password
+
+heroku config:add PUSHER_APP_ID=app_id
+heroku config:add PUSHER_KEY=key
+heroku config:add PUSHER_SECRET=secret
