@@ -1,6 +1,7 @@
 .bundle
 config/database.yml
-config/pusher.yml
+config/credentials/email.yml
+config/credentials/pusher.yml
 db/*.sqlite3*
 log/*.log
 *.log
