@@ -1,1 +1,1 @@
-faye: rackup faye.ru -s thin -E production
+worker: rackup faye.ru -s thin -E production
