@@ -18,6 +18,9 @@ Feature: Create ticket
 
   Examples:
     | role        |
-    | "Viewer"    |
     | "Developer" |
     | "Admin"     |
+
+  Scenario: Create ticket as viewer
+    Given user "user@example.org" has role "Viewer" in project "Universe"
+    Then I should not be able to create new ticket for project "Universe"

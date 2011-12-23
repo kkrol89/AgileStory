@@ -9,7 +9,7 @@ describe Project::TicketsController do
     before { sign_in user }
 
 
-    ["admin", "developer", "viewer"].each do |role_name|
+    ["admin", "developer"].each do |role_name|
       context "with #{role_name} role" do
         before { assign_member(project: project, member: user, role: role_name) }
 
@@ -44,18 +44,31 @@ describe Project::TicketsController do
               }.to change{ ticket.reload.title }.to('newtitle')
             end
           end
+
+          describe "DELETE 'destroy'" do
+            it 'should delete ticket' do
+              expect {
+                delete :destroy, :project_id => project.id, :id => ticket.id
+              }.to change { project.tickets.count }.by(-1)
+              response.should redirect_to(project_path(project))
+            end
+          end
         end
       end
     end
 
-    context 'with no role' do
-      it 'should not authorize' do
-        should_not_authorize_for(
-          -> { get :new, :project_id => project.id },
-          -> { post :create, :project_id => project.id },
-          -> { get :edit, :project_id => project.id, :id => ticket.id },
-          -> { put :update, :project_id => project.id, :id => ticket.id }
-        )
+    ["no", "viewer"].each do |role_name|
+      context "with #{role_name} role" do
+        before { assign_member(project: project, member: user, role: role_name) }
+        it 'should not authorize' do
+          should_not_authorize_for(
+            -> { get :new, :project_id => project.id },
+            -> { post :create, :project_id => project.id },
+            -> { get :edit, :project_id => project.id, :id => ticket.id },
+            -> { put :update, :project_id => project.id, :id => ticket.id },
+            -> { delete :destroy, :project_id => project.id, :id => ticket.id }
+          )
+        end
       end
     end
   end
@@ -66,7 +79,8 @@ describe Project::TicketsController do
         -> { get :new, :project_id => project.id },
         -> { post :create, :project_id => project.id },
         -> { get :edit, :project_id => project.id, :id => ticket.id },
-        -> { put :update, :project_id => project.id, :id => ticket.id }
+        -> { put :update, :project_id => project.id, :id => ticket.id },
+        -> { delete :destroy, :project_id => project.id, :id => ticket.id }
       )
     end
   end

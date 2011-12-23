@@ -1,6 +1,6 @@
 class Project::TicketsController < ApplicationController
   include Authorization::Login
-  before_filter :authorize_manage, only: [:new, :create, :edit, :update]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @ticket = Ticket.new
@@ -26,6 +26,11 @@ class Project::TicketsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    project.tickets.find(params[:id]).destroy
+    redirect_to project_path(project), :notice => I18n.t('ticket_successfully_deleted')
   end
 
   private
