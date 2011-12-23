@@ -20,6 +20,8 @@ module NavigationHelpers
       edit_user_path(User.find_by_email($1))
     when /^the my chats page$/
       chats_path
+    when /^the chat "([^"]*)" page for project "([^"]*)"$/
+      project_chat_path(Project.find_by_name($2), Chat.find_by_title($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

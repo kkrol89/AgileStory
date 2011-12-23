@@ -9,11 +9,13 @@ Agilestory::Application.routes.draw do
     resources :memberships, :except => [:show], :controller => 'project/memberships'
     resources :sprints, :only => [:new, :create], :controller => 'project/sprints'
     resources :tickets, :only => [:new, :create, :edit, :update], :controller => 'project/tickets'
-    resources :chats, :only => [:new, :create], :controller => 'project/chats'
+    resources :chats, :only => [:new, :create, :show], :controller => 'project/chats'
   end
 
   resources :users, :only => [:edit, :update]
-  resources :chats, :only => [:index]
+  resources :chats, :only => [:index] do
+    resources :messages, :only => [:create], :controller => 'chat/messages'
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

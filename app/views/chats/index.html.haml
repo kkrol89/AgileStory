@@ -6,4 +6,4 @@
         .chats
           - project.chats.each do |chat|
             .chat
-              = chat.title
+              = link_to chat.title, project_chat_path(project, chat) if can? :use_chat, project

@@ -1,6 +1,6 @@
 class Project::MembershipsController < ApplicationController
   include Authorization::Login
-  before_filter :authorize_index, only: [:index]
+  before_filter :authorize_browse, only: [:index]
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
 
   def new
@@ -43,7 +43,7 @@ class Project::MembershipsController < ApplicationController
     @project ||= Project.find(params[:project_id])
   end
 
-  def authorize_index
+  def authorize_browse
     authorize! :browse_memberships, project
   end
 

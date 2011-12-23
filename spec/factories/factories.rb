@@ -36,3 +36,9 @@ Factory.define :chat do |c|
   c.title "DevChat"
   c.association(:project)
 end
+
+Factory.define :message do |m|
+  m.content "Hello!"
+  m.association(:user)
+  m.association(:chat)
+end

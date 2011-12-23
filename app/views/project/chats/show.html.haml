@@ -1,0 +1,6 @@
+.chat_window
+  .messages
+    - @messages.each do |message|
+      = render 'chat/messages/message', :message => message
+  .new_message
+    = render 'chat/messages/form'

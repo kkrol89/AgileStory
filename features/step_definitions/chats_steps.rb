@@ -20,6 +20,19 @@ Then /^I should see chat "([^"]*)" for project "([^"]*)" on my chats page$/ do |
   page.find('.project', :text => project).should have_css('.chat', :text => chat)
 end
 
+When /^I send message "([^"]*)"$/ do |message|
+  steps %Q{
+    When I fill in "Message" with "#{message}"
+    And I press "Send message"
+  }
+end
+
+Then /^I should see message "([^"]*)" in chat window$/ do |message|
+  within '.chat_window' do
+    page.should have_css('.message', :text => message)
+  end
+end
+
 Then /^I am not able to create chat for project "([^"]*)"$/ do |project|
   steps %Q{
     When I go to the show project page for "#{project}"

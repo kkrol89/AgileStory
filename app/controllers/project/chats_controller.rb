@@ -1,6 +1,7 @@
 class Project::ChatsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create]
+  before_filter :authorize_browse, only: [:show]
 
   def new
     @chat = Chat.new
@@ -15,9 +16,19 @@ class Project::ChatsController < ApplicationController
     end
   end
 
+  def show
+    @chat = project.chats.find(params[:id])
+    @messages = @chat.messages.order('messages.created_at ASC')
+    @message = Message.new
+  end
+
   private
   def project
     @project ||= Project.find(params[:project_id])
+  end
+
+  def authorize_browse
+    authorize! :browse_chats, project
   end
 
   def authorize_manage

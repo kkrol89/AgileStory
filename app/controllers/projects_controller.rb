@@ -47,11 +47,11 @@ class ProjectsController < ApplicationController
 
   private
   def authorize_show
-    authorize! :show, project
+    authorize! :show_project, project
   end
 
   def authorize_manage
-    authorize! :manage, project
+    authorize! :manage_project, project
   end
 
   def project

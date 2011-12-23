@@ -8,6 +8,6 @@
         .project_name= link_to project.name, project
         .project_actions
           %ul
-            %li= link_to(t('edit'), edit_project_path(project)) if can? :manage, project
-            %li= link_to(t('delete'), project, :method => :delete, :confirm => t('project_delete_confirmation')) if can? :manage, project
+            %li= link_to(t('edit'), edit_project_path(project)) if can? :manage_project, project
+            %li= link_to(t('delete'), project, :method => :delete, :confirm => t('project_delete_confirmation')) if can? :manage_project, project
 

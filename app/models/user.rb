@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :memberships
   has_many :projects, :through => :memberships
+  has_many :messages
 
   def is_admin_of?(project)
     Membership.where(:user_id => self, :project_id => project, :role => User::ROLES[:admin]).any?
