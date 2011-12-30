@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111222232633) do
+ActiveRecord::Schema.define(:version => 20111230201517) do
 
   create_table "chats", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20111222232633) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "chats", ["project_id"], :name => "idx_chats"
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
@@ -28,6 +30,9 @@ ActiveRecord::Schema.define(:version => 20111222232633) do
     t.datetime "updated_at"
   end
 
+  add_index "memberships", ["project_id"], :name => "idx_memberships"
+  add_index "memberships", ["user_id"], :name => "idx_memberships_0"
+
   create_table "messages", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -35,6 +40,9 @@ ActiveRecord::Schema.define(:version => 20111222232633) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "messages", ["chat_id"], :name => "idx_messages"
+  add_index "messages", ["user_id"], :name => "idx_messages_0"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -55,14 +63,18 @@ ActiveRecord::Schema.define(:version => 20111222232633) do
     t.datetime "updated_at"
   end
 
+  add_index "sprints", ["project_id"], :name => "idx_sprints"
+
   create_table "tickets", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sequence_number"
   end
+
+  add_index "tickets", ["project_id"], :name => "idx_tickets"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
