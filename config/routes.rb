@@ -1,8 +1,8 @@
 Agilestory::Application.routes.draw do
 
-  devise_for :users
 
   root :to => 'pages#show'
+  devise_for :users
   get "pages/show"
 
   resources :projects do

@@ -2,6 +2,11 @@ Given /^there exists a ticket "([^"]*)" for project "([^"]*)"$/ do |ticket, proj
   Factory(:ticket, :title => ticket, :project => Project.find_by_name(project))
 end
 
+Given /^ticket "([^"]*)" has cucumber scenario defined$/ do |ticket|
+  description = "Given I have a one House\nWhen I go to the houses page\nThen I should see my house"
+  Ticket.find_by_title(ticket).update_attribute(:description, description)
+end
+
 When /^I change ticket title from "([^"]*)" to "([^"]*)" in project "([^"]*)"$/ do |old_title, title, project|
   steps %Q{ When I go to the show project page for "#{project}" }
   ticket_row_for(old_title).click_link("Edit")
@@ -27,6 +32,32 @@ end
 When /^I delete ticket titled "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
   ticket_row_for(ticket).click_link("Delete Ticket")
+end
+
+When /^I choose cucumber scenario$/ do
+  steps %Q{When I follow "Cucumber Scenario"}
+end
+
+When /^I fill in ticket title with "([^"]*)"$/ do |title|
+  steps %Q{When I fill in "Title" with "#{title}"}
+end
+
+When /^I append example description to ticket scenario$/ do
+  page.find('.cucumber .description').click
+  description = "Given I have a one House\nWhen I go to the houses page\nThen I should see my house"
+  fill_in('ticket_description', :with => description)
+  page.find('.cucumber .description').click
+end
+
+When /^I edit ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
+  steps %Q{ When I go to the show project page for "#{project}" }
+  ticket_row_for(ticket).click_link("Edit")
+end
+
+Then /^I should see highlighted keywords in cucumber scenario$/ do
+  within '.cucumber .description' do
+    page.should have_css('.keyword.outline')
+  end
 end
 
 Then /^I should see successfull ticket creation message$/ do
@@ -68,4 +99,20 @@ Then /^I should not be able to create new ticket for project "([^"]*)"$/ do |pro
     When I go to the show project page for "#{project}"
     Then I should not see "New ticket"
   }
+end
+
+Then /^I should see cucumber scenario outline$/ do
+  within '.cucumber .description' do
+    page.should have_content('Feature: Feature name')
+    page.should have_content('In order to')
+    page.should have_content('As a')
+    page.should have_content('I want to')
+    page.should have_content('Scenario:')
+  end
+end
+
+Then /^I should not see cucumber scenario outline$/ do
+  within '.cucumber .description' do
+    page.should_not have_content('Feature: Feature name')
+  end
 end

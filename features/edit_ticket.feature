@@ -25,3 +25,20 @@ Feature: Edit ticket
   Scenario: Edit ticket as viewer
     Given user "user@example.org" has role "Viewer" in project "Universe"
     Then I should not be able to edit ticket "Friends invitation feature" from project "Universe"
+
+  @javascript
+  Scenario: Edit ticket with cucumber scenario
+    Given user "user@example.org" has role "Developer" in project "Universe"
+    And ticket "Friends invitation feature" has cucumber scenario defined
+
+    When I edit ticket "Friends invitation feature" from project "Universe"
+    And I choose cucumber scenario
+
+    Then I should not see cucumber scenario outline
+    And I should see highlighted keywords in cucumber scenario
+
+    When I fill in ticket title with "House feature"
+    And I press "Update Ticket"
+
+    And I should see successfull ticket update message
+    And I should see ticket "House feature" on the tickets list
