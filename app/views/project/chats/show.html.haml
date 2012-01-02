@@ -1,4 +1,4 @@
-.chat_window
+.chat_window{ 'data-pusher-key' => Pusher.key }
   .messages
     - @messages.each do |message|
       = render 'chat/messages/message', :message => message

@@ -16,6 +16,7 @@ Feature: Send chat message
     
     When I go to the chat "DevChat" page for project "Universe"
     And I send message "Hello!"
+    And I receive websocket notification for message "Hello!"
     Then I should see message "Hello!" in chat window
 
     When I log out

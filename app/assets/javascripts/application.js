@@ -10,3 +10,4 @@
 //= require flash_messages
 //= require sprints
 //= require tickets
+//= require messages

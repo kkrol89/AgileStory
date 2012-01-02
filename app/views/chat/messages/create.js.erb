@@ -1,2 +1,4 @@
-$(".chat_window .messages").append("<%= escape_javascript render(@message) %>");
-$('.chat_window #new_message')[0].reset();
+<% broadcast "messages_new", 'message_created' do %>
+  $(".chat_window .messages").append("<%= escape_javascript render(@message) %>");
+<% end %>
+  $('.chat_window #new_message')[0].reset();
