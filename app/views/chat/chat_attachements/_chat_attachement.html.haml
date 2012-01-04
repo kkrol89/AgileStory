@@ -1,0 +1,5 @@
+.chat_attachement
+  - if is_image?(chat_attachement)
+    = link_to image_tag(chat_attachement.attachement.url, :alt => chat_attachement.attachement_file_name), chat_attachement.attachement.url, :target => '_blank'
+  - else
+    = link_to chat_attachement.attachement_file_name, chat_attachement.attachement.url, :target => '_blank'

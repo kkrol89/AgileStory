@@ -1,0 +1,35 @@
+@mixin chat-box
+  height: 400px
+  overflow: auto
+  float: left
+  word-wrap: break-word
+
+.chat_window
+  h3.chat_title
+    margin-left: 43px
+  .messages
+    margin-left: 43px
+    width: 400px
+    border: 1px solid #AAAAAA
+    font-size: 12px
+
+    @include chat-box
+    .message
+      padding: 4px
+  form
+    input[type='text']
+      width: 700px
+  .chat_attachements
+    padding-left: 20px
+    width: 250px
+
+    .chat_attachement
+      margin-top: 10px
+      img
+        max-width: 100px
+        max-height: 100px
+
+    @include chat-box
+  .new_message
+    clear: both
+    padding-top: 10px

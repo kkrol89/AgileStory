@@ -18,8 +18,10 @@ class Project::ChatsController < ApplicationController
 
   def show
     @chat = project.chats.find(params[:id])
-    @messages = @chat.messages.order('messages.created_at ASC')
+    @messages = @chat.messages.order('messages.created_at ASC').includes(:user)
+    @chat_attachements = @chat.chat_attachements.order('chat_attachements.created_at ASC')
     @message = Message.new
+    @chat_attachement = ChatAttachement.new
   end
 
   private

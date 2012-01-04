@@ -32,6 +32,20 @@ describe Project::ChatsController do
         end
       end
 
+      ["admin", "developer", "viewer"].each do |role_name|
+        context "with #{role_name} role" do
+          before { assign_member(project: project, member: user, role: role_name) }
+          context 'when chat and messages exists' do
+            before { chat }
+
+            describe "GET 'show'" do
+              before { get :show, :project_id => project.id, :id => chat.id }
+              it { assigns(:chat).should == chat }
+            end
+          end
+        end
+      end
+
       ["no", "developer", "viewer"].each do |role_name|
         context "with #{role_name} role" do
           before { assign_member(project: project, member: user, role: role_name) }
@@ -43,6 +57,14 @@ describe Project::ChatsController do
           end
         end
       end
+
+      context "with no role" do
+        it 'should not authorize' do
+          should_not_authorize_for(
+            -> { get :show, :project_id => project.id, :id => chat.id }
+          )
+        end
+      end
     end
   end
 
@@ -50,7 +72,8 @@ describe Project::ChatsController do
     it 'should require login' do
       should_require_login_for(
         -> { get :new, :project_id => project.id },
-        -> { post :create, :project_id => project.id }
+        -> { post :create, :project_id => project.id },
+        -> { get :show, :project_id => project.id, :id => chat.id }
       )
     end
   end

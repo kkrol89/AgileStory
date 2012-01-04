@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111230201517) do
+ActiveRecord::Schema.define(:version => 20120102214903) do
+
+  create_table "chat_attachements", :force => true do |t|
+    t.integer  "chat_id"
+    t.integer  "user_id"
+    t.string   "attachement_file_name"
+    t.string   "attachement_content_type"
+    t.integer  "attachement_file_size"
+    t.datetime "attachement_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "chats", :force => true do |t|
     t.string   "title"

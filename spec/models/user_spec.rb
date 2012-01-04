@@ -4,6 +4,7 @@ describe User do
   it { should have_many(:projects) }
   it { should have_many(:memberships) }
   it { should have_many(:messages) }
+  it { should have_many(:chat_attachements) }
   it { User.new(:email => 'user@example.org', :password => 'secret').should be_valid }
 
   describe 'is_admin_of?' do

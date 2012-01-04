@@ -1,0 +1,5 @@
+= semantic_form_for [@chat, @chat_attachement], :html => { :multipart => true } do |form|
+  = form.inputs do
+    = form.input :attachement
+  = form.buttons do
+    = form.commit_button 'Upload attachement'

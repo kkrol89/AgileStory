@@ -1,6 +1,14 @@
 .chat_window{ 'data-pusher-key' => Pusher.key }
+  %h3.chat_title= @chat.title
   .messages
     - @messages.each do |message|
       = render 'chat/messages/message', :message => message
+  .chat_attachements
+    - unless @chat_attachements.empty?
+      %h3 Chat attachements
+      - @chat_attachements.each do |chat_attachement|
+        = render 'chat/chat_attachements/chat_attachement', :chat_attachement => chat_attachement
   .new_message
     = render 'chat/messages/form'
+  .new_chat_attachement
+    = render 'chat/chat_attachements/form'

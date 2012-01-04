@@ -15,6 +15,7 @@ Agilestory::Application.routes.draw do
   resources :users, :only => [:edit, :update]
   resources :chats, :only => [:index] do
     resources :messages, :only => [:create], :controller => 'chat/messages'
+    resources :chat_attachements, :only => [:create], :controller => 'chat/chat_attachements'
   end
 
   # The priority is based upon order of creation:
