@@ -1,7 +1,0 @@
-= semantic_form_for [@project, @membership] do |form|
-  = form.semantic_errors :user, :project, :role
-  = form.inputs do
-    = form.input :user, :member_label => :email, :collection => User.order('email'), :input_html => { :disabled => (@membership.persisted?) }
-    = form.input :role, :collection => roles_as_form_collection, :include_blank => false
-  = form.buttons do
-    = form.commit_button (@membership.new_record? ? 'Assign member' : 'Update membership')

@@ -2,4 +2,11 @@
   %h1= 'Assign member'
   %h3.project_name= "Project: #{@project.name}"
 
-  = render 'form'
+  = semantic_form_for [@project, @membership] do |form|
+    = form.semantic_errors :project, :role, :user_email
+    = form.inputs do
+      = form.input :user_email, :as => :string, :label => 'User', :required => true
+      = form.input :role, :collection => roles_as_form_collection, :include_blank => false
+    = form.buttons do
+      = form.commit_button 'Assign member'
+    .user_emails{:class => 'hidden', 'data-user-emails' => User.order('email').map(&:email)}

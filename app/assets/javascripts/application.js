@@ -11,3 +11,4 @@
 //= require sprints
 //= require tickets
 //= require chats
+//= require memberships

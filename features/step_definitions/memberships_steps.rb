@@ -52,7 +52,7 @@ end
 
 When /^I assign member "([^"]*)" as "([^"]*)"$/ do |email, role|
   steps %Q{
-    When I select "#{email}" from "User"
+    When I fill in "User" with "#{email}"
     And I select "#{role}" from "Role"
     And I press "Assign member"
   }
