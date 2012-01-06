@@ -1,11 +1,12 @@
 .chat_window{ 'data-pusher-key' => Pusher.key, 'data-chat-channel-name' => chat_channel_name_for(@chat) }
-  %h3.chat_title= @chat.title
+  .titles
+    %h3.chat_title= @chat.title
+    %h3.attachements Chat attachements
   .messages
     - @messages.each do |message|
       = render 'chat/messages/message', :message => message
   .chat_attachements
     - unless @chat_attachements.empty?
-      %h3 Chat attachements
       - @chat_attachements.each do |chat_attachement|
         = render 'chat/chat_attachements/chat_attachement', :chat_attachement => chat_attachement
   .new_message
