@@ -1,5 +1,5 @@
 <% broadcast chat_channel_name_for(@chat), 'message_created' do %>
   $(".chat_window .messages").append("<%= escape_javascript render(@message) %>");
-  $(".messages").animate({ scrollTop: $('.messages').height() }, "slow");
+  $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "slow");
 <% end %>
   $('.chat_window #new_message')[0].reset();
