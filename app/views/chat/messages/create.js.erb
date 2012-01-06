@@ -1,4 +1,4 @@
-<% broadcast "messages_new", 'message_created' do %>
+<% broadcast chat_channel_name_for(@chat), 'message_created' do %>
   $(".chat_window .messages").append("<%= escape_javascript render(@message) %>");
   $(".messages").animate({ scrollTop: $('.messages').height() }, "slow");
 <% end %>

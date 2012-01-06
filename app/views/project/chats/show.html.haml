@@ -1,4 +1,4 @@
-.chat_window{ 'data-pusher-key' => Pusher.key }
+.chat_window{ 'data-pusher-key' => Pusher.key, 'data-chat-channel-name' => chat_channel_name_for(@chat) }
   %h3.chat_title= @chat.title
   .messages
     - @messages.each do |message|

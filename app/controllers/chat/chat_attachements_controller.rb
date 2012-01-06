@@ -1,12 +1,13 @@
 class Chat::ChatAttachementsController < ApplicationController
   include Authorization::Login
   include DynamicRefresh::Chat
+  include Websockets::Channels
 
   before_filter :authorize_send, only: [:create]
 
   def create
     @chat_attachement = chat.chat_attachements.create! params[:chat_attachement].merge({:user => current_user})
-    Websockets::PusherSender.new.send(:channel => 'chat_attachements_new', :event => 'chat_attachement_created', :message => refresh_message('.chat_attachements', @chat_attachement))
+    Websockets::PusherSender.new.send(:channel => chat_channel_name_for(@chat), :event => 'chat_attachement_created', :message => refresh_message('.chat_attachements', @chat_attachement))
     redirect_to(project_chat_path(chat.project, chat))
   end
 

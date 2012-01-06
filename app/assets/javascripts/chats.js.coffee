@@ -1,17 +1,24 @@
-class PusherListener
-  constructor: (@channel, @event, @key, @event_handler)->
+class ChatNotification
+  constructor: (@key, @channel)->
     pusher = new Pusher(@key)
-    channel = pusher.subscribe(@channel)
-    channel.bind(@event, (data)=> @event_handler(data))
+    @channel = pusher.subscribe(@channel)
+  notification: (event, handler)->
+    @channel.bind(event, (data)=> handler(data))
 
 class Chat
   constructor: (@chat)->
     $(@chat + " .messages").animate({ scrollTop: $(@chat + ' .messages').height() }, "slow");
     $(@chat + " .chat_attachements").animate({ scrollTop: $(@chat + ' .chat_attachements').height() }, "slow");
-    if $(@chat) && $(@chat).attr('data-pusher-key')
-      new PusherListener('messages_new', 'message_created', $(@chat).attr('data-pusher-key'), @handle_websocket_event)
-      new PusherListener('chat_attachements_new', 'chat_attachement_created', $(@chat).attr('data-pusher-key'), @handle_websocket_event)
+    if $(@chat) && @pusher_key() && @channel_name()
+      @chat_notification = new ChatNotification(@pusher_key(), @channel_name())
+      @chat_notification.notification('message_created', @handle_websocket_event)
+      @chat_notification.notification('chat_attachement_created', @handle_websocket_event)
   handle_websocket_event: (data)->
     eval(data)
+  pusher_key: ->
+    $(@chat).attr('data-pusher-key')
+  channel_name: ->
+    $(@chat).attr('data-chat-channel-name')
+  
 
 $(=> @chat = new Chat('.chat_window'))
