@@ -16,6 +16,7 @@ end
 Factory.define :project do |p|
   p.sequence(:name) { |n| "Project #{n}" }
   p.description 'Example description'
+  p.point_scale 'fibonacci'
   p.after_build { |project| project.memberships << Factory.build(:membership, :project => project, :role => User::ROLES[:admin]) }
 end
 

@@ -5,12 +5,14 @@ class Project < ActiveRecord::Base
   has_many :chats
   has_many :users, :through => :memberships
 
-  validates :name, :description, :presence => true
+  validates :name, :description, :point_scale, :presence => true
   validates :name, :uniqueness => true
 
   validate :at_least_one_admin
 
   accepts_nested_attributes_for :memberships
+
+  POINT_SCALES = {:linear => 'linear', :fibonacci => 'fibonacci', :power => 'power'}
 
   def add_member(user, role)
     self.memberships << Membership.new(:project => self, :user => user, :role => role)

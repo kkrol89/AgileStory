@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107191306) do
+ActiveRecord::Schema.define(:version => 20120107214240) do
 
   create_table "chat_attachements", :force => true do |t|
     t.integer  "chat_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20120107191306) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "point_scale", :default => "fibonacci"
   end
 
   add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true

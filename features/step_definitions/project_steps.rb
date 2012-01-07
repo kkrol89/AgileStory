@@ -15,6 +15,7 @@ When /^I create project "([^"]*)"$/ do |project|
     And I fill in the following:
       | Project name        | #{project}          |
       | Project description | Example description |
+    And I select "Fibonacci" from "Point scale"
     And I press "Create Project"
   }
 end
