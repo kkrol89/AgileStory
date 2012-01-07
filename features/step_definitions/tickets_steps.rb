@@ -14,6 +14,7 @@ When /^I change ticket title from "([^"]*)" to "([^"]*)" in project "([^"]*)"$/ 
     When I fill in the following:
       | Title       | #{title}            |
       | Description | Example description |
+    When I select "Feature" from "Story type"
     And I press "Update Ticket"
   }
 end

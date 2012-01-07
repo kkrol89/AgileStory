@@ -30,6 +30,7 @@ Factory.define :ticket do |t|
   t.title "Friends invite feature"
   t.description "Example ticket description"
   t.association(:project)
+  t.story Ticket::TYPES[:feature]
 end
 
 Factory.define :chat do |c|

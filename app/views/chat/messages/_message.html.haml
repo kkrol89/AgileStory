@@ -1,1 +1,3 @@
-.message= "#{message.user.email}, #{message.created_at.strftime('%d.%m.%Y %H:%M') }:  #{message.content}"
+.message
+ .head="#{message.user.email}, #{message.created_at.strftime('%d.%m.%Y %H:%M') }"
+ .content= message.content

@@ -8,27 +8,34 @@
   .titles
     margin-left: 43px
     margin-bottom: 20px
+    width: 700px
     h3
-      display: inline
+      float: left
+    h3.chat_title
+      width: 400px
     h3.attachements
-      margin-left: 350px
+      margin-left: 20px
   .messages
-    margin-left: 43px
+    clear: both
     width: 400px
+    margin-left: 43px
     border: 1px solid #AAAAAA
-    font-size: 12px
+    font-size: 13px
 
     @include chat-box
     .message
       padding: 4px
+      .head
+        color: #a61414
   form
     input[type='text']
       width: 700px
   .chat_attachements
     padding-left: 20px
-    width: 250px
+    width: 280px
 
     .chat_attachement
+      font-size: 13px
       margin-top: 10px
       img
         max-width: 100px

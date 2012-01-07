@@ -1,8 +1,9 @@
 = semantic_form_for [@project, @ticket] do |form|
-  = form.semantic_errors :project, :title, :description, :sequence_number
+  = form.semantic_errors :project, :title, :description, :sequence_number, :story
 
   = form.inputs do
     = form.input :title
+    = form.input :story, :collection => tickets_types_as_form_collection, :include_blank => false, :label => 'Story type'
     = form.input :description
     = render 'cucumber_description'
 
