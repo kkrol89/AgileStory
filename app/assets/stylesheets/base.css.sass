@@ -21,10 +21,16 @@ a:hover, a:active
   @include gray-box(7px, 5px)
   margin-top: 10px
   margin-bottom: 10px
+.flash.notice
+  background-color: #468046 !important
+.flash.alert
+  background-color: #C43C3C !important
 .flash.alert, .flash.notice
-  color: #a61414
   height: 20px
+  a
+    color: white !important
   .message
+    color: white
     float: left
   .hide_button
     float: right
