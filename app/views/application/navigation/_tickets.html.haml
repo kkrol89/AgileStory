@@ -1,0 +1,9 @@
+- if @ticket.present?
+  %span.connector >
+  %span= link_to 'Tickets', project_path(@project)
+  - if @ticket.new_record?
+    %span.connector >
+    %span= link_to 'New ticket', new_project_ticket_path(@project)
+  -else
+    %span.connector >
+    %span= link_to @ticket.title, edit_project_ticket_path(@project, @ticket)

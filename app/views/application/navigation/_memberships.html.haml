@@ -1,0 +1,11 @@
+- if @memberships.present? || @membership.present?
+  %span.connector >
+  %span= link_to 'Memberships', project_memberships_path(@project)
+
+  - if @membership.present?
+    - if @membership.new_record?
+      %span.connector >
+      %span= link_to 'New membership', new_project_membership_path(@project)
+    - else
+      %span.connector >
+      %span= link_to @membership.user.email, edit_project_membership_path(@project, @membership)

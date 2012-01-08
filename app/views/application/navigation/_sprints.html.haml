@@ -1,0 +1,6 @@
+- if @sprint.present?
+  %span.connector >
+  %span= link_to 'Sprints', project_path(@project)
+  - if @sprint.new_record?
+    %span.connector >
+    %span= link_to 'New sprint', new_project_sprint_path(@project)

@@ -1,0 +1,11 @@
+- if @chat.present?
+  %span.connector >
+  %span= link_to 'Chats', chats_path
+  - if @chat.new_record?
+    %span.connector >
+    %span= link_to 'Chats', chats_path
+    %span.connector >
+    %span= link_to 'New chat', new_project_chat_path(@project)
+  - else
+    %span.connector >
+    %span= link_to @chat.title, project_chat_path(@project, @chat)
