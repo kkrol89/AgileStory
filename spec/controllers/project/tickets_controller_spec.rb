@@ -54,6 +54,11 @@ describe Project::TicketsController do
               response.should redirect_to(project_path(project))
             end
           end
+
+          describe "GET 'show'" do
+            before { get :show, :project_id => project.id, :id => ticket.id }
+            it { assigns(:ticket).should == ticket }
+          end
         end
       end
     end
@@ -72,6 +77,14 @@ describe Project::TicketsController do
         end
       end
     end
+
+    context 'with no role' do
+      it 'should not authorize' do
+        should_not_authorize_for(
+          -> { get :show, :project_id => project.id, :id => ticket.id }
+        )
+      end
+    end
   end
 
   context 'when not logged in' do
@@ -81,7 +94,8 @@ describe Project::TicketsController do
         -> { post :create, :project_id => project.id },
         -> { get :edit, :project_id => project.id, :id => ticket.id },
         -> { put :update, :project_id => project.id, :id => ticket.id },
-        -> { delete :destroy, :project_id => project.id, :id => ticket.id }
+        -> { delete :destroy, :project_id => project.id, :id => ticket.id },
+        -> { get :show, :project_id => project.id, :id => ticket.id }
       )
     end
   end

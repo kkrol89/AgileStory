@@ -6,4 +6,4 @@
     %span= link_to 'New ticket', new_project_ticket_path(@project)
   -else
     %span.connector >
-    %span= link_to @ticket.title, edit_project_ticket_path(@project, @ticket)
+    %span= link_to @ticket.title, project_ticket_path(@project, @ticket)

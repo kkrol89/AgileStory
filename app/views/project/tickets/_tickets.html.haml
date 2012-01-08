@@ -2,6 +2,4 @@
   %ul
     - @tickets.each do |ticket|
       %li.ticket
-        .title= ticket.title
-        .edit= link_to "Edit Ticket", edit_project_ticket_path(ticket.project, ticket) if can? :manage_tickets, ticket.project
-        .delete= link_to "Delete Ticket", project_ticket_path(ticket.project, ticket), :method => :delete if can? :manage_tickets, ticket.project
+        .title= link_to ticket.title, project_ticket_path(@project, ticket)

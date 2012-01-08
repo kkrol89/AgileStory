@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     @memberships = user.memberships
 
-    can [:show_project, :browse_memberships, :browse_chats, :use_chat], Project do |project|
+    can [:show_project, :browse_memberships, :browse_chats, :browse_tickets, :use_chat], Project do |project|
       memberships_by_project_id(project.id).any? { |membership| membership.viewer? || membership.developer? || membership.admin? }
     end
 

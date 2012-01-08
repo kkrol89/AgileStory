@@ -1,3 +1,14 @@
+@mixin description-box
+  word-wrap: break-word
+  padding: 4px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  border: 1px solid #AAAAAA
+  font-family: monospace
+  font-size: 13px
+  background-color: white
+  font-weight: bold
+
 form.ticket
   input, select
     min-width: 350px !important
@@ -7,22 +18,17 @@ form.ticket
       margin-right: 10px
       font-family: monospace
       width: 350px !important
+  .cucumber
+    .description
+      height: 200px !important
+      width: 350px !important
 .cucumber
   .description
     overflow: auto
-    word-wrap: break-word
     margin-top: 20px
     float: left
-    height: 200px !important
-    width: 350px !important
-    padding: 4px
-    -moz-border-radius: 5px
-    border-radius: 5px
-    border: 1px solid #AAAAAA
-    font-family: monospace
-    font-size: 13px
-    font-weight: bold
-    background-color: white
+
+    @include description-box
     .keyword
       display: inline
     .keyword.feature
@@ -39,3 +45,29 @@ form.ticket
     clear: both
     a
       font-size: 0.9em
+
+.ticket
+  .title
+    clear: both
+  .story, .points, .user
+    margin-bottom: 10px
+  .header
+    font-weight: bold
+  .description
+    margin-top: 20px
+    .content
+      min-height: 200px !important
+      width: 450px !important
+
+      @include description-box
+  .actions
+    margin-bottom: 60px
+    ul
+      padding: 0
+      li
+        float: left
+        margin-right: 10px
+  .cucumber
+    .description
+      width: 450px !important
+      min-height: 200px !important

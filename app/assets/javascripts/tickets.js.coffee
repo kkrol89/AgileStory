@@ -87,6 +87,30 @@ class TicketEstimation
   estimate: (points)->
     $(@selector + ' #ticket_points').val(points)
 
+class TicketPresenter
+  constructor: (@selector)->
+    @controls = new ScenarioControls(@selector + ' .cucumber .controls')
+    @controls.scenario_button().click(=> @enable_scenario())
+    @controls.standard_button().click(=> @disable_scenario())
+  enable_scenario: ->
+    @controls.scenario().hide()
+    @controls.standard().show()
+    @scenario().show()
+    @scenario().html((new CucumberSyntax(@description_content().html())).highlight())
+    @description().hide()
+  disable_scenario: ->
+    @controls.standard().hide()
+    @controls.scenario().show()
+    @scenario().hide()
+    @description().show()
+  scenario: ->
+    $(@selector + ' .cucumber .description')
+  description: ->
+    $(@selector + ' > .description')
+  description_content: ->
+    $(@selector + ' > .description .content')
+
 
 $(=> new TicketForm('form.ticket'))
 $(=> new TicketEstimation('form.ticket'))
+$(=> new TicketPresenter('.show .ticket'))

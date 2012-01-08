@@ -1,6 +1,7 @@
 class Project::TicketsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :authorize_browse, only: [:show]
   before_filter :assign_project_users
 
   def new
@@ -35,6 +36,10 @@ class Project::TicketsController < ApplicationController
     redirect_to project_path(project), :notice => I18n.t('ticket_successfully_deleted')
   end
 
+  def show
+    @ticket = project.tickets.find(params[:id])
+  end
+
   private
   def project
     @project ||= Project.find(params[:project_id])
@@ -42,6 +47,10 @@ class Project::TicketsController < ApplicationController
 
   def authorize_manage
     authorize! :manage_tickets, project
+  end
+
+  def authorize_browse
+    authorize! :browse_tickets, project
   end
 
   def assign_project_users

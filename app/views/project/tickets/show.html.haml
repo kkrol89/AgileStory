@@ -1,0 +1,24 @@
+.show  
+  .ticket
+    %h1= "Ticket: #{@ticket.title}"
+    .actions
+      %ul
+        %li.edit= link_to "Edit Ticket", edit_project_ticket_path(@project, @ticket) if can? :manage_tickets, @project
+        %li.delete= link_to "Delete Ticket", project_ticket_path(@project, @ticket), :method => :delete if can? :manage_tickets, @project
+    .title
+      .header= 'Title:'
+      .content= @ticket.title
+    .story
+      .header= 'Story type:'
+      .content= @ticket.story.capitalize
+    - if @ticket.story == Ticket::TYPES[:feature]
+      .points
+        .header= 'Points:'
+        .content= @ticket.points
+    .user
+      .header= 'Assigned to:'
+      .content= @ticket.user.try(:email) || 'nobody'
+    .description
+      .header= 'Description:'
+      %pre.content= @ticket.description
+    = render 'cucumber_description'

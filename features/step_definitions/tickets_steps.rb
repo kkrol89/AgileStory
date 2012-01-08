@@ -9,7 +9,8 @@ end
 
 When /^I change ticket title from "([^"]*)" to "([^"]*)" in project "([^"]*)"$/ do |old_title, title, project|
   steps %Q{ When I go to the show project page for "#{project}" }
-  ticket_row_for(old_title).click_link("Edit")
+  ticket_row_for(old_title).click_link(old_title)
+  click_link("Edit")
   steps %Q{
     When I fill in the following:
       | Title       | #{title}            |
@@ -33,7 +34,8 @@ end
 
 When /^I delete ticket titled "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
-  ticket_row_for(ticket).click_link("Delete Ticket")
+  ticket_row_for(ticket).click_link(ticket)
+  click_link("Delete")
 end
 
 When /^I choose cucumber scenario$/ do
@@ -53,7 +55,8 @@ end
 
 When /^I edit ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
-  ticket_row_for(ticket).click_link("Edit")
+  ticket_row_for(ticket).click_link(ticket)
+  click_link("Edit")
 end
 
 When /^I choose "([^"]*)" ticket story$/ do |story|
@@ -105,12 +108,14 @@ end
 
 Then /^I should not be able to delete ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
-  ticket_row_for(ticket).should_not have_link("Delete Ticket")
+  ticket_row_for(ticket).click_link(ticket)
+  page.should_not have_link("Delete Ticket")
 end
 
 Then /^I should not be able to edit ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
-  ticket_row_for(ticket).should_not have_link("Edit Ticket")
+  ticket_row_for(ticket).click_link(ticket)
+  page.should_not have_link("Edit Ticket")
 end
 
 Then /^I should not be able to create new ticket for project "([^"]*)"$/ do |project|
@@ -146,4 +151,10 @@ end
 
 Then /^I should not be able to estimate$/ do
   page.should have_no_css('#ticket_points_input', :visible => true)
+end
+
+Then /^I should be able to view ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
+  steps %Q{ When I go to the show project page for "#{project}" }
+  ticket_row_for(ticket).click_link(ticket)
+  page.should have_content(ticket)
 end
