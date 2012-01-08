@@ -42,3 +42,11 @@ Then /^I am not able to create chat for project "([^"]*)"$/ do |project|
     Then I should not see "New chat"
   }
 end
+
+Then /^I should see chat "([^"]*)" on project "([^"]*)" chats page$/ do |chat, project|
+  steps %Q{
+    When I go to the show project page for "#{project}"
+    And I follow "Chats"
+    Then I should see "#{chat}" within ".chats .chats_list"
+  }
+end

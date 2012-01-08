@@ -1,0 +1,5 @@
+.chats
+  %ul.chats_list
+    - @chats.each do |chat|
+      %li
+        %span.title= link_to chat.title, project_chat_path(@project, chat) if can? :browse_chats, @project

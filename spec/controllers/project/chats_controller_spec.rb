@@ -42,6 +42,11 @@ describe Project::ChatsController do
               before { get :show, :project_id => project.id, :id => chat.id }
               it { assigns(:chat).should == chat }
             end
+
+            describe "GET 'index'" do
+              before { get :index, :project_id => project.id }
+              it { assigns(:chats).should include(chat) }
+            end
           end
         end
       end
@@ -61,7 +66,8 @@ describe Project::ChatsController do
       context "with no role" do
         it 'should not authorize' do
           should_not_authorize_for(
-            -> { get :show, :project_id => project.id, :id => chat.id }
+            -> { get :show, :project_id => project.id, :id => chat.id },
+            -> { get :index, :project_id => project.id }
           )
         end
       end
@@ -73,7 +79,8 @@ describe Project::ChatsController do
       should_require_login_for(
         -> { get :new, :project_id => project.id },
         -> { post :create, :project_id => project.id },
-        -> { get :show, :project_id => project.id, :id => chat.id }
+        -> { get :show, :project_id => project.id, :id => chat.id },
+        -> { get :index, :project_id => project.id }
       )
     end
   end

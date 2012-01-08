@@ -1,7 +1,7 @@
 class Project::ChatsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create]
-  before_filter :authorize_browse, only: [:show]
+  before_filter :authorize_browse, only: [:show, :index]
 
   def new
     @chat = Chat.new
@@ -22,6 +22,10 @@ class Project::ChatsController < ApplicationController
     @chat_attachements = @chat.chat_attachements.order('chat_attachements.created_at ASC')
     @message = Message.new
     @chat_attachement = ChatAttachement.new
+  end
+
+  def index
+    @chats = project.chats
   end
 
   private
