@@ -2,6 +2,10 @@ Given /^there exists a project "([^"]*)"$/ do |project_name|
   Factory(:project, :name => project_name)
 end
 
+Given /^there exists a project "([^"]*)" with "([^"]*)" point scale$/ do |project, scale|
+  Factory(:project, :name => project, :point_scale => Project::POINT_SCALES[scale.parameterize.to_sym])
+end
+
 Given /^there exist projects "([^"]*)"$/ do |projects|
   projects.split(', ').each do |project|
     steps %Q{Given there exists a project "#{project}"}

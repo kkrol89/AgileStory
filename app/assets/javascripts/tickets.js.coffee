@@ -61,13 +61,32 @@ class TicketForm
     @description.scenario().hide()
     @description.standard().show()
   focus_on_textarea: ->
-    @description.standard().show()
+    @description.standard().show('fast')
     @description.textarea().focus()
   highlight: ->
     if @scenario_mode
       @description.scenario().html( (new CucumberSyntax(@description.textarea().val())).highlight() )
   textarea_blur: ->
     if @scenario_mode
-      @description.standard().hide()
+      @description.standard().hide('fast')
+
+class TicketEstimation
+  constructor: (@selector)->
+    @estimation_permission()
+    @story().change(=> @estimation_permission())
+  estimation_permission: ->
+    if @story().val() != 'feature'
+      @estimate(0)
+      @points().hide('fast')
+    else
+      @points().show('fast')
+  story: ->
+    $(@selector + ' #ticket_story')
+  points: ->
+    $(@selector + ' #ticket_points_input')
+  estimate: (points)->
+    $(@selector + ' #ticket_points').val(points)
+
 
 $(=> new TicketForm('form.ticket'))
+$(=> new TicketEstimation('form.ticket'))

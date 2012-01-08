@@ -2,6 +2,12 @@ Given /^user "([^"]*)" has role "([^"]*)" in project "([^"]*)"$/ do |email, role
   Project.find_by_name(project).add_member(User.find_by_email(email), User::ROLES[role.parameterize.to_sym])
 end
 
+Given /^user "([^"]*)" has role "([^"]*)" in projects "([^"]*)"$/ do |email, role, projects|
+  projects.split(", ").each do |project|
+    steps %Q{Given user "#{email}" has role "#{role}" in project "#{project}"}
+  end
+end
+
 Given /^user "([^"]*)" has roles "([^"]*)" in project "([^"]*)"$/ do |email, roles, project_name|
   roles.split(", ").each do |role_name|
     steps %Q{Given user "#{email}" has role "#{role_name}" in project "#{project_name}"}

@@ -15,6 +15,7 @@ When /^I change ticket title from "([^"]*)" to "([^"]*)" in project "([^"]*)"$/ 
       | Title       | #{title}            |
       | Description | Example description |
     When I select "Feature" from "Story type"
+    And I select "1" from "Points"
     And I press "Update Ticket"
   }
 end
@@ -53,6 +54,10 @@ end
 When /^I edit ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   steps %Q{ When I go to the show project page for "#{project}" }
   ticket_row_for(ticket).click_link("Edit")
+end
+
+When /^I choose "([^"]*)" ticket story$/ do |story|
+  steps %Q{When I select "#{story}" from "Story type"}
 end
 
 Then /^I should see highlighted keywords in cucumber scenario$/ do
@@ -116,4 +121,16 @@ Then /^I should not see cucumber scenario outline$/ do
   within '.cucumber .description' do
     page.should_not have_content('Feature: Feature name')
   end
+end
+
+Then /^I should be able to estimate in "([^"]*)" point scale$/ do |scale|
+  within '#ticket_points' do
+    TicketEstimation::SCALES[scale.parameterize.to_sym].each do |points|
+      page.should have_content(points)
+    end
+  end
+end
+
+Then /^I should not be able to estimate$/ do
+  page.should have_no_css('#ticket_points_input', :visible => true)
 end

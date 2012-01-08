@@ -4,4 +4,8 @@ module ProjectsHelper
       [key.to_s.capitalize, value]
     end
   end
+
+  def points_for_project(project)
+    Ticket.allowed_points_for(project.point_scale)
+  end
 end

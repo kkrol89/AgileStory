@@ -31,6 +31,7 @@ Factory.define :ticket do |t|
   t.title "Friends invite feature"
   t.description "Example ticket description"
   t.association(:project)
+  t.points 1
   t.story Ticket::TYPES[:feature]
 end
 

@@ -1,7 +1,7 @@
 class FlashMessage
   constructor: (@selector) ->
     $(@selector + ' .hide_button a').click(=>
-      $(@selector).hide()
+      $(@selector).fadeOut('fast')
       false
     )
 
