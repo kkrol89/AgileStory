@@ -6,6 +6,7 @@ class Membership < ActiveRecord::Base
   validate :user_email_presence
   
   validates :user, :project, :role, :presence => true
+  after_destroy :nullify_assignments
 
   def admin?
     self.role == User::ROLES[:admin]
@@ -26,6 +27,13 @@ class Membership < ActiveRecord::Base
         self.user_id = user.id
       else
         errors.add(:user_email, "not found")
+      end
+    end
+  end
+  def nullify_assignments
+    unless self.project.at_least_developers.include?(self.user)
+      self.user.tickets.where('tickets.project_id = ?', self.project.id).find_each do |ticket|
+        ticket.update_attribute(:user_id, nil)
       end
     end
   end

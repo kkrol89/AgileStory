@@ -60,6 +60,19 @@ When /^I choose "([^"]*)" ticket story$/ do |story|
   steps %Q{When I select "#{story}" from "Story type"}
 end
 
+When /^I change assignment to "([^"]*)"$/ do |user|
+  steps %Q{
+    When I select "#{user}" from "Assigned to"
+    And I press "Update Ticket"
+  }
+end
+
+Then /^I should not be able to assign ticket to "([^"]*)"$/ do |user|
+  within '#ticket_user_input' do
+    page.should_not have_css('select option', :text => user)
+  end
+end
+
 Then /^I should see highlighted keywords in cucumber scenario$/ do
   within '.cucumber .description' do
     page.should have_css('.keyword.outline')

@@ -12,9 +12,14 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :memberships
   has_many :messages
   has_many :chat_attachements
+  has_many :tickets
 
   def is_admin_of?(project)
     Membership.where(:user_id => self, :project_id => project, :role => User::ROLES[:admin]).any?
+  end
+
+  def name
+    self.email
   end
 end
 

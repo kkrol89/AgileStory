@@ -37,11 +37,23 @@ describe Project do
         end
       end
     end
+    context 'with no role' do
+      it 'should not include project' do
+        Project.visible_for(user).should_not include(project)
+      end
+    end
   end
 
-  context 'with no role' do
-    it 'should not include project' do
-      Project.visible_for(user).should_not include(project)
+  describe 'at_least_developers' do
+    let!(:admin) { Factory(:membership, :project => project, :role => 'admin').user }
+    let!(:developer) { Factory(:membership, :project => project, :role => 'developer').user }
+    let!(:viewer) { Factory(:membership, :project => project, :role => 'viewer').user }
+
+    it 'should include only admin and developer' do
+      members = project.at_least_developers
+      members.should include(admin)
+      members.should include(developer)
+      members.should_not include(viewer)
     end
   end
 end

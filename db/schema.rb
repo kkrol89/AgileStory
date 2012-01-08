@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107215420) do
+ActiveRecord::Schema.define(:version => 20120108122949) do
 
   create_table "chat_attachements", :force => true do |t|
     t.integer  "chat_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20120107215420) do
     t.integer  "sequence_number"
     t.string   "story",           :default => "feature"
     t.integer  "points",          :default => 1
+    t.integer  "user_id"
   end
 
   add_index "tickets", ["project_id"], :name => "idx_tickets"

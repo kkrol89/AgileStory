@@ -14,12 +14,18 @@ class Project < ActiveRecord::Base
 
   POINT_SCALES = {:linear => 'linear', :fibonacci => 'fibonacci', :power => 'power'}
 
+  def self.visible_for(user)
+    user.projects
+  end
+
   def add_member(user, role)
     self.memberships << Membership.new(:project => self, :user => user, :role => role)
   end
 
-  def self.visible_for(user)
-    user.projects
+  def at_least_developers
+    self.users
+      .where("memberships.role = ? OR memberships.role = ?", User::ROLES[:admin], User::ROLES[:developer])
+      .order('users.email')
   end
 
   private

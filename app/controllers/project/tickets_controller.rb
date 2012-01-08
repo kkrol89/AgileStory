@@ -1,6 +1,7 @@
 class Project::TicketsController < ApplicationController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :assign_project_users
 
   def new
     @ticket = Ticket.new
@@ -11,6 +12,7 @@ class Project::TicketsController < ApplicationController
     if @ticket.save
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_created')
     else
+      assign_project_users
       render :new
     end
   end
@@ -40,5 +42,9 @@ class Project::TicketsController < ApplicationController
 
   def authorize_manage
     authorize! :manage_tickets, project
+  end
+
+  def assign_project_users
+    @users = project.at_least_developers
   end
 end
