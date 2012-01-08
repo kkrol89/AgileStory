@@ -2,4 +2,11 @@
   %ul.chats_list
     - @chats.each do |chat|
       %li
-        %span.title= link_to chat.title, project_chat_path(@project, chat) if can? :browse_chats, @project
+        %span.chat_title= link_to chat.title, project_chat_path(@project, chat) if can? :browse_chats, @project
+        %span.chat_actions
+          %ul
+            %li= link_to "Delete", project_chat_path(@project, chat), :method => :delete if can? :manage_chats, @project
+
+  .chats_management
+    %ul
+      %li= link_to 'New chat', new_project_chat_path(@project)

@@ -27,7 +27,16 @@ describe Project::ChatsController do
             expect {
               post :create, :project_id => project.id, :chat => Factory.attributes_for(:chat)
             }.to change { project.chats.count }.by(1)
-            response.should redirect_to(project_path(project))
+            response.should redirect_to(project_chats_path(project))
+          end
+        end
+
+        describe "DELETE 'destroy'" do
+          before { chat }
+          it 'should destroy chat' do
+            expect {
+              delete :destroy, :project_id => project.id, :id => chat.id
+            }.to change { project.chats.count }.by(-1)
           end
         end
       end
@@ -57,7 +66,8 @@ describe Project::ChatsController do
           it 'should not authorize' do
             should_not_authorize_for(
               -> { get :new, :project_id => project.id },
-              -> { post :create, :project_id => project.id }
+              -> { post :create, :project_id => project.id },
+              -> { delete :destroy, :project_id => project.id, :id => chat.id }
             )
           end
         end
@@ -80,7 +90,8 @@ describe Project::ChatsController do
         -> { get :new, :project_id => project.id },
         -> { post :create, :project_id => project.id },
         -> { get :show, :project_id => project.id, :id => chat.id },
-        -> { get :index, :project_id => project.id }
+        -> { get :index, :project_id => project.id },
+        -> { delete :destroy, :project_id => project.id, :id => chat.id }
       )
     end
   end

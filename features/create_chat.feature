@@ -13,9 +13,10 @@ Feature: Create chat
     When I create new chat titled "DevChat" for project "Universe"
 
     Then I should see successful chat creation message
-    And I should be on the show project page for "Universe"
+    And I should be on the chats page for project "Universe"
     
     Then I should see chat "DevChat" for project "Universe" on my chats page
+    And I should see chat "DevChat" on project "Universe" chats page
 
   Scenario Outline: Create chat as non-admin
     Given user "user@example.org" has role <role> in project "Universe"

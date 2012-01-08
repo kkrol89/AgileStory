@@ -1,6 +1,6 @@
 class Project::ChatsController < ApplicationController
   include Authorization::Login
-  before_filter :authorize_manage, only: [:new, :create]
+  before_filter :authorize_manage, only: [:new, :create, :destroy]
   before_filter :authorize_browse, only: [:show, :index]
 
   def new
@@ -10,7 +10,7 @@ class Project::ChatsController < ApplicationController
   def create
     @chat = project.chats.build(params[:chat])
     if @chat.save
-      redirect_to project_path(project), :notice => I18n.t('chat_successfully_created')
+      redirect_to project_chats_path(project), :notice => I18n.t('chat_successfully_created')
     else
       render :new
     end
@@ -26,6 +26,11 @@ class Project::ChatsController < ApplicationController
 
   def index
     @chats = project.chats
+  end
+
+  def destroy
+    project.chats.find(params[:id]).destroy
+    redirect_to project_chats_path(project), :notice => I18n.t('chat_successfully_deleted')
   end
 
   private

@@ -24,6 +24,8 @@ module NavigationHelpers
       project_chat_path(Project.find_by_name($2), Chat.find_by_title($1))
     when /^the new ticket page for "([^"]*)"$/
       new_project_ticket_path(Project.find_by_name($1))
+    when /^the chats page for project "([^"]*)"$/
+      project_chats_path(Project.find_by_name($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
