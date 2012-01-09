@@ -38,6 +38,8 @@ class Project::TicketsController < ApplicationController
 
   def show
     @ticket = project.tickets.find(params[:id])
+    @ticket_attachements = @ticket.ticket_attachements
+    @ticket_attachement = TicketAttachement.new
   end
 
   private

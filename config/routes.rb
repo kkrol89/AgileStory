@@ -18,6 +18,10 @@ Agilestory::Application.routes.draw do
     resources :chat_attachements, :only => [:create], :controller => 'chat/chat_attachements'
   end
 
+  resources :tickets, :only => [] do
+    resources :ticket_attachements, :controller => 'ticket/ticket_attachements', :only => [:create]
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

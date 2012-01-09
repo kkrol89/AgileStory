@@ -1,0 +1,5 @@
+- @ticket_attachements.each do |ticket_attachement|
+  - if is_image?(ticket_attachement)
+    .ticket_attachement= link_to image_tag(ticket_attachement.attachement.url, :alt => ticket_attachement.attachement_file_name), ticket_attachement.attachement.url
+  - else
+    .ticket_attachement= link_to ticket_attachement.attachement_file_name, ticket_attachement.attachement.url

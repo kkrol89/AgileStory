@@ -25,6 +25,7 @@ en:
   ticket_successfully_deleted: "Ticket was successfully deleted"
   chat_successfully_created: "Chat was successfully created"
   chat_successfully_deleted: "Chat was successfully deleted"
+  ticket_attachement_successfully_created: "Ticket attachement was successfully created"
 
   not_allowed: "You are not allowed to view this page"
 

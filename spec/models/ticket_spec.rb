@@ -5,6 +5,7 @@ describe Ticket do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:project) }
   it { should validate_presence_of(:story) }
+  it { should have_many(:ticket_attachements) }
 
   context 'when project exists' do
     let!(:project) { Factory(:project) }

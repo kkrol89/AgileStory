@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108122949) do
+ActiveRecord::Schema.define(:version => 20120108225140) do
 
   create_table "chat_attachements", :force => true do |t|
     t.integer  "chat_id"
@@ -76,6 +76,16 @@ ActiveRecord::Schema.define(:version => 20120108122949) do
   end
 
   add_index "sprints", ["project_id"], :name => "idx_sprints"
+
+  create_table "ticket_attachements", :force => true do |t|
+    t.integer  "ticket_id"
+    t.string   "attachement_file_name"
+    t.string   "attachement_content_type"
+    t.integer  "attachement_file_size"
+    t.datetime "attachement_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tickets", :force => true do |t|
     t.string   "title"

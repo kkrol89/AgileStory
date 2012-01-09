@@ -3,6 +3,7 @@ class Ticket < ActiveRecord::Base
   include TicketEstimation
   belongs_to :project
   belongs_to :user
+  has_many :ticket_attachements
 
   TYPES = {:feature => 'feature', :bug => 'bug', :task => 'task'}
 

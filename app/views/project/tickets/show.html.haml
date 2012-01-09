@@ -22,3 +22,8 @@
       .header= 'Description:'
       %pre.content= @ticket.description
     = render 'cucumber_description'
+  
+    .ticket_attachements
+      %h2= "Attachements"
+      = render :partial => 'ticket/ticket_attachements/ticket_attachements'
+      = render :partial => 'ticket/ticket_attachements/form' if can? :manage_tickets, @project

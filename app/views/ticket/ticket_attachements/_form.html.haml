@@ -1,0 +1,6 @@
+= semantic_form_for [@ticket, @ticket_attachement], :html => { :multipart => true } do |form|
+  = form.semantic_errors :ticket, :attachement
+  = form.inputs do
+    = form.input :attachement
+  = form.buttons do
+    = form.commit_button 'Attach file'
