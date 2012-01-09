@@ -1,5 +1,0 @@
-.tickets
-  %ul
-    - @tickets.each do |ticket|
-      %li.ticket
-        .title= link_to ticket.title, project_ticket_path(@project, ticket)

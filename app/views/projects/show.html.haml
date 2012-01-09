@@ -1,15 +1,18 @@
-%table.project
-  %tr
-    %th= t('activerecord.attributes.project.name')
-    %th= t('activerecord.attributes.project.description')
-  %tr
-    %td.name= @project.name
-    %td.description= @project.description
-    
-= link_to 'Members', project_memberships_path(@project) if can? :browse_memberships, @project
-= link_to 'Create new sprint', new_project_sprint_path(@project) if can? :manage_sprints, @project
-= link_to 'New ticket', new_project_ticket_path(@project) if can? :manage_tickets, @project
-= link_to 'Chats', project_chats_path(@project) if can? :browse_chats, @project
+.project
+  %h1= "Project: #{@project.name}"
+  %p= @project.description
 
-= render :partial => 'project/sprints/sprints'
-= render :partial => 'project/tickets/tickets'
+  .actions
+    = link_to 'New ticket', new_project_ticket_path(@project) if can? :manage_tickets, @project
+    = link_to 'New sprint', new_project_sprint_path(@project) if can? :manage_sprints, @project
+    = link_to 'Members', project_memberships_path(@project) if can? :browse_memberships, @project
+    = link_to 'Chats', project_chats_path(@project) if can? :browse_chats, @project
+  
+  .instructions
+    %p= 'Drag and drop to manage your tickets (not implemented yet)'
+
+  .boards
+    = render :partial => 'project/boards/board', :locals => { :board => @icebox }
+    = render :partial => 'project/boards/board', :locals => { :board => @backlog }
+    = render :partial => 'project/boards/board', :locals => { :board => @sprint } if @sprint.present?
+  .summary

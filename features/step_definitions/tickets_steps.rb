@@ -91,8 +91,8 @@ Then /^I should see successfull ticket update message$/ do
   steps %Q{Then I should see "Ticket was successfully updated"}
 end
 
-Then /^I should see ticket "([^"]*)" on the tickets list$/ do |ticket|
-  within '.tickets' do
+Then /^I should see ticket "([^"]*)" in icebox$/ do |ticket|
+  within '.icebox .tickets' do
     page.should have_content(ticket)
   end
 end

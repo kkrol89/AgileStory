@@ -15,7 +15,7 @@ Feature: Edit ticket
     When I change ticket title from "Friends invitation feature" to "Facebook invitation feature" in project "Universe"
     Then I should be on the show project page for "Universe"
     And I should see successfull ticket update message
-    And I should see ticket "Facebook invitation feature" on the tickets list
+    And I should see ticket "Facebook invitation feature" in icebox
 
   Examples:
     | role        |
@@ -41,4 +41,4 @@ Feature: Edit ticket
     And I press "Update Ticket"
 
     And I should see successfull ticket update message
-    And I should see ticket "House feature" on the tickets list
+    And I should see ticket "House feature" in icebox

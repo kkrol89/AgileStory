@@ -14,7 +14,7 @@ Feature: Create ticket
     When I create new ticket titled "Friends invitation feature" for project "Universe"
     Then I should be on the show project page for "Universe"
     And I should see successfull ticket creation message
-    And I should see ticket "Friends invitation feature" on the tickets list
+    And I should see ticket "Friends invitation feature" in icebox
 
   Examples:
     | role        |
@@ -35,8 +35,9 @@ Feature: Create ticket
 
     When I fill in ticket title with "House feature"
     And I append example description to ticket scenario
+    And I select "Icebox" from "Board"
     Then I should see highlighted keywords in cucumber scenario
 
     When I press "Create Ticket"
     Then I should see successfull ticket creation message
-    And I should see ticket "House feature" on the tickets list
+    And I should see ticket "House feature" in icebox

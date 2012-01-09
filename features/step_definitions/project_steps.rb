@@ -76,7 +76,7 @@ Then /^I can view details page of project "([^"]*)"$/ do |project|
     And I follow "#{project}" within ".projects"
 
     Then I should be on the show project page for "#{project}"
-    And I should see "#{project}" within ".name"
+    And I should see "#{project}" within ".project"
   }
 end
 

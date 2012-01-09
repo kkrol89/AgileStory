@@ -17,6 +17,10 @@ class Ticket < ActiveRecord::Base
     board.try(:project)
   end
 
+  def feature?
+    story == TYPES[:feature]
+  end
+
   private
   def assignment_for_members
     if self.project.present? && self.user.present?

@@ -1,0 +1,6 @@
+.board{:class => board.type.downcase, 'data-board-id' => board.id}
+  .name= board.name
+  = render :partial => 'project/sprints/management', :locals => { :sprint => board } if board.sprint? && (can? :manage_tickets, @project)
+  .tickets
+    %ol
+      = render :partial => 'project/tickets/ticket', :collection => board.tickets

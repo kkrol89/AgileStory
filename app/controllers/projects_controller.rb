@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
   include Authorization::Login
+  include BoardsAssignment
+
   before_filter :authorize_show, only: :show
   before_filter :authorize_manage, only: [:edit, :update, :destroy]
 
@@ -19,7 +21,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @sprints = @project.sprints
     @tickets = @project.tickets
   end
 
