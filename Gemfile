@@ -14,6 +14,7 @@ gem 'devise'
 gem 'paperclip'
 gem 'state_machine'
 gem 'will_paginate'
+gem 'acts_as_list'
 
 gem 'cancan'
 gem 'formtastic'

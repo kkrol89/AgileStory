@@ -32,8 +32,10 @@ class Membership < ActiveRecord::Base
   end
   def nullify_assignments
     unless self.project.at_least_developers.include?(self.user)
-      self.user.tickets.where('tickets.project_id = ?', self.project.id).find_each do |ticket|
-        ticket.update_attribute(:user_id, nil)
+      self.project.tickets.find_each do |ticket|
+        if ticket.user == self.user
+          ticket.update_attribute(:user_id, nil)
+        end
       end
     end
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Project::TicketsController do
   let(:project) { Factory(:project) }
-  let(:ticket) { Factory(:ticket, :project => project) }
+  let(:ticket) { Factory(:ticket, :board => project.icebox) }
 
   context 'when logged in as user' do
     let(:user) { Factory(:user) }
@@ -23,7 +23,7 @@ describe Project::TicketsController do
         describe "POST 'create" do
           it 'should create new ticket' do
             expect {
-              post :create, :project_id => project.id, :ticket => Factory.build(:ticket, :project => project).attributes
+              post :create, :project_id => project.id, :ticket => Factory.build(:ticket, :board => project.icebox).attributes
             }.to change { project.tickets.count }.by(1)
             response.should redirect_to(project_path(project))
           end

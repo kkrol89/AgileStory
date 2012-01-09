@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108225140) do
+ActiveRecord::Schema.define(:version => 20120109193759) do
+
+  create_table "boards", :force => true do |t|
+    t.string   "goal"
+    t.datetime "start_date"
+    t.integer  "duration"
+    t.integer  "project_id"
+    t.integer  "sequence_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",            :default => "Sprint"
+  end
+
+  add_index "boards", ["project_id"], :name => "idx_sprints"
 
   create_table "chat_attachements", :force => true do |t|
     t.integer  "chat_id"
@@ -65,18 +78,6 @@ ActiveRecord::Schema.define(:version => 20120108225140) do
 
   add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
 
-  create_table "sprints", :force => true do |t|
-    t.string   "goal"
-    t.datetime "start_date"
-    t.integer  "duration"
-    t.integer  "project_id"
-    t.integer  "sequence_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sprints", ["project_id"], :name => "idx_sprints"
-
   create_table "ticket_attachements", :force => true do |t|
     t.integer  "ticket_id"
     t.string   "attachement_file_name"
@@ -90,16 +91,14 @@ ActiveRecord::Schema.define(:version => 20120108225140) do
   create_table "tickets", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sequence_number"
-    t.string   "story",           :default => "feature"
-    t.integer  "points",          :default => 1
+    t.string   "story",       :default => "feature"
+    t.integer  "points",      :default => 1
     t.integer  "user_id"
+    t.integer  "board_id"
+    t.integer  "position"
   end
-
-  add_index "tickets", ["project_id"], :name => "idx_tickets"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

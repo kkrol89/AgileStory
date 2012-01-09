@@ -9,7 +9,7 @@ class Project::TicketsController < ApplicationController
   end
 
   def create
-    @ticket = project.tickets.build(params[:ticket])
+    @ticket = project.backlog.tickets.build(params[:ticket])
     if @ticket.save
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_created')
     else

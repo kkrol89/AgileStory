@@ -1,5 +1,5 @@
 Given /^there exists a ticket "([^"]*)" for project "([^"]*)"$/ do |ticket, project|
-  Factory(:ticket, :title => ticket, :project => Project.find_by_name(project))
+  Factory(:ticket, :title => ticket, :board => Project.find_by_name(project).icebox)
 end
 
 Given /^ticket "([^"]*)" has cucumber scenario defined$/ do |ticket|

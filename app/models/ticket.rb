@@ -1,14 +1,21 @@
 class Ticket < ActiveRecord::Base
-  include SequenceNumber
   include TicketEstimation
-  belongs_to :project
+
   belongs_to :user
+  belongs_to :board
+
   has_many :ticket_attachements
+
+  acts_as_list :scope => :board
 
   TYPES = {:feature => 'feature', :bug => 'bug', :task => 'task'}
 
   validate :assignment_for_members
-  validates :title, :project, :story, :points, :presence => true
+  validates :title, :story, :points, :board, :presence => true
+
+  def project
+    board.try(:project)
+  end
 
   private
   def assignment_for_members

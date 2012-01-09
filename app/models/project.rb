@@ -1,8 +1,12 @@
 class Project < ActiveRecord::Base
+  has_many :boards, :dependent => :destroy
   has_many :sprints
-  has_many :memberships
-  has_many :tickets
-  has_many :chats
+  has_one :icebox
+  has_one :backlog
+
+  has_many :memberships, :dependent => :destroy
+  has_many :tickets, :through => :boards, :dependent => :destroy
+  has_many :chats, :dependent => :destroy
   has_many :users, :through => :memberships
 
   validates :name, :description, :point_scale, :presence => true
@@ -11,6 +15,9 @@ class Project < ActiveRecord::Base
   validate :at_least_one_admin
 
   accepts_nested_attributes_for :memberships
+
+  after_create :create_icebox
+  after_create :create_backlog
 
   POINT_SCALES = {:linear => 'linear', :fibonacci => 'fibonacci', :power => 'power'}
 
@@ -33,6 +40,14 @@ class Project < ActiveRecord::Base
     unless self.memberships.any? { |membership| membership.role == User::ROLES[:admin] }
       errors.add(:memberships, 'should include at least one admin')
     end
+  end
+
+  def create_icebox
+    Icebox.create!(:project => self)
+  end
+
+  def create_backlog
+    Backlog.create!(:project => self)
   end
 end
 

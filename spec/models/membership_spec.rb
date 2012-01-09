@@ -21,7 +21,7 @@ describe Membership do
     let!(:user) { Factory(:user) }
     let!(:project) { Factory(:project) }
     let!(:membership) { Factory(:membership, :role => 'developer', :user => user, :project => project) }
-    let!(:ticket) { Factory(:ticket, :user => user, :project => project) }
+    let!(:ticket) { Factory(:ticket, :user => user, :board => project.icebox) }
 
     it 'should nullify tickets assignments' do
       expect {

@@ -56,5 +56,21 @@ describe Project do
       members.should_not include(viewer)
     end
   end
+
+  describe 'project create' do
+    it 'should create icebox' do
+      expect {
+        project = Factory(:project)
+      }.to change(Icebox, :count).by(1)
+      project.icebox.should be_a(Icebox)
+    end
+
+    it 'should create backlog' do
+      expect {
+        project = Factory(:project)
+      }.to change(Backlog, :count).by(1)
+      project.backlog.should be_a(Backlog)
+    end
+  end
 end
 
