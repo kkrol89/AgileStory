@@ -17,6 +17,7 @@ describe Project::TicketsController do
           before { get :new, :project_id => project.id }
           it { assigns(:ticket).should be_a_new(Ticket) }
           it { assigns(:users).should_not be_nil }
+          it { assigns(:boards).should_not be_nil }
           it { response.should render_template(:new) }
         end
 

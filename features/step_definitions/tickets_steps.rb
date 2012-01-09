@@ -28,6 +28,7 @@ When /^I create new ticket titled "([^"]*)" for project "([^"]*)"$/ do |ticket, 
     And I fill in the following:
       | Title       | #{ticket}           |
       | Description | Example description |
+    And I select "Icebox" from "Board"
     And I press "Create Ticket"
   }
 end

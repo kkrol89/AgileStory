@@ -1,19 +1,23 @@
 class Project::TicketsController < ApplicationController
   include Authorization::Login
+  include Authorization::Exceptions
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
   before_filter :authorize_browse, only: [:show]
   before_filter :assign_project_users
+  before_filter :assign_project_boards
+  before_filter :project_board_authorization
 
   def new
     @ticket = Ticket.new
   end
 
   def create
-    @ticket = project.backlog.tickets.build(params[:ticket])
+    @ticket = Ticket.new(params[:ticket])
     if @ticket.save
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_created')
     else
       assign_project_users
+      assign_project_boards
       render :new
     end
   end
@@ -47,6 +51,10 @@ class Project::TicketsController < ApplicationController
     @project ||= Project.find(params[:project_id])
   end
 
+  def board
+    Board.find(params[:project][:board_id])
+  end
+
   def authorize_manage
     authorize! :manage_tickets, project
   end
@@ -57,5 +65,17 @@ class Project::TicketsController < ApplicationController
 
   def assign_project_users
     @users = project.at_least_developers
+  end
+
+  def assign_project_boards
+    @boards = project.boards
+  end
+
+  def project_board_authorization
+    if params[:project].present? && params[:project][:board_id].present?
+      unless project.boards.include?(board)
+        raise Authorization::Exceptions::NotAllowed.new
+      end
+    end
   end
 end

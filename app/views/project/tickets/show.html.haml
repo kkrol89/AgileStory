@@ -18,6 +18,9 @@
     .user
       .header= 'Assigned to:'
       .content= @ticket.user.try(:email) || 'nobody'
+    .board
+      .header= 'Board:'
+      .content= @ticket.board.name
     .description
       .header= 'Description:'
       %pre.content= @ticket.description
