@@ -39,10 +39,11 @@
       font-size: 12px
   .boards
     .board
+      overflow: auto
       float: left
       display: block
       width: 320px
-      min-height: 200px
+      height: 400px
       border: 2px solid #AAAAAA
       .management
         text-align: center
@@ -74,7 +75,7 @@
               color: white !important
               font-weight: bold
           li.ticket.open
-            background-color: black !important
+            background-color: #222 !important
           li.ticket.in_progress
             background-color: #999 !important
           li.ticket.finished

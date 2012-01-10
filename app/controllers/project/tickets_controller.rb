@@ -9,6 +9,7 @@ class Project::TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+    @ticket.board = project.icebox
   end
 
   def create
