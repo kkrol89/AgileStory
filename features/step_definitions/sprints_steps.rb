@@ -1,3 +1,17 @@
+Given /^there exist "([^"]*)" sprints for project "([^"]*)"$/ do |amount, project|
+  amount.to_i.times do
+    Factory(:sprint, :project => Project.find_by_name(project))
+  end
+end
+
+Then /^I should see sprint "([^"]*)" in boards section$/ do |sprint|
+  within('.boards .board.sprint .name') { page.should have_content(sprint) }
+end
+
+When /^I switch to sprint "([^"]*)"$/ do |sprint|
+  select(sprint, :from => 'sprint_switch')
+end
+
 When /^I create new sprint for project "([^"]*)"$/ do |project|
   steps %Q{
     When I go to the show project page for "#{project}"

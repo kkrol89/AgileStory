@@ -1,3 +1,5 @@
 .management
   .start_date= "Start: #{sprint.start_date.strftime('%d-%m-%Y')}"
   .duration= "and takes #{sprint.duration} days"
+  .switch{'project-url' => project_path(sprint.project)}
+    = select_tag 'sprint_switch', options_from_collection_for_select(@sprints, 'id', 'name', @sprint.id)
