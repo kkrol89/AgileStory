@@ -41,5 +41,12 @@ describe Ticket do
         end
       end
     end
+
+    describe 'state change validation' do
+      it 'should not allow to change state of not assigned ticket' do
+        Factory.build(:ticket, :user => nil, :state => 'in_progress').should_not be_valid
+        Factory.build(:ticket, :user => nil).start.should be_false
+      end
+    end
   end
 end

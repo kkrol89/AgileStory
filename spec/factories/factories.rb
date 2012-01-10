@@ -33,6 +33,7 @@ Factory.define :ticket do |t|
   t.association(:board)
   t.points 1
   t.story Ticket::TYPES[:feature]
+  t.state 'open'
 end
 
 Factory.define :board do |b|

@@ -1,5 +1,6 @@
-%li.ticket
+%li.ticket{:class => ticket.state}
   .story= story_type_icon_for(ticket)
-  - if ticket.feature?
-    .points= render :partial => 'project/tickets/dynamic_estimation', :locals => { :ticket => ticket }
-  .title= link_to shorten_title(ticket.title, to: 50), project_ticket_path(@project, ticket), :title => ticket.title
+  .points
+    - if ticket.feature?
+      = render :partial => 'project/tickets/dynamic_estimation', :locals => { :ticket => ticket }
+  .title= link_to shorten_title(ticket.title, to: 40), project_ticket_path(@project, ticket), :title => ticket.title

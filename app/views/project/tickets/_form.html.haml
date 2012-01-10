@@ -1,5 +1,5 @@
 = semantic_form_for [@project, @ticket] do |form|
-  = form.semantic_errors :project, :title, :description, :sequence_number, :story, :points, :user
+  = form.semantic_errors :project, :title, :description, :sequence_number, :story, :points, :user, :state
 
   = form.inputs do
     = form.input :title
@@ -7,6 +7,7 @@
     = form.input :points, :collection => points_for_project(@project), :as => :select, :include_blank => false
     = form.input :user, :collection => @users, :label => 'Assigned to'
     = form.input :board, :collection => @boards, :include_blank => false
+    = form.input :state, :collection => ticket_states_as_form_collection, :include_blank => false
     = form.input :description
     = render 'cucumber_description'
 

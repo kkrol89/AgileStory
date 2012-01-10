@@ -40,7 +40,7 @@
     .board
       float: left
       display: block
-      width: 240px
+      width: 320px
       height: 200px
       border: 2px solid #AAAAAA
       .management
@@ -56,22 +56,32 @@
         ol
           padding: 0
           li.ticket
+            padding-left: 5px
+            min-height: 26px
             display: block
             background-color: #999
-            text-align: center
             font-size: 13px
             margin-bottom: 3px
             .title
               a
-                font-weight: bold
                 color: white !important
             .story, .title, .points, .dynamic_estimation
+              line-height: 2em
               display: inline
             .story, .points
-              padding-right: 8px
-            .story, .points
+              margin-right: 5px
               color: white !important
               font-weight: bold
+          li.ticket.open
+            background-color: black !important
+          li.ticket.in_progress
+            background-color: #999 !important
+          li.ticket.finished
+            background-color: #468096 !important
+          li.ticket.accepted
+            background-color: #468046 !important
+          li.ticket.rejected
+            background-color: #C43C3C !important
 
   .summary
     clear: both

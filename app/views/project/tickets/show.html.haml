@@ -21,6 +21,9 @@
     .board
       .header= 'Board:'
       .content= @ticket.board.name
+    .state
+      .header= 'State:'
+      .content= Ticket::STATES[@ticket.state]
     .description
       .header= 'Description:'
       %pre.content= @ticket.description
