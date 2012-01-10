@@ -33,3 +33,14 @@ Feature: Estimate tickets
 
     When I choose "Bug" ticket story
     Then I should not be able to estimate
+
+  @javascript
+  Scenario: Estimate from project page
+    Given there exists a project "Universe" with "Fibonacci" point scale
+    And user "user@example.org" has role "Developer" in project "Universe"
+    And there exists a ticket "Friends invitation feature" for project "Universe"
+
+    When I go to the show project page for "Universe"
+    And I estimate ticket "Friends invitation feature" to "5" points
+    And I view ticket "Friends invitation feature" from project "Universe"
+    Then I should see "5" points estimation

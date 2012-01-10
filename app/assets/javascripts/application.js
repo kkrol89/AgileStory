@@ -12,3 +12,4 @@
 //= require tickets
 //= require chats
 //= require memberships
+//= require projects

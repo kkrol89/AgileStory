@@ -2,7 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  error_occured: 'Error occured'
   sign_in: "Sign in"
   sign_out: "Sign out"
   sign_up: "Sign up"

@@ -71,6 +71,19 @@ When /^I change assignment to "([^"]*)"$/ do |user|
   }
 end
 
+When /^I estimate ticket "([^"]*)" to "([^"]*)" points$/ do |ticket, points|
+  ticket_row_for(ticket).find('select').select(points)
+end
+
+When /^I view ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
+  steps %Q{When I go to the show project page for "#{project}"}
+  ticket_row_for(ticket).click_link(ticket)
+end
+
+Then /^I should see "([^"]*)" points estimation$/ do |points|
+  within ('.ticket .points') { page.should have_content(points) }
+end
+
 Then /^I should not be able to assign ticket to "([^"]*)"$/ do |user|
   within '#ticket_user_input' do
     page.should_not have_css('select option', :text => user)

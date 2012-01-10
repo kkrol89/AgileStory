@@ -1,0 +1,5 @@
+- if can? :manage_tickets, @project
+  .dynamic_estimation{ 'data-project-id' => @project.id, 'data-ticket-id' => ticket.id }
+    = select_tag "points_for_ticket_#{ticket.id}", options_for_select(points_for_project(@project), ticket.points), :class => 'select_points'
+- else
+  = ticket.points

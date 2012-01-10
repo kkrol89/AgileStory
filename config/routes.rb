@@ -20,6 +20,7 @@ Agilestory::Application.routes.draw do
 
   resources :tickets, :only => [] do
     resources :ticket_attachements, :controller => 'ticket/ticket_attachements', :only => [:create]
+    resources :estimations, :controller => 'ticket/estimations', :only => [:create]
   end
 
   # The priority is based upon order of creation:

@@ -4,6 +4,9 @@ class FlashMessage
       $(@selector).fadeOut('fast')
       false
     )
+  message: (message)->
+    $(@selector + ' .message').html(message)
+    $(@selector).fadeIn('fast')
 
-$(=> new FlashMessage('.flash.notice'))
-$(=> new FlashMessage('.flash.alert'))
+$(=> @notice = new FlashMessage('.flash.notice'))
+$(=> @alert = new FlashMessage('.flash.alert'))
