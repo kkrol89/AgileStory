@@ -2,6 +2,7 @@ module BoardsAssignment
   def self.included(klass)
     klass.instance_eval do
       before_filter :assign_boards, :only => [:show]
+      before_filter :stretch_view, :only => [:show]
     end
   end
 
@@ -16,4 +17,9 @@ module BoardsAssignment
     end
   end
   private :assign_boards
+
+  def stretch_view
+    @stretched_view = 'stretched'
+  end
+  private :stretch_view
 end

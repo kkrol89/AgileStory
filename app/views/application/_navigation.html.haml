@@ -1,5 +1,5 @@
 - if current_user.present?
-  #navigation_bar
+  #navigation_bar{:class => @stretched_view}
     %span= link_to 'Projects', projects_path
     - if @project.present?
       - if @project.new_record?

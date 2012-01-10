@@ -1,6 +1,5 @@
 #new_membership
-  %h1= 'Assign member'
-  %h3.project_name= "Project: #{@project.name}"
+  %h1.page_label= 'Assign member'
 
   = semantic_form_for [@project, @membership] do |form|
     = form.semantic_errors :project, :role, :user_email
