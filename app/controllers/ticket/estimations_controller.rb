@@ -1,4 +1,4 @@
-class Ticket::EstimationsController < ApplicationController
+class Ticket::EstimationsController < Ticket::BaseController
   include Authorization::Login
   before_filter :authorize_manage, only: [:create]
 
@@ -18,14 +18,6 @@ class Ticket::EstimationsController < ApplicationController
   end
 
   private
-  def project
-    @project ||= ticket.project
-  end
-
-  def ticket
-    @ticket ||= Ticket.find(params[:ticket_id])
-  end
-
   def authorize_manage
     authorize! :manage_tickets, project
   end

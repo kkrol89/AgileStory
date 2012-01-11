@@ -1,4 +1,4 @@
-class Project::MembershipsController < ApplicationController
+class Project::MembershipsController < Project::BaseController
   include Authorization::Login
   before_filter :authorize_browse, only: [:index]
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
@@ -39,10 +39,6 @@ class Project::MembershipsController < ApplicationController
   end
 
   private
-  def project
-    @project ||= Project.find(params[:project_id])
-  end
-
   def authorize_browse
     authorize! :browse_memberships, project
   end

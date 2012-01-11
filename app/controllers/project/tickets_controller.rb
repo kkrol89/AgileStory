@@ -1,4 +1,4 @@
-class Project::TicketsController < ApplicationController
+class Project::TicketsController < Project::BaseController
   include Authorization::Login
   include Authorization::Exceptions
   before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy, :assign]
@@ -58,10 +58,6 @@ class Project::TicketsController < ApplicationController
   end
 
   private
-  def project
-    @project ||= Project.find(params[:project_id])
-  end
-
   def board
     Board.find(params[:project][:board_id])
   end

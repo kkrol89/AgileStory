@@ -1,4 +1,4 @@
-class Project::SprintsController < ApplicationController
+class Project::SprintsController < Project::BaseController
   include Authorization::Login
   before_filter :authorize_manage, only: [:new, :create]
 
@@ -16,10 +16,6 @@ class Project::SprintsController < ApplicationController
   end
 
   private
-  def project
-    @project ||= Project.find(params[:project_id])
-  end
-
   def authorize_manage
     authorize! :manage_sprints, project
   end
