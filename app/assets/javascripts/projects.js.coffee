@@ -1,21 +1,23 @@
-class Estimation
-  constructor: (@estimation)->
+class Ticket
+  constructor: (@ticket)->
   points: ->
-    $(@estimation).children('select').val()
-  ticket: ->
-    $(@estimation).attr('data-ticket-id')
+    $(@ticket).find('select').val()
+  hide_assign: ->
+    $(@ticket).find('.action .assign').hide()
+  id: ->
+    $(@ticket).attr('data-ticket-id')
 
 
 class DynamicEstimation
   constructor: (@selector)->
     $(@selector).change((data)=> 
-      @estimate(new Estimation($(data.target).parent('.dynamic_estimation')))
+      @estimate(new Ticket($(data.target).parents('li.ticket')))
     )
-  estimate: (estimation)->
+  estimate: (ticket)->
     $.ajax({
       type: "POST",
-      url: '/tickets/' + estimation.ticket() + '/estimations',
-      data: JSON.stringify({ estimation: estimation.points() }),
+      url: '/tickets/' + ticket.id() + '/estimations',
+      data: JSON.stringify({ estimation: ticket.points() }),
       contentType: 'application/json',
       dataType: 'json',
       success: (response)=>

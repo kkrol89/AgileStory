@@ -41,6 +41,10 @@ class Ticket < ActiveRecord::Base
     story == TYPES[:feature]
   end
 
+  def assigned_to?(user)
+    self.user == user
+  end
+
   private
   def assignment_for_members
     if self.project.present? && self.user.present?
