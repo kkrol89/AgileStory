@@ -80,6 +80,15 @@ When /^I view ticket "([^"]*)" from project "([^"]*)"$/ do |ticket, project|
   ticket_row_for(ticket).click_link(ticket)
 end
 
+When /^I use ticket action "([^"]*)"$/ do |action|
+  within('.ticket .actions') { click_link(action) }
+end
+
+Then /^ticket "([^"]*)" from project "([^"]*)" should be assigned to "([^"]*)"$/ do |ticket, project, user|
+  steps %Q{When I view ticket "#{ticket}" from project "#{project}"}
+  within('.ticket .user') { page.should have_content(user) }
+end
+
 Then /^I should see "([^"]*)" points estimation$/ do |points|
   within ('.ticket .points') { page.should have_content(points) }
 end
@@ -171,4 +180,12 @@ Then /^I should be able to view ticket "([^"]*)" from project "([^"]*)"$/ do |ti
   steps %Q{ When I go to the show project page for "#{project}" }
   ticket_row_for(ticket).click_link(ticket)
   page.should have_content(ticket)
+end
+
+Then /^I should be able to use ticket actions$/ do
+  within('.ticket') { page.should have_css('.actions') }
+end
+
+Then /^I should not be able to use ticket actions$/ do
+  within('.ticket') { page.should_not have_css('.actions') }
 end

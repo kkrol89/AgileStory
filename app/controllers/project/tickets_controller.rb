@@ -1,7 +1,7 @@
 class Project::TicketsController < ApplicationController
   include Authorization::Login
   include Authorization::Exceptions
-  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy, :assign]
   before_filter :authorize_browse, only: [:show]
   before_filter :assign_project_users
   before_filter :assign_project_boards
@@ -45,6 +45,16 @@ class Project::TicketsController < ApplicationController
     @ticket = project.tickets.find(params[:id])
     @ticket_attachements = @ticket.ticket_attachements
     @ticket_attachement = TicketAttachement.new
+  end
+
+  def assign
+    @ticket = project.tickets.find(params[:id])
+    @ticket.user = current_user
+    if @ticket.save
+      redirect_to project_path(project), :notice => I18n.t('ticket_successfully_updated')
+    else
+      redirect_to project_ticket_path(project, @ticket), :alert => I18n.t('error_occured')
+    end
   end
 
   private

@@ -1,5 +1,6 @@
 %li.ticket{:class => ticket.state, 'data-ticket-id' => ticket.id}
   .story= story_type_icon_for(ticket)
+  .user= '(Assigned)' if ticket.assigned_to?(current_user)
   .points
     - if ticket.feature?
       = render :partial => 'project/tickets/dynamic_estimation', :locals => { :ticket => ticket }

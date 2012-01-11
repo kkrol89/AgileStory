@@ -60,6 +60,14 @@ describe Project::TicketsController do
             before { get :show, :project_id => project.id, :id => ticket.id }
             it { assigns(:ticket).should == ticket }
           end
+
+          describe "POST 'assign'" do
+            it 'should assign ticket to current user' do
+              expect {
+                post :assign, :project_id => project.id, :id => ticket.id
+              }.to change { ticket.reload.user }.to(user)
+            end
+          end
         end
       end
     end
@@ -73,7 +81,8 @@ describe Project::TicketsController do
             -> { post :create, :project_id => project.id },
             -> { get :edit, :project_id => project.id, :id => ticket.id },
             -> { put :update, :project_id => project.id, :id => ticket.id },
-            -> { delete :destroy, :project_id => project.id, :id => ticket.id }
+            -> { delete :destroy, :project_id => project.id, :id => ticket.id },
+            -> { post :assign, :project_id => project.id, :id => ticket.id }
           )
         end
       end
@@ -96,7 +105,8 @@ describe Project::TicketsController do
         -> { get :edit, :project_id => project.id, :id => ticket.id },
         -> { put :update, :project_id => project.id, :id => ticket.id },
         -> { delete :destroy, :project_id => project.id, :id => ticket.id },
-        -> { get :show, :project_id => project.id, :id => ticket.id }
+        -> { get :show, :project_id => project.id, :id => ticket.id },
+        -> { post :assign, :project_id => project.id, :id => ticket.id }
       )
     end
   end
