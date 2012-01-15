@@ -15,7 +15,7 @@ Given /^user "([^"]*)" has roles "([^"]*)" in project "([^"]*)"$/ do |email, rol
 end
 
 When /^I edit membership of member "([^"]*)"$/ do |email|
-  member_row_for(email).click_link("Edit membership")
+  member_row_for(email).click_link("Edit")
 end
 
 When /^I edit memberships of project "([^"]*)"$/ do |project|
@@ -38,7 +38,7 @@ When /^I delete membership "([^"]*)" in project "([^"]*)"$/ do |email, project|
     When I go to the show project page for "#{project}"
     And I follow "Members"
   }
-  member_row_for(email).click_link("Delete membership")
+  member_row_for(email).click_link("Delete")
 end
 
 When /^I visit members assignment page for project "([^"]*)"$/ do |project|
@@ -77,7 +77,7 @@ Then /^I am not able to edit membership of "([^"]*)" in project "([^"]*)"$/ do |
     When I go to the show project page for "#{project}"
     And I follow "Members"
   }
-  member_row_for(email).should_not have_link("Edit membership")
+  member_row_for(email).should_not have_link("Edit")
 end
 
 Then /^I am not able to delete membership "([^"]*)" in project "([^"]*)"$/ do |email, project|
@@ -85,7 +85,7 @@ Then /^I am not able to delete membership "([^"]*)" in project "([^"]*)"$/ do |e
     When I go to the show project page for "#{project}"
     And I follow "Members"
   }
-  member_row_for(email).should_not have_link("Delete membership")
+  member_row_for(email).should_not have_link("Delete")
 end
 
 Then /^I should see member "([^"]*)" with role "([^"]*)" on the members list$/ do |email, role_name|
