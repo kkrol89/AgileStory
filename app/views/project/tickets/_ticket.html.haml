@@ -1,7 +1,9 @@
 %li.ticket{:class => ticket.state, 'data-ticket-id' => ticket.id}
-  .story= story_type_icon_for(ticket)
-  .user= '(Assigned)' if ticket.assigned_to?(current_user)
+  .story= Ticket::TYPES[ticket.story.to_sym].camelize
+  .state= "(#{Ticket::STATES[ticket.state.to_s]})"
+  .user= '(Assigned to you)' if ticket.assigned_to?(current_user)
   .points
     - if ticket.feature?
       = render :partial => 'project/tickets/dynamic_estimation', :locals => { :ticket => ticket }
+  %br
   .title= link_to shorten_title(ticket.title, to: 60), project_ticket_path(@project, ticket), :title => ticket.title

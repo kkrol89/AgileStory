@@ -9,7 +9,7 @@
     = link_to 'Chats', project_chats_path(@project) if can? :browse_chats, @project
   
   .instructions
-    %p= 'Drag and drop to manage your tickets (not implemented yet)'
+    %p= 'Drag and drop to manage your tickets'
 
   .boards
     = render :partial => 'project/boards/board', :locals => { :board => @icebox }
