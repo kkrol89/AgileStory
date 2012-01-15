@@ -16,7 +16,7 @@ Feature: Sign up
     And I press "Sign in"
 
     Then I should see login message
-    And I should be on the home page
+    And I should be on the projects page
 
   Scenario: Unsucessful sign in
     When I go to the home page

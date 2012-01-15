@@ -19,7 +19,7 @@ Feature: Sign up
     And I follow "confirm" in the email
 
     Then I should see confirmation message
-    And I should be on the home page
+    And I should be on the projects page
 
   Scenario: Invalid Email
     When I go to the home page

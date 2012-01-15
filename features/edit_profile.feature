@@ -14,7 +14,7 @@ Feature: Edit profile
     When I log out
     And I log in as "user@example.org" with password "newpassword"
     Then I should see login message
-    And I should be on the home page
+    And I should be on the projects page
 
   Scenario: Change email
     When I change my email to "john@example.org"
