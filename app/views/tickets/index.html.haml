@@ -1,5 +1,5 @@
+%h1.page_label= 'Tickets assigned to you'
 .mytickets
-  %h1.page_title= 'Tickets assigned to you'
   - @projects.each do |project|
     - if project.tickets.any?
       .project

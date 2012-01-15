@@ -1,4 +1,5 @@
-.projects
+%h1.page_label= 'Your chats'
+.mychats
   - @projects.each do |project|
     - if project.chats.any?
       .project
