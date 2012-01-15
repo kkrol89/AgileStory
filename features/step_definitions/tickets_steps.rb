@@ -2,6 +2,12 @@ Given /^there exists a ticket "([^"]*)" for project "([^"]*)"$/ do |ticket, proj
   Factory(:ticket, :title => ticket, :board => Project.find_by_name(project).icebox)
 end
 
+Given /^there exist tickets "([^"]*)" for project "([^"]*)"$/ do |tickets, project|
+  tickets.split(', ').each do |ticket|
+    steps %Q{Given there exists a ticket "#{ticket}" for project "#{project}"}
+  end
+end
+
 Given /^there exists a ticket "([^"]*)" for project "([^"]*)" in "([^"]*)"$/ do |ticket, project, board|
   Factory :ticket, :title => ticket, :board => Project.find_by_name(project).boards.find_by_type(board)
 end
@@ -9,6 +15,12 @@ end
 Given /^ticket "([^"]*)" has cucumber scenario defined$/ do |ticket|
   description = "Given I have a one House\nWhen I go to the houses page\nThen I should see my house"
   Ticket.find_by_title(ticket).update_attribute(:description, description)
+end
+
+Given /^ticket "([^"]*)" is assigned to "([^"]*)"$/ do |ticket, user|
+  ticket = Ticket.find_by_title(ticket)
+  ticket.user = User.find_by_email(user)
+  ticket.save!
 end
 
 When /^I change ticket title from "([^"]*)" to "([^"]*)" in project "([^"]*)"$/ do |old_title, title, project|
@@ -205,4 +217,8 @@ end
 
 Then /^I should not be able to use ticket actions$/ do
   within('.ticket') { page.should_not have_css('.actions') }
+end
+
+Then /^I should see ticket "([^"]*)" in project "([^"]*)" scope$/ do |ticket, project|
+  page.find('.project', :text => project).should have_content(ticket)
 end

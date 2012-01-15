@@ -30,7 +30,7 @@ Agilestory::Application.routes.draw do
     resources :chat_attachements, :only => [:create], :controller => 'chat/chat_attachements'
   end
 
-  resources :tickets, :only => [] do
+  resources :tickets, :only => [:index] do
     resources :ticket_attachements, :controller => 'ticket/ticket_attachements', :only => [:create]
     resources :estimations, :controller => 'ticket/estimations', :only => [:create]
   end

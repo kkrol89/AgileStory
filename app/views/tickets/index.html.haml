@@ -1,0 +1,10 @@
+.mytickets
+  %h1.page_title= 'Tickets assigned to you'
+  - @projects.each do |project|
+    - if project.tickets.any?
+      .project
+        %h2= project.name
+        .tickets
+          - project.tickets.sort{ |ticket1, ticket2| ticket1.title <=> ticket2.title }.each do |ticket|
+            .ticket
+              = link_to ticket.title, project_ticket_path(project, ticket)
