@@ -32,7 +32,7 @@ class Board
 class BoardManager
   constructor: (@selector) ->
     @tickets_list().sortable({
-      #placeholder: 'sortable-placeholder',
+      placeholder: 'sortable-placeholder',
       connectWith: @tickets_list(),
       update: -> new BoardUpdate(new Board($(this).parents('.board')))
     })
