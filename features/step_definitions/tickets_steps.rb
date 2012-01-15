@@ -2,6 +2,10 @@ Given /^there exists a ticket "([^"]*)" for project "([^"]*)"$/ do |ticket, proj
   Factory(:ticket, :title => ticket, :board => Project.find_by_name(project).icebox)
 end
 
+Given /^there exists a ticket "([^"]*)" for project "([^"]*)" in "([^"]*)"$/ do |ticket, project, board|
+  Factory :ticket, :title => ticket, :board => Project.find_by_name(project).boards.find_by_type(board)
+end
+
 Given /^ticket "([^"]*)" has cucumber scenario defined$/ do |ticket|
   description = "Given I have a one House\nWhen I go to the houses page\nThen I should see my house"
   Ticket.find_by_title(ticket).update_attribute(:description, description)
@@ -82,6 +86,19 @@ end
 
 When /^I use ticket action "([^"]*)"$/ do |action|
   within('.ticket .actions') { click_link(action) }
+end
+
+When /^I drag ticket "([^"]*)" from "([^"]*)" to "([^"]*)"$/ do |ticket, source, target|
+  ticket = page.find('.board', :text => source).find('li.ticket', :text => ticket)
+  ticket.drag_to page.find('.board', :text => target).find('.tickets ol')
+end
+
+Then /^I should see "([^"]*)" board assignment$/ do |board|
+  within('.ticket .board') { page.should have_content(board) }
+end
+
+Then /^I should not be able to drag tickets$/ do
+  page.should_not have_css('.board.managed')
 end
 
 Then /^ticket "([^"]*)" from project "([^"]*)" should be assigned to "([^"]*)"$/ do |ticket, project, user|

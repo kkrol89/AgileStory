@@ -6,6 +6,8 @@ class Ticket
     $(@ticket).find('.action .assign').hide()
   id: ->
     $(@ticket).attr('data-ticket-id')
+  fade: (value)->
+    $(@ticket).parents('.board').fadeTo('fast', value)
 
 
 class DynamicEstimation
@@ -14,6 +16,7 @@ class DynamicEstimation
       @estimate(new Ticket($(data.target).parents('li.ticket')))
     )
   estimate: (ticket)->
+    ticket.fade(0.5)
     $.ajax({
       type: "POST",
       url: '/tickets/' + ticket.id() + '/estimations',
@@ -21,6 +24,7 @@ class DynamicEstimation
       contentType: 'application/json',
       dataType: 'json',
       success: (response)=>
+        ticket.fade(1.0)
         if response.notice
           window.notice.message(response.notice)
         else if response.error

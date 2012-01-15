@@ -13,3 +13,4 @@
 //= require chats
 //= require memberships
 //= require projects
+//= require boards

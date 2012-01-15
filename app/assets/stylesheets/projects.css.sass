@@ -43,7 +43,6 @@
       float: left
       display: block
       width: 320px
-      height: 400px
       border: 2px solid #AAAAAA
       .management
         text-align: center
@@ -56,6 +55,7 @@
         text-decoration: underline
       .tickets
         ol
+          height: 400px
           padding: 0
           li.ticket
             padding-left: 5px
@@ -84,6 +84,13 @@
             background-color: #468046 !important
           li.ticket.rejected
             background-color: #C43C3C !important
+    .board.sprint
+      .tickets
+        ol
+          height: 356px !important
+    .board.highlighted
+      background-color: #D2FFD2
+      border-color: #A2CFA2 !important
 
   .summary
     clear: both

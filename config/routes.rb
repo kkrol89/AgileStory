@@ -5,6 +5,14 @@ Agilestory::Application.routes.draw do
   devise_for :users
   get "pages/show"
 
+  resources :boards, :only => [] do
+    resources :tickets, :only => [], :controller => 'board/tickets' do
+      collection do
+        post :sort
+      end
+    end
+  end
+
   resources :projects do
     resources :memberships, :except => [:show], :controller => 'project/memberships'
     resources :sprints, :only => [:new, :create], :controller => 'project/sprints'
