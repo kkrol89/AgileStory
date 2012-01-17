@@ -24,7 +24,7 @@ h1.page_label
   span.connector
     color: #AAAAAA
     font-weight: bold
-#navigation_bar:not(.stretched)
+#navigation_bar:not(.stretched), .project_live_update:not(.stretched)
   margin-left: 40px
 
 li
@@ -42,11 +42,11 @@ a:hover, a:active
   @include gray-box(7px, 5px)
   margin-top: 10px
   margin-bottom: 10px
-.flash.notice
+.flash.notice, .flash.update_notice
   background-color: #468046 !important
 .flash.alert
   background-color: #C43C3C !important
-.flash.alert, .flash.notice
+.flash.alert, .flash.notice, .flash.update_notice
   height: 20px
   a
     color: white !important
@@ -174,3 +174,15 @@ form
   ul
     li
       color: #a61414 !important
+
+.project_live_update
+  margin-bottom: 10px
+  .manual_refresh
+    font-weight: bold
+    margin-left: 20px
+    color: white
+    background-color: black
+    padding: 2px 100px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    

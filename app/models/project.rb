@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  include Websockets::ProjectUpdate
+
   has_many :boards, :dependent => :destroy
   has_many :sprints
   has_one :icebox

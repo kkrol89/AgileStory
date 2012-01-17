@@ -1,5 +1,5 @@
 Feature: User ticket actions
-  In order to manage tickers
+  In order to manage tickets
   As a project member
   I want to be able to use ticket actions
 

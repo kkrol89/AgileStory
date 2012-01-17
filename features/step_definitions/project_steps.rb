@@ -41,6 +41,18 @@ When /^I change name of the project "([^"]*)" to "([^"]*)"$/ do |project, new_na
   }
 end
 
+When /^I enable automatic refresh$/ do
+  within '.project_live_update' do
+    click_link 'Enable auto-refresh'
+  end
+end
+
+When /^I use refresh button$/ do
+  within '.project_live_update' do
+    click_link 'Refresh'
+  end
+end
+
 Then /^I am not able to delete project "([^"]*)"$/ do |project|
   steps %Q{ When I go to the projects page }
   project_row_for(project).should_not have_link("Delete")
@@ -85,4 +97,8 @@ Then /^I can not view details page of project "([^"]*)"$/ do |project|
     When I go to the projects page
     Then I should not see "#{project}" within ".projects"
   }
+end
+
+Then /^I should see project update notification$/ do
+  page.should have_content('Project has been updated')
 end

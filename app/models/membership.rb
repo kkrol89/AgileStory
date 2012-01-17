@@ -1,4 +1,6 @@
 class Membership < ActiveRecord::Base
+  include UpdateNotifications
+
   belongs_to :user
   belongs_to :project, :validate => true
 

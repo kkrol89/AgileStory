@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   include TicketEstimation
+  include UpdateNotifications
 
   belongs_to :user
   belongs_to :board

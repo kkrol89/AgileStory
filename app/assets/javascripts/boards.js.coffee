@@ -1,5 +1,6 @@
 class BoardUpdate
   constructor: (@board) ->
+    window.update_notifier.without_notify()
     @board.fade(0.5)
 
     $.ajax({

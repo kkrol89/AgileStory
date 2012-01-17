@@ -13,7 +13,9 @@
   <%= render :partial => "logo_bar" %>
   <%= render :partial => 'flash_message_bar', :locals => { :class_name => 'alert', :message => alert } %>
   <%= render :partial => 'flash_message_bar', :locals => { :class_name => 'notice', :message => notice } %>
+  <%= render :partial => 'flash_message_bar', :locals => { :class_name => 'update_notice', :message => nil } %>
   <div id="main_container">
+    <%= render :partial => 'project_live_update' %>
     <%= render :partial => "navigation" %>
     <%= yield %>
   </div>

@@ -1,0 +1,5 @@
+.project_live_update{'data-pusher-key' => Pusher.key, 'data-channel-name' => (@project.present? ? project_channel_name_for(@project) : nil), :class => @stretched_view }
+  - if @project.present?
+    = link_to 'Enable auto-refresh', '#', :class => 'enable_auto_refresh'
+    = link_to 'Disable auto-refresh', '#', :class => 'disable_auto_refresh hidden'
+    = link_to 'Refresh', '#', :class => 'manual_refresh hidden'

@@ -10,3 +10,4 @@ class FlashMessage
 
 $(=> @notice = new FlashMessage('.flash.notice'))
 $(=> @alert = new FlashMessage('.flash.alert'))
+$(=> @update_notice = new FlashMessage('.flash.update_notice'))

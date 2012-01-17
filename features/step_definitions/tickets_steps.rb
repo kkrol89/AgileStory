@@ -105,6 +105,11 @@ When /^I drag ticket "([^"]*)" from "([^"]*)" to "([^"]*)"$/ do |ticket, source,
   ticket.drag_to page.find('.board', :text => target).find('.tickets ol')
 end
 
+When /^someone changes ticket title from "([^"]*)" to "([^"]*)"$/ do |ticket, new_title|
+  Ticket.find_by_title(ticket).update_attribute(:title, new_title)
+  page.execute_script('window.update_notifier.handler("Project has been updated");')
+end
+
 Then /^I should see "([^"]*)" board assignment$/ do |board|
   within('.ticket .board') { page.should have_content(board) }
 end
@@ -217,6 +222,10 @@ end
 
 Then /^I should not be able to use ticket actions$/ do
   within('.ticket') { page.should_not have_css('.actions') }
+end
+
+Then /^I should see ticket "([^"]*)"$/ do |ticket|
+  page.should have_css('.ticket', :text => ticket)
 end
 
 Then /^I should see ticket "([^"]*)" in project "([^"]*)" scope$/ do |ticket, project|
