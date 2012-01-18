@@ -1,7 +1,7 @@
 class Project::TicketsController < Project::BaseController
   include Authorization::Login
   include Authorization::Exceptions
-  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy, :assign]
+  before_filter :authorize_manage, only: [:new, :create, :edit, :update, :destroy, :assign, :event]
   before_filter :authorize_browse, only: [:show]
   before_filter :assign_project_users
   before_filter :assign_project_boards
@@ -24,12 +24,11 @@ class Project::TicketsController < Project::BaseController
   end
 
   def edit
-    @ticket = project.tickets.find(params[:id])
+    ticket
   end
 
   def update
-    @ticket = project.tickets.find(params[:id])
-    if @ticket.update_attributes(params[:ticket])
+    if ticket.update_attributes(params[:ticket])
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_updated')
     else
       render :edit
@@ -42,22 +41,33 @@ class Project::TicketsController < Project::BaseController
   end
 
   def show
-    @ticket = project.tickets.find(params[:id])
-    @ticket_attachements = @ticket.ticket_attachements
+    ticket
+    @ticket_attachements = ticket.ticket_attachements
     @ticket_attachement = TicketAttachement.new
   end
 
-  def assign
-    @ticket = project.tickets.find(params[:id])
-    @ticket.user = current_user
-    if @ticket.save
+  def event
+    if ticket.send_state_event params[:event]
       redirect_to project_path(project), :notice => I18n.t('ticket_successfully_updated')
     else
-      redirect_to project_ticket_path(project, @ticket), :alert => I18n.t('error_occured')
+      redirect_to project_ticket_path(project, ticket), :alert => I18n.t('error_occured')
+    end
+  end
+
+  def assign
+    ticket.user = current_user
+    if ticket.save
+      redirect_to project_path(project), :notice => I18n.t('ticket_successfully_updated')
+    else
+      redirect_to project_ticket_path(project, ticket), :alert => I18n.t('error_occured')
     end
   end
 
   private
+  def ticket
+    @ticket ||= project.tickets.find(params[:id])
+  end
+
   def board
     Board.find(params[:project][:board_id])
   end

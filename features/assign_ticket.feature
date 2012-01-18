@@ -14,7 +14,7 @@ Feature: Assign ticket
     Given user "developer@example.org" has role "Developer" in project "Universe"
     When I edit ticket "Friends invitation feature" from project "Universe"
     And I change assignment to "developer@example.org"
-    And I should see successfull ticket update message
+    Then I should see successfull ticket update message
   
   Scenario: Unable to assign to project viewer
     Given user "viewer@example.org" has role "Viewer" in project "Universe"

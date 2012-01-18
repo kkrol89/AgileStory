@@ -19,6 +19,7 @@ Agilestory::Application.routes.draw do
     resources :tickets, :controller => 'project/tickets' do
       member do
         post :assign
+        post :event
       end
     end
     resources :chats, :only => [:new, :create, :show, :index, :destroy], :controller => 'project/chats'

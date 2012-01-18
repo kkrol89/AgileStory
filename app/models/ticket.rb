@@ -46,6 +46,12 @@ class Ticket < ActiveRecord::Base
     self.user == user
   end
 
+  def send_state_event(event)
+    if self.state_events.include? event.to_sym
+      eval "self.#{event.to_s}"
+    end
+  end
+
   private
   def assignment_for_members
     if self.project.present? && self.user.present?

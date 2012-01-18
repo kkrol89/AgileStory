@@ -68,6 +68,17 @@ describe Project::TicketsController do
               }.to change { ticket.reload.user }.to(user)
             end
           end
+
+          describe "POST 'event'" do
+            context 'ticket is assigned to current user' do
+              let!(:ticket) { Factory(:ticket, :board => project.icebox, :user => user) }
+              it 'should update ticket state' do
+                expect {
+                  post :event, :project_id => project.id, :id => ticket.id, :event => :start
+                }.to change { ticket.reload.state.to_s }.to('in_progress')
+              end
+            end
+          end
         end
       end
     end
@@ -82,7 +93,8 @@ describe Project::TicketsController do
             -> { get :edit, :project_id => project.id, :id => ticket.id },
             -> { put :update, :project_id => project.id, :id => ticket.id },
             -> { delete :destroy, :project_id => project.id, :id => ticket.id },
-            -> { post :assign, :project_id => project.id, :id => ticket.id }
+            -> { post :assign, :project_id => project.id, :id => ticket.id },
+            -> { post :event, :project_id => project.id, :id => ticket.id },
           )
         end
       end
@@ -106,7 +118,8 @@ describe Project::TicketsController do
         -> { put :update, :project_id => project.id, :id => ticket.id },
         -> { delete :destroy, :project_id => project.id, :id => ticket.id },
         -> { get :show, :project_id => project.id, :id => ticket.id },
-        -> { post :assign, :project_id => project.id, :id => ticket.id }
+        -> { post :assign, :project_id => project.id, :id => ticket.id },
+        -> { post :event, :project_id => project.id, :id => ticket.id }
       )
     end
   end

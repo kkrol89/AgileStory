@@ -110,6 +110,17 @@ When /^someone changes ticket title from "([^"]*)" to "([^"]*)"$/ do |ticket, ne
   page.execute_script('window.update_notifier.handler("Project has been updated");')
 end
 
+When /^I use "([^"]*)" event$/ do |event|
+  within '.ticket .actions' do
+    click_link event
+  end
+end
+
+Then /^ticket "([^"]*)" from project "([^"]*)" should have state "([^"]*)"$/ do |ticket, project, state|
+  steps %Q{When I view ticket "#{ticket}" from project "#{project}"}
+  within('.ticket .state') { page.should have_content(state) }
+end
+
 Then /^I should see "([^"]*)" board assignment$/ do |board|
   within('.ticket .board') { page.should have_content(board) }
 end

@@ -9,10 +9,14 @@ Feature: User ticket actions
     And there exists a project "Universe"
     And there exists a ticket "Friends invitation feature" for project "Universe"
 
-  Scenario Outline: Use ticket actions
+  Scenario Outline: Use ticket event action
     Given user "user@example.org" has role <role> in project "Universe"
+    And ticket "Friends invitation feature" is assigned to "user@example.org"
     When I view ticket "Friends invitation feature" from project "Universe"
-    Then I should be able to use ticket actions
+    And I use "Start" event
+
+    Then I should see successfull ticket update message
+    And ticket "Friends invitation feature" from project "Universe" should have state "In progress"
   Examples:
     | role        |
     | "Developer" |

@@ -1,6 +1,10 @@
 - if can? :manage_tickets, @project
   .actions
     %ul
-      %li.assign= link_to "Assign to me", assign_project_ticket_path(@project, @ticket), :method => :post unless @ticket.assigned_to?(current_user)
+      - if @ticket.assigned_to?(current_user)
+        - @ticket.state_events.each do |event|
+          %li.event= link_to event.to_s.camelize, event_project_ticket_path(@project, @ticket, :event => event), :method => :post
+      -else
+        %li.assign= link_to "Assign to me", assign_project_ticket_path(@project, @ticket), :method => :post
       %li.edit= link_to "Edit Ticket", edit_project_ticket_path(@project, @ticket)
       %li.delete= link_to "Delete Ticket", project_ticket_path(@project, @ticket), :method => :delete
