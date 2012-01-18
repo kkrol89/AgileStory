@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  include LocaleSettings
+
   rescue_from Authorization::Exceptions::NotAllowed, with: :resource_access_denied
   rescue_from CanCan::AccessDenied, with: :resource_access_denied
   rescue_from Authorization::Login::LoginRequired, with: :login_access_denied
