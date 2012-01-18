@@ -8,9 +8,9 @@ module UpdateNotifications
   end
 
   def lazy_notify(&block)
-    silence_notify = true
+    self.silence_notify = true
     yield
-    silence_notify = false
+    self.silence_notify = false
   end
 
   private
