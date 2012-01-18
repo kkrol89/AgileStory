@@ -24,7 +24,7 @@ Feature: Assign ticket
   Scenario: Assign ticket from view ticket page
     Given user "viewer@example.org" has role "Developer" in project "Universe"
     When I view ticket "Friends invitation feature" from project "Universe"
-    And I use ticket action "Assign"
+    And I use ticket action "Assign to me"
 
     Then I should see successfull ticket update message
     And ticket "Friends invitation feature" from project "Universe" should be assigned to "user@example.org"

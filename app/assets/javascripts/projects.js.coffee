@@ -17,6 +17,7 @@ class DynamicEstimation
     )
   estimate: (ticket)->
     ticket.fade(0.5)
+    window.update_notifier.without_notify()
     $.ajax({
       type: "POST",
       url: '/tickets/' + ticket.id() + '/estimations',

@@ -1,6 +1,6 @@
 - if can? :manage_tickets, @project
   .actions
     %ul
-      %li.assign= link_to "Assign", assign_project_ticket_path(@project, @ticket), :method => :post unless @ticket.assigned_to?(current_user)
+      %li.assign= link_to "Assign to me", assign_project_ticket_path(@project, @ticket), :method => :post unless @ticket.assigned_to?(current_user)
       %li.edit= link_to "Edit Ticket", edit_project_ticket_path(@project, @ticket)
       %li.delete= link_to "Delete Ticket", project_ticket_path(@project, @ticket), :method => :delete
